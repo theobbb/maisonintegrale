@@ -1,0 +1,53 @@
+html {
+    scroll-behavior: smooth;
+   }
+   body {
+    overflow-x: hidden;
+   }
+
+
+/*2016
+2240*/
+/*
+@media screen and (max-width: 1920px) {
+    #entrance-img {
+        background-size: 1920px auto;
+        background-position: 50% 36%;
+
+    }
+}    
+@media screen and (max-width: 1600px) {
+    #entrance-img {
+        background-size: 1600px auto;
+        background-position: 50% 36%;
+
+    }
+} 
+@media screen and (max-width: 1200px) {
+    #entrance-img {
+        background-size: 1200px auto;
+        background-position: 50% 36%;
+
+    }
+} 
+@media screen and (max-width: 900px) {
+    #entrance-img {
+        background-size: 900px auto;
+        background-position: 50% 36%;
+
+    }
+} 
+@media screen and (max-width: 600px) {
+    #entrance-img {
+        background-size: 700px auto;
+        background-position: 50% 36%;
+
+    }
+} 
+@media screen and (max-width: 400px) {
+    #entrance-img {
+        background-size: 400px auto;
+        background-position: 50% 36%;
+
+    }
+} */

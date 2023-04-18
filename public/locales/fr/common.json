@@ -1,0 +1,101 @@
+{
+    "site-title": "maison intégrale",
+    "approche": "approche", 
+    "services": "services",
+    "realisations": "realisations",
+    "equipe": "equipe",
+    "contact": "contact",
+    "nav": [
+      { "name": "Approche", "href": "approche" },
+      { "name": "Services offerts", "href": "services" },
+      { "name": "Réalisations", "href": "realisations" },
+      { "name": "Équipe", "href": "equipe" },
+      { "name": "Contact", "href": "contact" }
+    ],
+    
+    "pages": {
+      
+      "home": {
+        "top": "Construction de maisons écologiques",
+        "moreapproche": "en savoir plus sur notre approche"
+  
+      },
+      "approche": {
+        "top": "Petite ou grande, chaque  est une création originale et est réalisée sur mesure en collaboration avec son propriétaire.",
+        "main": [
+          {
+            "title": "CRÉER DE LA VALEUR, AVEC PASSION ET RIGUEUR",
+            "url": "creer-de-la-valeur",
+            "miniTitle": "CRÉER DE LA VALEUR",
+            "body": [
+              "Tout comme notre clientèle, nous avons à cœur le futur de notre planète qui dépend de notre clairvoyance à créer un habitat qui considère la nature comme partenaire vivant. La science nous fournit le levier pour réaliser cette mission."
+              ,"Nous nous passionnons pour les défis uniques de chaque projet. Nous vous accompagnons dans votre cheminement vers la maison que vous rêvez de construire, en suivant un cadre réaliste, qui équilibre toutes les contraintes. Nous restons présents à toutes les étapes de la création de la maison. Pour maintenir un niveau de qualité élevé, nous ne sélectionnons que deux ou trois projets par année."
+            ]
+          },
+          {
+            "title": "DÉMARCHE ESTHÉTIQUE",
+            "url": "demarche-esthetique",
+            "miniTitle": "DÉMARCHE ESTHÉTIQUE",
+            "body": [
+              "Consultation avec le propriétaire pour établir ses besoins, attentes et préférences. Intégration des données essentiels : topographie, orientation, dimension, perspectives visuels, aires de circulation, proportion des espaces et des ouvertures."
+              ,"De l’intérieur, chaque fenêtre devient un tableau, une ouverture sur la nature. L’objectif est de transformer, par étapes, un espace naturel déjà beau en un lieu habité, plus beau encore."
+            ]
+          },
+          {
+            "title": "DÉMARCHE TECHNIQUE",
+            "url": "demarche-technique",
+            "miniTitle": "DÉMARCHE TECHNIQUE",
+            "body": [
+              "Plan technique ou architectural analysé et optimisé en fonction de l’énergie consommé, des habitudes de vie, des besoins actuels et futurs. Calendrier, plan d’exécution de la construction élaborés avec le propriétaire ainsi que l’élaboration d’un budget correspondant aux demandes. Une attention particulière est apportée aux détails lors de la construction."
+            ]
+          },
+          {
+            "title": "HOMOLOGATION",
+            "url": "homologation",
+            "miniTitle": "HOMOLOGATION",
+            "body": [
+              "Toutes les Maisons Intégrales sont accéditées Novoclimat 2.0. Elles satisfont aux critères LEED et peuvent être accréditées sur demande. L’accrédition Novoclimat donne accès à une subvention du gouvernement provincial."
+            ]
+          }
+        ]
+      },
+      "services": {
+        "top": "Nous offrons une grande flexibilité dans les services que nous offrons. Nous pouvons vous fournir les plans ou utiliser les vôtres, construire avec garantie ou vous appuyez pour une autoconstruction.",
+        "main": [
+          "Conception du projet en entier, incluant implantation adaptée au site, construction avec garantie maison neuve, avec ou sans terrassement",
+          "Construction sur plans fournis par le client",
+          "Suivi de chantier pour constructeur autonome",
+          "Analyse et optimisation techniques sur les éléments vitaux d’une construction : isolation, ventilation, chauffage, orientation, fenestration avec recommandations",
+          "Conception et fabrication d’escaliers d’acier"
+        ]
+      },
+      "realisation": {
+  
+      },
+      "equipe": {
+        "marisol": {
+          "title": "conceptrice",
+          "body": [
+            "Elle a fait ses études au réputé département de Design de l’UQAM. Sa démarche inédite trouve ses racines dans un parcours de peintre et d’illustratrice émérite de livres jeunesse traduits en plusieurs langues.",
+            "Conférencière, elle enrichit sont savoir-faire par le contact humain permanent.",
+            "Marisol contribue à la dimension stylistique globale de chaque projet, à son ergonomie et l’agencement à la fois pratique et esthétique des espaces. Son regard de peintre harmonise les volumes de l’habitat, met en valeur l’environnement naturel du site, créant un lieu à la fois unique et somptueux."
+          ]
+        },
+        "marc": {
+          "title": "constructeur",
+          "body": [
+            "Il oeuvre comme entrepreneur en construction depuis vingt ans. Esprit rigoureux, il se fait un point d’honneur de livrer des habitations au rendement énergétique optimal. Marc détient un Ph.D. en physique des particules.",
+            "Homme de science, homme de terrain, expert du détail performant, il créée des solutions techniques exclusives. Il supervise personnellement toutes les étapes, de la conception à la construction, jusqu’au rendu final."
+          ]
+        }
+      },
+      "contact": {
+        "title": ["CONTACTEZ", "MAISON INTÉGRALE"],
+        "form": {
+          "name": "nom",
+          "phone": "téléphone",
+          "send": "envoyer"
+        }
+      }
+    }
+  }

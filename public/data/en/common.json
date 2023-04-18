@@ -1,0 +1,100 @@
+{
+  "site-title": "maison intégrale",
+  "approche": "approach",
+  "services": "services",
+  "realisations": "work",
+  "equipe": "team",
+  "contact": "contact",
+  "nav": [
+    { "name": "Approach", "href": "approach" },
+    { "name": "Offered services", "href": "services" },
+    { "name": "Work", "href": "work" },
+    { "name": "Team", "href": "team" },
+    { "name": "Contact", "href": "contact" }
+  ],
+  
+  "pages": {
+    
+    "home": {
+      "top": "Construction of ecological houses",
+      "moreapproche": "learn more about our approach"
+    },
+    "approche": {
+      "top": "Small or large, each Maison Intégrale is an original creation and is custom-made in collaboration with its owner",
+      "main": [
+        {
+          "title": "CREATING VALUE, WITH PASSION AND RIGOR",
+          "url": "creer-de-la-valeur",
+          "miniTitle": "CRÉER DE LA VALEUR",
+          "body": [
+            "Just like our clients, we care deeply about the future of our planet, which depends on our foresight to create a habitat that considers nature as a living partner. Science provides us with the leverage to accomplish this mission."
+            ,"We are passionate about the unique challenges of each project. We accompany you on your journey towards the home of your dreams, following a realistic framework that balances all constraints. We remain present at every stage of the creation of the house. To maintain a high level of quality, we select only two or three projects per year."
+          ]
+        },
+        {
+          "title": "AESTHETIC APPROACH",
+          "url": "demarche-esthetique",
+          "miniTitle": "DÉMARCHE ESTHÉTIQUE",
+          "body": [
+            "Consultation with the owner to establish their needs, expectations, and preferences. Integration of essential data: topography, orientation, dimensions, visual perspectives, circulation areas, proportion of spaces and openings."
+            ,"From the inside, each window becomes a painting, an opening to nature. The objective is to transform, step by step, a natural space that is already beautiful into a more beautiful inhabited place."
+          ]
+        },
+        {
+          "title": "TECHNICAL APPROACH",
+          "url": "demarche-technique",
+          "miniTitle": "DÉMARCHE TECHNIQUE",
+          "body": [
+            "Technical or architectural plan analyzed and optimized according to energy consumption, lifestyle habits, current and future needs. Schedule, construction execution plan developed with the owner, as well as the development of a budget corresponding to the requests. Special attention is paid to details during construction."
+          ]
+        },
+        {
+          "title": "CERTIFICATION",
+          "url": "homologation",
+          "miniTitle": "HOMOLOGATION",
+          "body": [
+            "All Maison Intégrale homes are Novoclimat 2.0 certified. They meet LEED criteria and can be accredited upon request. The Novoclimat accreditation grants access to a provincial government subsidy."
+          ]
+        }
+      ]
+    },
+    "services": {
+      "top": "We offer great flexibility in the services we provide. We can provide you with plans or use your own, build with a warranty or support you for self-construction.",
+      "main": [
+        "Complete project design, including site-adapted layout, new home construction with warranty, with or without excavation.",
+        "Construction based on client-provided plans.",
+        "Site supervision for independent builders.",
+        "Technical analysis and optimization of vital construction elements: insulation, ventilation, heating, orientation, fenestration with recommendations.",
+        "Design and fabrication of steel stairs."
+      ]
+    },
+    "realisation": {
+
+    },
+    "equipe": {
+      "marisol": {
+        "title": "conceptrice",
+        "body": [
+          "Elle a fait ses études au réputé département de Design de l’UQAM. Sa démarche inédite trouve ses racines dans un parcours de peintre et d’illustratrice émérite de livres jeunesse traduits en plusieurs langues.",
+          "Conférencière, elle enrichit sont savoir-faire par le contact humain permanent.",
+          "Marisol contribue à la dimension stylistique globale de chaque projet, à son ergonomie et l’agencement à la fois pratique et esthétique des espaces. Son regard de peintre harmonise les volumes de l’habitat, met en valeur l’environnement naturel du site, créant un lieu à la fois unique et somptueux."
+        ]
+      },
+      "marc": {
+        "title": "constructeur",
+        "body": [
+          "Il oeuvre comme entrepreneur en construction depuis vingt ans. Esprit rigoureux, il se fait un point d’honneur de livrer des habitations au rendement énergétique optimal. Marc détient un Ph.D. en physique des particules.",
+          "Homme de science, homme de terrain, expert du détail performant, il créée des solutions techniques exclusives. Il supervise personnellement toutes les étapes, de la conception à la construction, jusqu’au rendu final."
+        ]
+      }
+    },
+    "contact": {
+      "title": ["CONTACT", "MAISON INTÉGRALE"],
+      "form": {
+        "name": "name",
+        "phone": "phone",
+        "send": "send"
+      }
+    }
+  }
+}
