@@ -33,7 +33,7 @@ export default function Projets({data, animating, setAnimating}) {
 
   function handleClick (slug) {
 
-    const base = locale == 'fr'? '/projets':'/work'
+    const base = locale == 'fr'? '/realisations':'/work'
     const href = `${base}/${slug}`;
     push(href, href, {locale})
   }

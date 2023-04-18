@@ -44,12 +44,12 @@ function Projet ({single}) {
     }
 
     function handlePush(slug) {
-        const href = `${router.locale == 'fr'? '/projets':'/work'}/${slug}`;
+        const href = `${router.locale == 'fr'? '/realisations':'/work'}/${slug}`;
         
         router.push(href, href, {locale})
     }
     function handleGridView() {
-        const href = `${router.locale == 'fr'? '/projets':'/work'}`;
+        const href = `${router.locale == 'fr'? '/realisations':'/work'}`;
         router.push(href, href, {locale})
     }
 

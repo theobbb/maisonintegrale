@@ -28,7 +28,7 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
                 'otherSlug': slug[$otherLocale].current
               }[0]`
           const result = await client.fetch(projectQuery, { locale: router.locale, slug: query[1], otherLocale: router.locale == 'fr'? 'en':'fr' })
-          const otherBase = router.locale == 'en'? 'projets':'work'
+          const otherBase = router.locale == 'en'? 'realisations':'work'
           const otherPath = `${otherBase}/${result.otherSlug}`
           setNewPath(otherPath) 
           
