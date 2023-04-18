@@ -83,7 +83,7 @@ export default function ImageEntrance({setPageReady, setHeaderReady, replayEntra
         loop: false,
         autoplay: true,
         
-        animationData: require('public/after/data.json'),
+        animationData: require('public/data.json'),
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid slice',
         }
