@@ -33,7 +33,7 @@ export default function Layout({children}) {
 
     const [pathSapins, setPathSapins] = useState(null);
 
-
+    const [disableTransition, setDisableTransition] = useState(false);
 
     useEffect(() => {
       
@@ -57,8 +57,12 @@ export default function Layout({children}) {
     const [isDynamic, setIsDynamic] = useState(false);
 
     useEffect(() => {
+      if (router.route == '/404') return setDisableTransition(true)
+      if (router.route == '/realisations') return setDisableTransition(true)
+      if (router.route == '/realisations/[slug]') return setDisableTransition(true)
+      console.log('ff')
+      setDisableTransition(false)
       
-      setIsDynamic(router.route == '/realisations')
      
     }, [router.asPath])
 
@@ -121,7 +125,7 @@ export default function Layout({children}) {
                 {!drawerOpen && 
                 
                   <PageTransition key={`page-${router.route}}`} direction={linkDirection} drawerOpen={drawerOpen} 
-                disabled={isDynamic} pageReady={pageReady}>
+                disableTransition={disableTransition} pageReady={pageReady}>
                   <Box sx={{position: 'absolute', width: '100%', top: theme.spacing(6), 
                   minHeight: '100vh',
                   left: 0

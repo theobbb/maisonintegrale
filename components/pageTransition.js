@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 const transition = { ease: [0.43, 0.13, 0.23, 0.96] };
 
-export default function PageTransition({direction, drawerOpen, children, disabled, pageReady}) {
-  
-  return disabled?
+export default function PageTransition({direction, drawerOpen, children, disableTransition, pageReady}) {
+  console.log(disableTransition)
+  return disableTransition?
     <Box 
     initial={{opacity: 0}}
     animate={{opacity: 1}}
