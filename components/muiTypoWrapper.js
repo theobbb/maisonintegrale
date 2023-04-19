@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useRef } from 'react'
 import {useRouter} from 'next/router'
 
-export default function MuiTypoWrapper({className, children}) {
+export default function MuiTypoWrapper({className, sx, children}) {
 
     const { locale } = useRouter();
 
@@ -13,14 +13,16 @@ export default function MuiTypoWrapper({className, children}) {
 
   return (
    
-        <motion.div 
+        <Box 
+        component={motion.div}
+        sx={sx}
         initial={!isSameChild && {opacity: 0}}
         animate={{opacity: 1, y: 0}}
         transition={{duration: 0.5, ease: 'easeInOut'}}
         key={`${children}`} 
         className={className}>
         {children}
-        </motion.div>
+        </Box>
     
 
   )

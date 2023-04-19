@@ -155,6 +155,8 @@ function Img ({img, index, top}) {
 
     const theme = useTheme();
 
+    const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
+
     return (
         <ImageListItem sx={{borderRadius: 0}}>
                             
@@ -162,7 +164,13 @@ function Img ({img, index, top}) {
             
                                 
             <Box 
-            sx={{position: 'relative', overflow: 'visible', height: top&&'40vh', mx: !top &&1, my: !top &&0.5}}
+            sx={{
+                position: 'relative', 
+                overflow: 'visible', 
+                height: top&&'40vh', 
+                mx: top? 0 : matchDownLG? 0:1, 
+                my: !top && 0.5
+            }}
             component={motion.div}
             transition={{transition: 'ease', duration: 0.5}}
             layoutId={index == 0? `maison-main-img-${img._key}`:null} 

@@ -33,43 +33,7 @@ export default function Approche({data}) {
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   const theme = useContext(ThemeContext);
-/*
-  const main = [
-    {
-      title: t('pages.approche.main.0.title'),
-      url: t('pages.approche.main.0.url'),
-      miniTitle: t('pages.approche.main.0.miniTitle'),
-      body: [
-        t('pages.approche.main.0.body.0'),
-        t('pages.approche.main.0.body.1'),
-      ] 
-    },
-    {
-      title: t('pages.approche.main.1.title'),
-      url: t('pages.approche.main.1.url'),
-      miniTitle: t('pages.approche.main.1.miniTitle'),
-      body: [
-        t('pages.approche.main.1.body.0'),
-        t('pages.approche.main.0.body.1'),
-      ] 
-    },
-    {
-      title: t('pages.approche.main.2.title'),
-      url: t('pages.approche.main.2.url'),
-      miniTitle: t('pages.approche.main.2.miniTitle'),
-      body: [
-        t('pages.approche.main.2.body.0'),
-      ] 
-    },
-    {
-      title: t('pages.approche.main.3.title'),
-      url: t('pages.approche.main.3.url'),
-      miniTitle: t('pages.approche.main.3.miniTitle'),
-      body: [
-        t('pages.approche.main.3.body.0'),
-      ] 
-    }
-  ]*/
+
  
   const [activeLink, setActiveLink] = useState(0);
 
@@ -111,7 +75,7 @@ export default function Approche({data}) {
       window.removeEventListener('resize', handleResize);
     };
   }, [sectionsContainerRef]);
-
+  //2:15:40:65,
   return data && (
 
               <>
@@ -121,20 +85,30 @@ export default function Approche({data}) {
             display: 'flex',
             //flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'flex-end',
             paddingTop: matchDownLG? matchDownMD? 2:8:12,
-            paddingLeft: matchDownXL? matchDownLG ? matchDownMD? 2:15:40:65,
-            paddingRight: matchDownXL? matchDownLG ? matchDownMD? 2:5:10:15,
+            paddingLeft: theme.layout.x,
+            paddingRight: theme.layout.x,
           }}>
 
 
-<Box sx={{py: 12}}>
-              <Typography variant='h2' sx={{lineHeight: '120%'}}>
+<Box sx={{py: 12, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%'}}>
+              <Typography variant='h2' 
+              sx={{
+                width: {xl: 1240, lg: 1000, md: '100%', sm:'100%', xs: '100%'},
+                typography: {xs: 'h3', xl: 'h2'}
+                }}>
               {locale == 'fr'? 
-              'Construire des maisons écoénergétiques de haute qualité pour un avenir durable - ': 
-              'Building high quality energy-efficient homes for a sustainable future - '
+              'Construire des maisons écoénergétiques': 
+              'Building high quality energy-efficient'
               }
+              {!matchDownMD? <br />: ' ' }
+              
+              {locale == 'fr'? 'de haute qualité pour un avenir durable - ': 
+              'for a sustainable future - '}
               </Typography>
-              <Typography variant='h2' sx={{lineHeight: '120%', marginLeft: 12}}>
+              
+              <Typography sx={{marginLeft: 12, typography: {xs: 'h4', xl: 'h4'}}}>
               {locale == 'fr'? 'Découvrez la mission de Maison Intégrale': 
               'Discover Maison Intégrale’s mission'}
               
@@ -146,11 +120,11 @@ export default function Approche({data}) {
 
           
 
-          <Box sx={{paddingLeft: matchDownLG? matchDownMD? 2:4:8, display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{paddingLeft: theme.layout.x, paddingRight: matchDownMD && theme.layout.x, display: 'flex', justifyContent: 'space-between'}}>
             <Box 
               ref={sectionsContainerRef}
               sx={{
-              width: matchDownMD? '100%':'55vw',
+              width: {xl: 800, lg: 800, md: 520, sm:'100%', xs: '100%'},
               paddingBottom: 50,
               }}>
               {/*<Block variant={matchDownMD? 'h4':'h3'} sx={{lineHeight: '120%'}}>
@@ -252,45 +226,3 @@ function Section ({section, index, setActiveLink}) {
   )
 }
 
-
-function Sapins ({visible, offset, index}) {
-  //console.log(offset, index)
-
-  const top = Math.max(offset.top, 0);
-
-
-  return (
-    
-
-
-      <Box
-      sx={{transformOrigin: 'center bottom', height: '100%', width: '100%', position: 'absolute', top: 0, left: 0}}
-      initial={{
-        x: index * 100,
-        //y: -500, 
-        //scale: 2,
-        //skew: [30,20]
-        }}
-      animate={{
-        //x: 0, 
-
-        //y: 100/-offset.top,
-        y: Math.max((offset.top - 100), 200), 
-        scale: Math.max((offset.top + 4000) / 5000, 0.3),
-        //skew: [0,0]
-        }}
-      exit={{
-        y: '-100vw', 
-        scale: 0,
-        //skew: [20,20],
-        }}
-      transition={{ease: 'easeIn', duration: 0.3}}
-      component={motion.div}
-      >
-
-        <ScrollSapin size={10} position={[-30, 40]} />
-      </Box>
-
-   
-  )
-}

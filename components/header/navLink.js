@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from './link';
 import { linkPaths } from '@/utils/linkPaths';
 
-export default function NavLink({sx, index, drawerOpen, footer, ...props}) {
+export default function NavLink({sx, index, drawerOpen, footer, children, ...props}) {
     const router = useRouter();
 
     const [newDirection, setNewDirection] = useState(0);
@@ -36,7 +36,7 @@ export default function NavLink({sx, index, drawerOpen, footer, ...props}) {
 
     return (    
         <Box sx={{position: 'relative', ...sx}}>
-            <Link {...props} direction={newDirection} sx={sx} />
+            <Link {...props} direction={newDirection} sx={sx}>{children}</Link>
 
             {isSelected && !footer && 
                 <Button 

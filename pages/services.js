@@ -103,14 +103,11 @@ export default function Services({data}) {
           sx={{
             
             height: firstSectionHeight,
-            //minHeight: matchDownMD? '400px':'500px',
             display: 'flex',
             alignItems: 'center',
-            //paddingTop: '100px',
-            //py: 6,
-            //marginBottom: firstSectionHeight/100,
+
             paddingLeft: matchDownXL? matchDownLG ? matchDownMD? 2:15:40:65,
-            paddingRight: matchDownXL? matchDownLG ? matchDownMD? 2:5:10:15,
+            paddingRight: theme.layout.x,
           }}>
                 <Box ref={topTextRef} sx={{py: 10}}>
                   <Block  variant={matchDownMD? 'h3':'h3'} sx={{lineHeight: '120%'}}>
@@ -121,7 +118,7 @@ export default function Services({data}) {
 
           <Box 
           sx={{
-            px: matchDownLG?matchDownMD? 2:3:8, 
+            px: theme.layout.x, 
             
             display: 'flex', 
             justifyContent: 'space-between', 

@@ -1,5 +1,5 @@
 
-import { Box, Button, Divider, Icon, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Divider, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useRouter } from 'next/router'
 import ContactButton from '@/components/contactButton'
 import Sapin from '@/components/sapin'
@@ -7,7 +7,8 @@ import { motion } from 'framer-motion'
 import PageTransition from '@/components/pageTransition'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
-//import Lottie from 'lottie-web'
+
+
 
 
 
@@ -18,6 +19,7 @@ export async function getStaticProps() {
 
 export default function Equipe({data}) {
 
+  const theme = useTheme();
 
   const { locale, locales, push } = useRouter();
 
@@ -32,8 +34,17 @@ export default function Equipe({data}) {
       
 
       
-          <Box  sx={{py: 0, px: matchDownLG?matchDownMD? 2:3:4, display: 'flex', paddingTop: 12, flexDirection: matchDownLG? 'column':'row', paddingBottom: 12, width: '100%'}}>
-            <Box sx={{flex: 1, px: matchDownLG?0:6, maxWidth: '700px'}}>
+          <Box sx={{
+            py: 0,  
+            px: theme.layout.x, 
+            display: 'flex', 
+            py: theme.layout.y,
+            
+            flexDirection: matchDownLG? 'column':'row', 
+            
+            width: '100%'
+            }}>
+            <Box sx={{flex: 1, paddingRight: matchDownLG?0:theme.layout.x, maxWidth: '700px'}}>
               <Typography variant='h4' sx={{}}>
                 MARISOL SARRAZIN
               </Typography>
@@ -45,7 +56,7 @@ export default function Equipe({data}) {
                 {data.marisol.body[locale]}
               </Block>
             </Box>
-            <Box sx={{flex: 1, px: matchDownLG?0:8, paddingTop: matchDownLG?16:0, maxWidth: '700px'}}>
+            <Box sx={{flex: 1, paddingTop: matchDownLG && theme.layout.divider, maxWidth: '700px'}}>
               <Typography variant='h4' sx={{}}>
                 MARC BAILLARGEON
               </Typography>

@@ -14,6 +14,7 @@ import ModelViewer from '../modelViewer';
 import Cookies from 'js-cookie'
 import ImageEntrance from '../imageEntrance';
 
+
 export const LinkDirectionContext = createContext();
 
 export default function Layout({children}) {
@@ -56,8 +57,8 @@ export default function Layout({children}) {
     const [isDynamic, setIsDynamic] = useState(false);
 
     useEffect(() => {
-
-      setIsDynamic(router.route == '/projets')
+      
+      setIsDynamic(router.route == '/realisations')
      
     }, [router.asPath])
 
@@ -98,6 +99,8 @@ export default function Layout({children}) {
 
 
   return (
+
+   
     
      <LinkDirectionContext.Provider value={{linkDirection, setLinkDirection}}>
 
@@ -121,10 +124,12 @@ export default function Layout({children}) {
                 disabled={isDynamic} pageReady={pageReady}>
                   <Box sx={{position: 'absolute', width: '100%', top: theme.spacing(6), 
                   minHeight: '100vh',
-                  left: 0}}>
-                    
+                  left: 0
+                  }}>
+                    <Box sx={{minHeight: '100vh'}}>
                     {children}
-                      <Footer />
+                    </Box>
+                    <Footer />
                     
                   </Box>
                   </PageTransition>
@@ -133,7 +138,7 @@ export default function Layout({children}) {
                 
                 <Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} direction={linkDirection} pageReady={pageReady} />
               
-                {router.route == '/' && 
+                {router.route == '/' && !drawerOpen &&
 
                     <ModelViewer direction={linkDirection} pageReady={pageReady} />
                 
@@ -147,7 +152,7 @@ export default function Layout({children}) {
           
         
           </LinkDirectionContext.Provider>
-    
+
   )
 }
 

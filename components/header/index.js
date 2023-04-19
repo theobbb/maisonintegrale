@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -18,6 +18,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 
+
 export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}) {
 
     const theme = useContext(ThemeContext);
@@ -28,7 +29,6 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
     const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
-
     
 
     const [firstLoad, setFirstLoad] = useState(true)
@@ -54,7 +54,6 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         top: 0,
         left: 0, 
         right: 0,
-        px: 3,
         display: 'flex', 
         flexDirection: matchDownXL? 'column':'row',
         width: '100%', 
@@ -63,47 +62,51 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         justifyContent: 'space-between'
     }}>
         <Box sx={{
+            
             flex: 1, 
             display: 'flex', 
             alignItems: 'center', 
             py: matchDownXL? 0.3:1,
-            //px: matchDownXL? 1.5:4,
+            px: theme.layout.x,
             background: matchDownXL? theme.palette.background.default : 'none',
             width: '100%',
             height: '100%',
 
         }}>
             {matchDownXL && 
-            <Typography variant='h5'>
+            <Typography variant={matchDownLG && 'h4'} sx={{position: 'relative', height: '100%'}} >
                 <IconButton 
                 onClick={() => setDrawerOpen(!drawerOpen)}
                 variant='inline' 
-                sx={{display: 'flex', p:0.5, marginRight: 1, fontSize: 'inherit'}}>
-                    <svg 
-                    strokeWidth='1px' 
-                    width={matchDownMD? '18px':'20px'}
-                    style={{fill: '#b5d1b3', stroke: '#88bc8a', strokeMiterlimit: '10'}}
-                    id="b16eefef-e246-4576-b06a-83ac6737d827" 
-                    data-name="Calque 1" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 190 200">
+                sx={{display: 'flex', p:0.5, marginRight: 1, fontSize: 'inherit', height: '100%'}}>
+                    <SvgIcon
+                    sx={{fontSize: 'inherit'}}
+                    strokeWidth='1px'
+                    
+                    //width={matchDownMD? '18px':'20px'}
+                    style={{fill: '#b5d1b3', stroke: '#88bc8a', strokeMiterlimit: '10'}} 
+                    
+                   
+                    viewBox="0 0 200 200">
                         <defs>
                         
                         </defs>
                         <title>home-icon</title>
-                        <polygon vectorEffect="non-scaling-stroke" class="ae943666-a10f-4d59-88c3-ef686a90ad2d" points="2 74.02 2 193.88 183.57 193.88 183.57 74.02 92.62 2.54 2 74.02"/>
-                    </svg>
+                        <polygon vectorEffect="non-scaling-stroke" points="30 170 170 170 170 80 100 20 30 80"/>
+                        </SvgIcon>
                     
                 </IconButton>
             </Typography>}
 
+
+
             <NavLink href='/' 
+            
             text='MAISON INTÉGRALE' 
-            sx={{
-                position: 'relative', 
-                //mx: matchDownXL? 0.5 : 2
-            }} 
+            sx={{position: 'relative', marginLeft: '-12px'}} 
             //setLinkDirection={setLinkDirection} 
+            //transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
+            
             index='home' />
 
         </Box>
@@ -140,6 +143,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                     href={path.href} 
                     text={path.name} 
                     key={path.name} 
+                    variant={matchDownLG && 'h5'}
                     //setLinkDirection={setLinkDirection}
                     drawerOpen={drawerOpen}
                     sx={{position: 'relative', mx: 0.5, my: matchDownXL? 0.5:0}} />

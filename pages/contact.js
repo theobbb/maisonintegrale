@@ -1,6 +1,6 @@
 
 import Layout from '@/components/layout'
-import { Box, Button, Divider, Icon, TextField, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Divider, Icon, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useContext, useEffect, useRef } from 'react'
 import { LangContext } from '@/utils/context'
 import { useRouter } from 'next/router'
@@ -11,6 +11,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 
+
 export async function getStaticProps() {
   const data = null
   return { props: { data: data } }
@@ -19,6 +20,8 @@ export async function getStaticProps() {
 export default function Contact() {
 
   const { locale } = useRouter();
+
+  const theme = useTheme()
 
   const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
   const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
@@ -39,15 +42,14 @@ export default function Contact() {
     },
   }
 
-
   
   return (
     <>
 
 
       
-          <Box  sx={{py: 0, px: matchDownLG? 2:3, display: 'flex', paddingTop: matchDownLG? 6:12, flexDirection: matchDownLG? 'column':'row', paddingBottom: 12, width: '100%'}}>
-            <Box sx={{px: matchDownLG?0:6, maxWidth: '700px', flex: 1}}>
+          <Box  sx={{py: 0, px: theme.layout.x, py: theme.layout.y, display: 'flex', flexDirection: matchDownLG? 'column':'row', paddingBottom: 12, width: '100%'}}>
+            <Box sx={{paddingRight: matchDownLG?0:6, maxWidth: '700px', flex: 1}}>
               <Typography variant='h3' sx={{}}>
                 {}
               </Typography>

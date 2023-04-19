@@ -28,8 +28,9 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
                 'otherSlug': slug[$otherLocale].current
               }[0]`
           const result = await client.fetch(projectQuery, { locale: router.locale, slug: query, otherLocale: router.locale == 'fr'? 'en':'fr' })
-          const otherBase = router.locale == 'en'? 'realisations':'work'
-          const otherPath = `/${otherBase}/${result.otherSlug}`
+          const otherBase = props.locale == 'fr'? 'realisations':'work'
+          console.log(otherBase)
+          const otherPath = result? `/${otherBase}/${result?.otherSlug}` : `/${otherBase}`
           
           setNewPath(otherPath) 
           
@@ -40,6 +41,7 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
             getOtherSlug();
             //return setNewPath(getOtherSlug())
         }
+        if (router.route == '/404') return setNewPath(`${props.locale == 'fr'? '/': '/en'}`);
 
         if (router.asPath == '/') return setNewPath(`/${props.locale == 'fr'? '': 'en'}`);
 
@@ -49,11 +51,7 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
         
 
       }, [router.query, router.route]);
-/*
-    if (router.asPath.split('/').length > 2) {
-        const maisonPathIndex = maisons.indexOf(maisons.find(maison => maison[router.locale].url == router.query.maison))
-        if (maisonPathIndex != -1) newPath = `${props.locale == 'fr'? '/realisations':'/work'}/${maisons[maisonPathIndex][props.locale].url}`;
-    }*/
+
 
 
     const isSelected = router.locale == props.locale; 

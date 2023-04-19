@@ -4,7 +4,7 @@ import * as NextLink from 'next/link'
 import { LinkDirectionContext } from '../layout'
 import { useRouter } from 'next/router'
 
-export default function Link({href, text, localeLink, direction, variant, sx, ...others}) {
+export default function Link({href, text, localeLink, direction, children, variant, sx, ...others}) {
 
     const router = useRouter();
 
@@ -42,12 +42,16 @@ export default function Link({href, text, localeLink, direction, variant, sx, ..
         //router.push(href)
         
     }
+
     return href&& (
         <ButtonBase variant='link'>
         <Box sx={{position: 'relative'}}>
             
             <NextLink onClick={(e) => handleClick(e)} href={href} style={{ textDecoration: 'none', color: 'inherit' }} {...others}>
+                <Box sx={{display: 'flex'}}>
                 <Typography variant={variant? variant:'h6'}>{text.toUpperCase()}</Typography>
+                {children}
+                </Box>
             </NextLink>
             
         </Box>

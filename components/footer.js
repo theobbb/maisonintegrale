@@ -91,7 +91,10 @@ export default function Footer() {
       
 
   return (
-    <Box ref={footerRef} sx={{width: '100%', paddingTop: `${paddingTop}px`}}>
+    <Box ref={footerRef} sx={{
+      width: '100%', 
+    //paddingTop: `${paddingTop}px`, 
+    marginTop: {xl: 24, lg: 24, md: 16, xs: 8}}}>
         <Grid container sx={{paddingBottom: 6, px: xSpacing}} rowSpacing={6}>
         <Grid xs={12} sm={12} md={6} lg={4} xl={2} item sx={{display: 'flex'}}>
             <Typography variant={variant} sx={{my: ySpacing}}>
@@ -137,9 +140,21 @@ export default function Footer() {
                 MARC BAILLARGEON
               </Typography>
 
-              <Typography variant={variant} sx={{paddingTop: 1, display: 'flex', alignItems: 'center', my: ySpacing}}>
+              <Typography variant={variant} sx={{paddingTop: 1, display: 'flex', alignItems: 'center', my: ySpacing, marginLeft: -1.5}}>
+                <NavLink 
+                    index={0}
+                    href='/contact'
+                    text={locale=='fr'?'FORMULAIRE DE CONTACT':'CONTACT FORM'} 
+                    key='footer-contact-link'
+                    footer
+                    
+                    variant={variant}
+                    sx={{position: 'relative', whiteSpace: 'nowrap'}}>
                 
-                FORMULAIRE DE CONTACT
+                  <Typography variant='h6' sx={{display: 'flex', alignItems: 'center', paddingLeft: 0.5, marginRight: -0.8}}>
+                      <ArrowOutwardIcon sx={{fontSize: 'inherit'}} />
+                  </Typography>
+                </NavLink>
               </Typography>
               
               
@@ -173,7 +188,7 @@ export default function Footer() {
                 {realisations && realisations.map((projet, index) => (
                     <NavLink 
                     index={index}
-                    href={`${locale=='fr'?'realisations':'work'}/${projet.slug[locale].current}`} 
+                    href={`/${locale=='fr'?'realisations':'work'}/${projet.slug[locale].current}`} 
                     text={projet.name[locale]} 
                     key={`footer-${projet._id}`} 
                     footer
