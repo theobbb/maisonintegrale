@@ -51,7 +51,7 @@ export default function Contact() {
               <Typography variant='h3' sx={{}}>
                 {}
               </Typography>
-              <Typography variant='h3' sx={{}}>
+              <Typography variant='h3'>
                 {data[locale].contact} MAISON INTÉGRALE
               </Typography>
 
@@ -80,7 +80,7 @@ export default function Contact() {
                 <TextField id="name" label={data[locale].name} variant="outlined" sx={{width: '100%'}} />
               </Box>
               <Box sx={{paddingBottom: 2}}>
-                <TextField id="email" label='email' variant="outlined" sx={{width: '100%'}} />
+                <TextField id="email" label='email' variant="outlined" sx={{width: '100%', py: 0}} />
               </Box>
               <Box sx={{paddingBottom: 2}}>
                 <TextField id="phone" label={data[locale].phone} variant="outlined" sx={{width: '100%'}} />

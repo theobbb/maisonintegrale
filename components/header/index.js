@@ -18,7 +18,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 
-export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setReplayEntrance}) {
+export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}) {
 
     const theme = useContext(ThemeContext);
 
@@ -54,6 +54,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         top: 0,
         left: 0, 
         right: 0,
+        px: 3,
         display: 'flex', 
         flexDirection: matchDownXL? 'column':'row',
         width: '100%', 
@@ -66,7 +67,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             display: 'flex', 
             alignItems: 'center', 
             py: matchDownXL? 0.3:1,
-            px: matchDownXL? 1.5:2,
+            //px: matchDownXL? 1.5:4,
             background: matchDownXL? theme.palette.background.default : 'none',
             width: '100%',
             height: '100%',
@@ -78,13 +79,30 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 onClick={() => setDrawerOpen(!drawerOpen)}
                 variant='inline' 
                 sx={{display: 'flex', p:0.5, marginRight: 1, fontSize: 'inherit'}}>
-                    <HomeIcon sx={{fontSize: 'inherit'}} />  
+                    <svg 
+                    strokeWidth='1px' 
+                    width={matchDownMD? '18px':'20px'}
+                    style={{fill: '#b5d1b3', stroke: '#88bc8a', strokeMiterlimit: '10'}}
+                    id="b16eefef-e246-4576-b06a-83ac6737d827" 
+                    data-name="Calque 1" 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 190 200">
+                        <defs>
+                        
+                        </defs>
+                        <title>home-icon</title>
+                        <polygon vectorEffect="non-scaling-stroke" class="ae943666-a10f-4d59-88c3-ef686a90ad2d" points="2 74.02 2 193.88 183.57 193.88 183.57 74.02 92.62 2.54 2 74.02"/>
+                    </svg>
+                    
                 </IconButton>
             </Typography>}
 
             <NavLink href='/' 
             text='MAISON INTÉGRALE' 
-            sx={{position: 'relative', mx: matchDownXL? 0.5 : 2}} 
+            sx={{
+                position: 'relative', 
+                //mx: matchDownXL? 0.5 : 2
+            }} 
             //setLinkDirection={setLinkDirection} 
             index='home' />
 
@@ -124,7 +142,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                     key={path.name} 
                     //setLinkDirection={setLinkDirection}
                     drawerOpen={drawerOpen}
-                    sx={{position: 'relative', mx: 1, my: matchDownXL? 0.5:0}} />
+                    sx={{position: 'relative', mx: 0.5, my: matchDownXL? 0.5:0}} />
                 ))}
 
             </Box>
@@ -145,24 +163,25 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             
                 <LocaleLink href={router.asPath} locale='fr' text='FR' 
                 direction={-1}
-                sx={{position: 'relative', mx: 1}} 
+                sx={{position: 'relative', mx: 0.2}} 
                 //setLinkDirection={setLinkDirection} 
                 />
                 <LocaleLink href={router.asPath} locale='en' text='EN' 
                 direction={1}
-                sx={{position: 'relative', mx: 1}} 
+                sx={{position: 'relative', mx: 0.2}} 
                 //setLinkDirection={setLinkDirection} 
 
                 />
 
                 <Box sx={{mx: 2, display: 'flex', alignItems: 'center'}}>
-                    <IconButton onClick={() => setReplayEntrance(true)}>
+                <IconButton><LightModeIcon /></IconButton>
+                    <IconButton onClick={() => setPlayEntrance(true)}>
                     <RefreshIcon />
                     
                     
                     </IconButton>
-                    <IconButton><LightModeIcon /></IconButton>
-                    <IconButton><DarkModeIcon/></IconButton>
+                    
+                    {/*<IconButton><DarkModeIcon/></IconButton>*/}
                 </Box>
                 
 

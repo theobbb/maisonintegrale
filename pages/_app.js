@@ -6,6 +6,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import Layout from '@/components/layout';
 import { useRouter } from 'next/router'
 import Head from 'next/head';
+import MuiTypoWrapper from '@/components/muiTypoWrapper';
 
 export default function App({ Component, pageProps }) {
 
@@ -27,6 +28,7 @@ export default function App({ Component, pageProps }) {
       newTheme.palette = {...theme.palette[colorMode]};
       newTheme.palette.mode = colorMode;
       
+      newTheme.components.MuiTypography.defaultProps.component = MuiTypoWrapper;
       return responsiveFontSizes(createTheme(newTheme));
     },
     [colorMode],

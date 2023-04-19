@@ -16,15 +16,22 @@ export default function Footer() {
     const d = new Date();
     const year = d.getFullYear();
 
-    const [projets, setProjets] = useState([])
+    const [realisations, setProjets] = useState([])
+    
+    const router = useRouter();
 
+    const { locale } = useRouter();
+    //'name': name[$locale],
+    //'slug': slug[$locale].current
     useEffect(() => {
         async function getData() {
             const query = `*[_type == "project"]{
                 _id,
                 orderRank,
-                'name': name[$locale],
-                'slug': slug[$locale].current
+                name,
+                
+                slug
+                
               }|order(orderRank)`
           const result = await client.fetch(query, { locale: locale })
           
@@ -49,9 +56,7 @@ export default function Footer() {
         },
       }
 
-      const router = useRouter();
 
-      const { locale } = useRouter();
 
     const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
@@ -81,7 +86,9 @@ export default function Footer() {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-      }, [footerRef]);    
+      }, [footerRef]); 
+      
+      
 
   return (
     <Box ref={footerRef} sx={{width: '100%', paddingTop: `${paddingTop}px`}}>
@@ -150,7 +157,7 @@ export default function Footer() {
                     index={index}
                     href={path.href} 
                     text={path.name} 
-                    key={path.name} 
+                    key={`footer-${path.name}`} 
                     footer
                     variant={variant}
                     sx={{position: 'relative', px: 2, mx: 0, my: ySpacing}} />
@@ -160,15 +167,15 @@ export default function Footer() {
         
         <Grid xs={12} sm={12} md={6} lg={12} xl={3} item sx={{display: 'flex'}}>
             <Typography variant={variant} sx={{my: ySpacing}}>
-                PROJETS
+                {locale=='fr'?'RÉALISATIONS':'WORK'}
             </Typography>
             <Box>
-                {projets && projets.map((projet, index) => (
+                {realisations && realisations.map((projet, index) => (
                     <NavLink 
                     index={index}
-                    href={`${locale=='fr'?'projets':'work'}/${projet.slug}`} 
-                    text={projet.name} 
-                    key={projet._id} 
+                    href={`${locale=='fr'?'realisations':'work'}/${projet.slug[locale].current}`} 
+                    text={projet.name[locale]} 
+                    key={`footer-${projet._id}`} 
                     footer
                     
                     variant={variant}

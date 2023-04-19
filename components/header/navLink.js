@@ -28,21 +28,17 @@ export default function NavLink({sx, index, drawerOpen, footer, ...props}) {
         if (drawerOpen) setNewDirection(1);
     }, [router.locale, router.asPath, router.query])
 
-   
+   const [isSelected, setIsSelected] = useState(false);
 
-    const isSelected = props.href == router.asPath;
+    useEffect(() => {
+        setIsSelected(props.href == router.asPath)
+    }, [router.asPath])
 
     return (    
         <Box sx={{position: 'relative', ...sx}}>
             <Link {...props} direction={newDirection} sx={sx} />
-            {footer? isSelected &&
-                <Box
-                      sx={{position: 'absolute', width: '100%', bottom: '1px', left: 0, height: '2px', background: 'black'}}
-                      component={motion.div}
-                      layoutId={'active-footer-link'} 
-                      >
-                </Box> 
-                 : isSelected &&
+
+            {isSelected && !footer && 
                 <Button 
                       variant='fake' 
                       disableRipple 
@@ -50,6 +46,20 @@ export default function NavLink({sx, index, drawerOpen, footer, ...props}) {
                       layoutId={'active-link'} 
                       >
                 </Button>
+            }
+            {isSelected && footer && 
+                <Box
+                sx={{
+                    position: 'absolute', 
+                    width: '100%',
+                    bottom: '1px', 
+                    left: 0, 
+                    height: '2px', 
+                    background: 'black'
+                }}
+                component={motion.div}
+                layoutId={'active-footer-link'} 
+                />
             }
             
         </Box>

@@ -17,25 +17,26 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
     
     //if (pathIndex != -1) setNewPath(linkPaths[props.locale].paths[pathIndex].href);
 
-
+    
 
     useEffect(() => {
 
-        const query = router.query.dynamic;
+        const query = router.query.slug;
 
         async function getOtherSlug() {
             const projectQuery = `*[_type == "project" && slug[$locale].current == $slug]{
                 'otherSlug': slug[$otherLocale].current
               }[0]`
-          const result = await client.fetch(projectQuery, { locale: router.locale, slug: query[1], otherLocale: router.locale == 'fr'? 'en':'fr' })
+          const result = await client.fetch(projectQuery, { locale: router.locale, slug: query, otherLocale: router.locale == 'fr'? 'en':'fr' })
           const otherBase = router.locale == 'en'? 'realisations':'work'
-          const otherPath = `${otherBase}/${result.otherSlug}`
+          const otherPath = `/${otherBase}/${result.otherSlug}`
+          
           setNewPath(otherPath) 
           
         
         }
 
-        if (query?.length == 2) {
+        if (query != null) {
             getOtherSlug();
             //return setNewPath(getOtherSlug())
         }
@@ -54,11 +55,12 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
         if (maisonPathIndex != -1) newPath = `${props.locale == 'fr'? '/realisations':'/work'}/${maisons[maisonPathIndex][props.locale].url}`;
     }*/
 
+
     const isSelected = router.locale == props.locale; 
     
     return (
         <Box sx={sx}>
-            <Link {...props} href={newPath} />
+            <Link {...props} href={newPath} localeLink />
             {footer? isSelected &&
                 <Box
                       sx={{position: 'absolute', width: '100%', bottom: '1px', left: 0, height: '2px', background: 'black'}}

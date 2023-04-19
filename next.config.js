@@ -21,6 +21,11 @@ const nextConfig = {
           destination: '/en/realisations',
           locale: false
         },
+        {
+          source: '/en/work/:slug',
+          destination: '/en/realisations/:slug',
+          locale: false
+        },
         /*
         {
           source: '/en/work',

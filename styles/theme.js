@@ -1,3 +1,4 @@
+import MuiTypoWrapper from "@/components/muiTypoWrapper";
 import { createTheme } from "@mui/material";
 
 
@@ -75,6 +76,12 @@ const typography = {
 
 
 const components = {
+
+  MuiTypography: {
+    defaultProps: {
+      //component: MuiTypoWrapper,
+    }
+  },
 
   MuiButtonBase: {
     variants: [

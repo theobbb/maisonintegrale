@@ -32,6 +32,8 @@ export default function Layout({children}) {
 
     const [pathSapins, setPathSapins] = useState(null);
 
+
+
     useEffect(() => {
       
         setDrawerOpen(false)
@@ -70,6 +72,7 @@ export default function Layout({children}) {
 
     useEffect(() => {
       //if (isNewSession) 
+      setPlayEntrance(isNewSession)
       setHeaderReady(!isNewSession)
       setPageReady(!isNewSession)
       
@@ -77,19 +80,22 @@ export default function Layout({children}) {
     }, [isNewSession])
     
 
-    const [replayEntrance, setReplayEntrance] = useState(false)
+    const [playEntrance, setPlayEntrance] = useState(false)
 
     useEffect(() => {
       //setLinkDirection(0)
-      if (replayEntrance) {
+
+      setPageReady(!playEntrance)
+
+      if (playEntrance) {
         setHeaderReady(false)
-        setPageReady(false)
       }
 
-    }, [replayEntrance])
+    }, [playEntrance])
 
 
 //const dynamicRoute = router.route == '/[...dynamic]' && !lastIsDynamic? `dynamic-${Date.now()}`: router.route;
+
 
   return (
     
@@ -98,21 +104,20 @@ export default function Layout({children}) {
       
 
           <AnimatePresence>
-          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setReplayEntrance}} />}
+          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}} />}
           </AnimatePresence>
 
           <AnimatePresence>
-          {(isNewSession || replayEntrance) && 
-            <ImageEntrance {...{setPageReady, setHeaderReady, replayEntrance, setReplayEntrance}} />
+          {playEntrance && 
+            <ImageEntrance {...{setPageReady, setHeaderReady, playEntrance, setPlayEntrance}} />
           }
           </AnimatePresence>
-
 
           <AnimatePresence>
 
                 {!drawerOpen && 
                 
-                  <PageTransition key={`page-${router.route}-${router.locale}`} direction={linkDirection} drawerOpen={drawerOpen} 
+                  <PageTransition key={`page-${router.route}}`} direction={linkDirection} drawerOpen={drawerOpen} 
                 disabled={isDynamic} pageReady={pageReady}>
                   <Box sx={{position: 'absolute', width: '100%', top: theme.spacing(6), 
                   minHeight: '100vh',
@@ -126,7 +131,7 @@ export default function Layout({children}) {
                   
                 }
                 
-                <Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}-${router.locale}`} direction={linkDirection} pageReady={pageReady} />
+                <Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} direction={linkDirection} pageReady={pageReady} />
               
                 {router.route == '/' && 
 

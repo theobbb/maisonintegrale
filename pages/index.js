@@ -13,10 +13,6 @@ import useScrollProgress from '@/utils/scrollProgress'
 import ContactButton from '@/components/contactButton'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
-//import { ModelViewer } from '@google/model-viewer'
-import * as THREE from 'three';
-import { Canvas } from 'react-three-fiber';
-import MaisonModel from '@/components/modelViewer'
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "approche"]`)
@@ -37,7 +33,7 @@ export default function Approche({data}) {
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   const theme = useContext(ThemeContext);
-
+/*
   const main = [
     {
       title: t('pages.approche.main.0.title'),
@@ -73,7 +69,7 @@ export default function Approche({data}) {
         t('pages.approche.main.3.body.0'),
       ] 
     }
-  ]
+  ]*/
  
   const [activeLink, setActiveLink] = useState(0);
 
@@ -116,68 +112,9 @@ export default function Approche({data}) {
     };
   }, [sectionsContainerRef]);
 
-  const { scrollYProgress } = useScroll();
-
-  const animProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const modelViewerRef = useRef(null)
-
-  const meshRef = useRef(null)
-
-  function ModelViewer() {
-
-    if (!modelViewerRef.current) return;
-
-    const modelViewer = modelViewerRef.current;
-    
-    var scrollMaxY = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
-                       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ); // max scroll distance
-                         
-                         var AnimBegin = 0; // beginning of animation
-                         var AnimEnd = 3; // end of animation
-                         var AnimDuration = AnimEnd- AnimBegin; // duration of the animation
-                         
-                         var CurrentTime = AnimBegin + ((window.scrollY / scrollMaxY) * AnimDuration); // uses the max scroll distance to 
-
-                         modelViewer.currentTime = CurrentTime;
-                         modelViewer.pause();	
-
-                 window.requestAnimationFrame(ModelViewer);
-  }
-
-
-  
-
-
-
-             /*
-             useEffect(() => {
-              if (meshRef.current)
-              Three()
-
-             }, [meshRef.current])*/
-
-
- useEffect(() => {
-  window.requestAnimationFrame(ModelViewer);
- }, [modelViewerRef])
-
-
-
   return data && (
 
               <>
-
-
-
-
-          
-
-          
 
           <Box sx={{
             height: `calc(100vh - ${matchDownMD? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
@@ -192,12 +129,15 @@ export default function Approche({data}) {
 
 <Box sx={{py: 12}}>
               <Typography variant='h2' sx={{lineHeight: '120%'}}>
-              
-              Construire des maisons écoénergétiques de haute qualité pour un avenir durable -
+              {locale == 'fr'? 
+              'Construire des maisons écoénergétiques de haute qualité pour un avenir durable - ': 
+              'Building high quality energy-efficient homes for a sustainable future - '
+              }
               </Typography>
               <Typography variant='h2' sx={{lineHeight: '120%', marginLeft: 12}}>
+              {locale == 'fr'? 'Découvrez la mission de Maison Intégrale': 
+              'Discover Maison Intégrale’s mission'}
               
-              Découvrez la mission de Maison Intégrale
               </Typography>
             </Box>
               
@@ -222,7 +162,7 @@ export default function Approche({data}) {
               id={section.slug[locale].current}
               sx={{
                 py: matchDownMD? 3:'50px',
-                marginBottom: index != main.length - 1? matchDownMD? 0: 50:0,
+                marginBottom: index != data.main.length - 1? matchDownMD? 0: 50:0,
                 position: 'relative',
                }}>
                <Section {...{section, index, setActiveLink }} />
