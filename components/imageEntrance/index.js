@@ -68,6 +68,7 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
 
     
     <Box
+
     ref={containerRef}
     preserveAspectRatio='xMinYMin slice'
     sx={{ 

@@ -10,7 +10,8 @@ import { useContext } from 'react';
 import { LinkDirectionContext } from '@/components/layout';
 import Block from '@/components/sanity/block';
 import GridViewIcon from '@mui/icons-material/GridView';
-
+import Image from 'next/image'
+import LazyImage from '@/components/LazyImage';
 
 
 
@@ -22,25 +23,18 @@ function Projet ({single}) {
 
     const theme = useTheme();
 
-    
+
     const { setLinkDirection } = useContext(LinkDirectionContext);
 
     function handlePrev() {
-        
-        if (single?.previous?.slug == null) return
         setLinkDirection(-1)
-        handlePush(single.previous.slug)
-        /*
-        const prevIndex = maisonIndex === 0 ? lastIndex : maisonIndex - 1;
-        handlePush(prevIndex)*/
+        if (single?.previous?.slug == null) handlePush(single.last.slug)
+        else handlePush(single.previous.slug)
     }
     function handleNext() {
-        if (single?.next?.slug == null) return
         setLinkDirection(1)
-        handlePush(single.next.slug)
-        /*
-        const nextIndex = maisonIndex === lastIndex ? 0 : maisonIndex + 1;
-        handlePush(nextIndex)*/
+        if (single?.next?.slug == null) handlePush(single.first.slug)
+        else handlePush(single.next.slug)
     }
 
     function handlePush(slug) {
@@ -64,33 +58,22 @@ function Projet ({single}) {
     return single && (
         <>
 
-        {matchDownMD && 
-        <Box sx={{position: 'absolute', right: 0, top: 0, zIndex: 20}}>
-        <Box sx={{display: 'flex', alignItems: 'center'}}>
-                    <IconButton sx={{marginRight: 1}} onClick={handleGridView}>
-                        <GridViewIcon />
-                    </IconButton>
-                
-                <Box sx={{ display: 'flex', paddingBottom: 3}}>
-                    <IconButton sx={{marginRight: 1}} onClick={handlePrev}>
-                        <NavigateBeforeIcon />
-                        
-                    </IconButton>
-                    <IconButton onClick={handleNext}>
-                        <NavigateNextIcon  />
-                    </IconButton>
-                </Box>
-                </Box>
-        </Box>
-        }
+        
 
-        <Box sx={{minHeight: '110vw', position: 'relative'}}>
+        <Box sx={{position: 'relative'}}>
         {matchDownMD &&
                 <Box>
-                <Img img={single.imgs[0]} index={0} key={`top-${single.imgs[0]._key}`} top />
+                <Img img={single.imgs[0]} index={10} key={`top-${single.imgs[0]._key}`} top />
                 </Box>
                 }
-            <Box sx={{px: matchDownMD?2:4, width: '100%', borderRadius: 4, background: theme.palette.background.default, marginTop: matchDownMD&& -6, zIndex: 10, position: 'relative'}}
+            <Box sx={{
+                
+                px: matchDownMD?2:4, 
+                borderRadius: 4, 
+                background: theme.palette.background.default, 
+                marginTop: matchDownMD? -6:2, 
+
+                zIndex: 10, position: 'relative'}}
             exit={{opacity: 0}}
             >
             
@@ -104,24 +87,44 @@ function Projet ({single}) {
                     </IconButton>
                 </Box>}
           
-            <Box sx={{
+            <Box 
+            
+            sx={{
                 py: 0, 
+                width: '100%',
                 flexDirection: matchDownLG? 'column': 'row',
-                display: 'flex', position: 'relative'}}>
+                display: 'flex', position: 'relative'
+                }}>
 
                 
-                <Box sx={{minWidth: !matchDownLG&&'450px', paddingRight: 4, flex: 1, marginRight: matchDownMD? 0: 4, position: 'relative', top: 0}}
-                //initial={{opacity:0}}
-                //animate={{opacity: animationComplete? 1:0 }}
-                //component={motion.div} 
+                <Box id='text' sx={{
+                    minWidth: matchDownLG?'100%':'450px', paddingRight: !matchDownLG && 3, flex: 1, marginRight: matchDownMD? 0: 4, position: 'relative', top: 0}}
                 >
-                    <Box>
+                    <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                         <Typography variant='h3' sx={{py: matchDownMD? 2:0}}>
                             {single.name[locale]}
                         </Typography>
+                        {matchDownMD && 
+                       
+                        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', py: matchDownMD? 2:0}}>
+                                    
+                                
+                            <Box sx={{ display: 'flex', paddingBottom: 3}}>
+                                <IconButton variant='outlined' sx={{marginRight: 1}} onClick={handlePrev}>
+                                    <NavigateBeforeIcon />
+                                    
+                                </IconButton>
+                                <IconButton variant='outlined' onClick={handleNext}>
+                                    <NavigateNextIcon  />
+                                </IconButton>
+                            </Box>
+
+                        </Box>
+                       
+                        }
                     </Box>
                     
-                    <Box sx={{marginTop: 3, marginBottom: 12}}>
+                    <Box sx={{marginTop: matchDownLG?0:3, marginBottom: matchDownLG?6:12}}>
                         <Block variant='body2' sx={{opacity: 0.86}}>
                             {single.top[locale]}
                         </Block>
@@ -133,17 +136,39 @@ function Projet ({single}) {
                     </Box>
 
                 </Box>
-                <Box sx={{position: 'relative', overflow: 'visible'}}>
+                <Box sx={{position: 'relative', overflow: 'visible', width: '100%'}}>
               
-                <ImageList variant="masonry"  cols={matchDownXL? 1:2} sx={{position: 'relative', overflow: 'visible'}}>
-                        {single.imgs.slice(matchDownLG? 1:0).map((img, index) => (
+                    <ImageList variant="masonry"  cols={matchDownXL? 1:2} sx={{position: 'relative', overflow: 'visible', width: '100%'}}>
+                        {single.imgs.map((img, index) => (
                             <Img img={img} index={index} key={img._key} />
                         ))}
                     </ImageList>
                 </Box>
             </Box>
             </Box>
-            
+            {single.imgs.length > 4 && <Box sx={{display: 'flex', px: {xs: 2, md: 3.5}}}>
+        
+        
+       
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', py: matchDownMD? 2:0}}>
+                    
+                
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '100%', paddingRight: 2}}>
+                <IconButton variant='outlined' sx={{marginRight: 1}} onClick={handlePrev}>
+                    <NavigateBeforeIcon />
+                    
+                </IconButton>
+                <IconButton variant='outlined' onClick={handleNext}>
+                    <NavigateNextIcon  />
+                </IconButton>
+            </Box>
+
+        </Box>
+        <Typography variant='h3' sx={{py: matchDownMD? 2:0}}>
+            {single.name[locale]}
+        </Typography>
+        
+    </Box>}
         </Box>
         
       </>
@@ -159,15 +184,12 @@ function Img ({img, index, top}) {
 
     return (
         <ImageListItem sx={{borderRadius: 0}}>
-                            
-
-            
-                                
+           
             <Box 
             sx={{
                 position: 'relative', 
                 overflow: 'visible', 
-                height: top&&'40vh', 
+                height: top&&'30vh', 
                 mx: top? 0 : matchDownLG? 0:1, 
                 my: !top && 0.5
             }}
@@ -176,8 +198,11 @@ function Img ({img, index, top}) {
             layoutId={index == 0? `maison-main-img-${img._key}`:null} 
             //onLayoutAnimationComplete={() => setAnimationComplete(true)}
             >
-                <img
+                <LazyImage
                 src={img.url}
+                
+                
+                
                 style={{
                     //minHeight: top&& '20vh',
                     objectFit: 'cover',
@@ -198,16 +223,17 @@ function Img ({img, index, top}) {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, rgba(255,255,255,0) 100%)`}}/>}
+                    background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, 
+                        rgba(255,255,255,0.7) 20%,
+                        rgba(255,255,255,0) 100%)`
+                        }}/>}
             </Box>
                                 
                                 
         </ImageListItem>
+        
     )
 }
-
-
-
 
 export async function getStaticPaths() {
 
@@ -240,9 +266,9 @@ export async function getStaticProps(context = {}) {
         "next": *[_type == "project" && ^.orderRank < orderRank]|order(orderRank asc)[0]{ 
               "slug": slug[$locale].current
         },
+        "first": *[_type == "project"]|order(orderRank asc)[0]{ "slug": slug[$locale].current },
+        "last": *[_type == "project"]|order(orderRank desc)[0]{ "slug": slug[$locale].current }
       }`
-    //const query = `*[_type == "project" && slug.$locale.current == $slug]`
-
     const single = await client.fetch(query, { locale: locale, slug: params.slug })
     return { props: { single: single[0] } }
 }

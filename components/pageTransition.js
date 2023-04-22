@@ -1,10 +1,18 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router'
 
 const transition = { ease: [0.43, 0.13, 0.23, 0.96] };
 
 export default function PageTransition({direction, drawerOpen, children, disableTransition, pageReady}) {
-  console.log(disableTransition)
+
+  const router = useRouter();
+
+  const [ready, setReady] = useState(false);
+  useEffect(() => {setReady(true)},[])
+
+  if (!ready) return null
   return disableTransition?
     <Box 
     initial={{opacity: 0}}

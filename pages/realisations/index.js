@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next'
 import { maisons } from '@/utils/maisons'
 import { AnimatePresence, motion } from 'framer-motion'
 import { client } from '@/utils/sanityClient'
+import LazyImage from '@/components/LazyImage'
 //import GridImg from './gridImg'
 
 
@@ -36,7 +37,7 @@ export default function Projets({data, animating, setAnimating}) {
     const base = locale == 'fr'? '/realisations':'/work'
     const href = `${base}/${slug}`;
     push(href, href, {locale})
-  }
+  } 
 
   
   return (
@@ -82,7 +83,7 @@ export default function Projets({data, animating, setAnimating}) {
                 transition={{transition: 'ease', duration: 0.5}}
                 component={motion.div}
                 >
-                <img
+                <LazyImage
                   
                   style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', top: 0, left: 0, position: 'absolute'}}
                   src={projet.imgs[0].url}
@@ -90,11 +91,12 @@ export default function Projets({data, animating, setAnimating}) {
                   loading="lazy"
                 />
                 </Box>}
-                <ImageListItemBar
-            title={projet.name[locale]}
-            //subtitle={<span>by: {item.author}</span>}
-            position="below"
-          />
+                <Box>
+                  <Typography variant='h6'>
+                    {projet.name[locale]}
+                  </Typography>
+                </Box>
+                
         
                 
                 </ButtonBase>

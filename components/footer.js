@@ -105,13 +105,13 @@ export default function Footer() {
                 direction={-1}
                 footer
                 variant={variant}
-                sx={{position: 'relative', px: 2, my: ySpacing}} 
+                sx={{position: 'relative', mx: 2, my: ySpacing}} 
                  />
                 <LocaleLink href={router.asPath} locale='en' text='EN' 
                 footer
                 direction={1}
                 variant={variant}
-                sx={{position: 'relative', px: 2, my: ySpacing}} 
+                sx={{position: 'relative', mx: 2, my: ySpacing}} 
                  />
                 </Box>
         </Grid>
@@ -175,7 +175,7 @@ export default function Footer() {
                     key={`footer-${path.name}`} 
                     footer
                     variant={variant}
-                    sx={{position: 'relative', px: 2, mx: 0, my: ySpacing}} />
+                    sx={{position: 'relative', mx: 2, my: ySpacing}} />
                 ))}
                 </Box>
         </Grid>
@@ -194,7 +194,7 @@ export default function Footer() {
                     footer
                     
                     variant={variant}
-                    sx={{position: 'relative', px: 2, my: ySpacing, whiteSpace: 'nowrap'}} />
+                    sx={{position: 'relative', mx: 2, my: ySpacing}} />
                 ))}
             </Box>
         </Grid>

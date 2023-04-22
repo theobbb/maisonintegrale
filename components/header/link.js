@@ -13,14 +13,15 @@ export default function Link({href, text, localeLink, direction, children, varia
     const { setLinkDirection } = useContext(LinkDirectionContext)
 
     const handleScroll = () => {
-        if (document.documentElement.scrollTop == 0) {
-          router.push(href, href, {locale: router.locale})
+        console.log(href)
+        if (document.documentElement.scrollTop <= 0) {
+          
           window.removeEventListener('scroll', handleScroll);
+          router.push(href, href, {locale: router.locale})
         }
 
       };
 
-    //console.log(text)
     function handleClick(e) {
         setLinkDirection(direction)
 

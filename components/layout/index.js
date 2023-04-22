@@ -56,15 +56,17 @@ export default function Layout({children}) {
 
     const [isDynamic, setIsDynamic] = useState(false);
 
+    const [lastDisabled, setLastDisabled] = useState(false);
+
     useEffect(() => {
       if (router.route == '/404') return setDisableTransition(true)
       if (router.route == '/realisations') return setDisableTransition(true)
       if (router.route == '/realisations/[slug]') return setDisableTransition(true)
-      console.log('ff')
       setDisableTransition(false)
-      
-     
+
     }, [router.asPath])
+
+   //console.log(lastDisabled, disableTransition, router.asPath)
 
     const [isNewSession, setIsNewSession] = useState(false)
     useEffect(() => {
@@ -75,21 +77,11 @@ export default function Layout({children}) {
       }
     }, [])
 
-    useEffect(() => {
-      //if (isNewSession) 
-      setPlayEntrance(isNewSession)
-      setHeaderReady(!isNewSession)
-      setPageReady(!isNewSession)
-      
-     
-    }, [isNewSession])
-    
-
     const [playEntrance, setPlayEntrance] = useState(false)
 
     useEffect(() => {
       //setLinkDirection(0)
-
+      setHeaderReady(!playEntrance)
       setPageReady(!playEntrance)
 
       if (playEntrance) {
@@ -99,16 +91,9 @@ export default function Layout({children}) {
     }, [playEntrance])
 
 
-//const dynamicRoute = router.route == '/[...dynamic]' && !lastIsDynamic? `dynamic-${Date.now()}`: router.route;
-
-
   return (
 
-   
-    
      <LinkDirectionContext.Provider value={{linkDirection, setLinkDirection}}>
-
-      
 
           <AnimatePresence>
           {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}} />}
@@ -120,7 +105,7 @@ export default function Layout({children}) {
           }
           </AnimatePresence>
 
-          <AnimatePresence>
+          <AnimatePresence mode={disableTransition? 'wait':'sync'}>
 
                 {!drawerOpen && 
                 
@@ -144,17 +129,11 @@ export default function Layout({children}) {
               
                 {router.route == '/' && !drawerOpen &&
 
-                    <ModelViewer direction={linkDirection} pageReady={pageReady} />
-                
-                   
+                    <ModelViewer direction={linkDirection} pageReady={pageReady} />        
           }
-                
-                
+  
           </AnimatePresence>
-          
-          
-          
-        
+
           </LinkDirectionContext.Provider>
 
   )

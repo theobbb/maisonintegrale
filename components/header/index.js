@@ -13,9 +13,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import NavLink from './navLink'
 import LocaleLink from './localeLink'
 
-import RefreshIcon from '@mui/icons-material/Refresh';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+
+import Options from './options'
 
 
 
@@ -42,23 +41,23 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
     <Box 
     id='header'
     component={motion.div}
-    initial={{y: '-100%'}}
-    animate={{y: 0}}
-    exit={{y: '-100%'}}
+    initial={!matchDownLG ? {y: '-100%'}:{opacity: 0}}
+    animate={{y: 0, opacity: 1}}
+    exit={!matchDownLG ? {y: '-100%'}:{opacity: 0}}
     transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.4}}
 
     sx={{
         position: 'fixed', 
-        background: matchDownXL? 'none':  theme.palette.background.default,
+        background: matchDownLG? 'none':  theme.palette.background.default,
         zIndex: 10,
         top: 0,
         left: 0, 
         right: 0,
         display: 'flex', 
-        flexDirection: matchDownXL? 'column':'row',
+        flexDirection: matchDownLG? 'column':'row',
         width: '100%', 
         zIndex: 100,
-        alignItems: matchDownXL?'flex-start':'center', 
+        alignItems: matchDownLG?'flex-start':'center', 
         justifyContent: 'space-between'
     }}>
         <Box sx={{
@@ -66,14 +65,14 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             flex: 1, 
             display: 'flex', 
             alignItems: 'center', 
-            py: matchDownXL? 0.3:1,
+            py: matchDownLG? 0.3:1,
             px: theme.layout.x,
-            background: matchDownXL? theme.palette.background.default : 'none',
+            background: matchDownLG? theme.palette.background.default : 'none',
             width: '100%',
             height: '100%',
 
         }}>
-            {matchDownXL && 
+            {matchDownLG && 
             <Typography variant={matchDownLG && 'h4'} sx={{position: 'relative', height: '100%'}} >
                 <IconButton 
                 onClick={() => setDrawerOpen(!drawerOpen)}
@@ -99,15 +98,19 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             </Typography>}
 
 
-
+            
             <NavLink href='/' 
             
             text='MAISON INTÉGRALE' 
-            sx={{position: 'relative', marginLeft: '-12px'}} 
+            sx={{position: 'relative', 
+            whiteSpace: 'nowrap',
+            marginLeft: '-12px'
+            }} 
             //setLinkDirection={setLinkDirection} 
             //transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
             
             index='home' />
+           
 
         </Box>
 
@@ -117,23 +120,24 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         
         <AnimatePresenceToggle>
 
-        {(!matchDownXL || drawerOpen) && 
+        {(!matchDownLG || drawerOpen) && 
         <>
         
             <Box 
             key={`links-${drawerOpen}`}
             component={motion.div}
-            initial={{x: matchDownXL?`${-60}vw`:0}}
+            initial={{x: matchDownLG?`${-60}vw`:0}}
             animate={{x: 0}}
-            exit={{x: matchDownXL?`${-60}vw`:0}}
+            exit={{x: matchDownLG?`${-60}vw`:0}}
             transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
             sx={{
                 display: 'flex', 
-                my: matchDownXL? 6:0, 
-                flexDirection: matchDownXL? 'column':'row', 
+                my: matchDownLG? 6:0, 
+                flexDirection: matchDownLG? 'column':'row', 
                 flex: 4, 
                 justifyContent: 'center', 
-                mx: matchDownXL? 3:0,
+                
+                mx: matchDownLG? 3:0,
                 position: 'relative'
             }}>
                 
@@ -146,50 +150,14 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                     variant={matchDownLG && 'h5'}
                     //setLinkDirection={setLinkDirection}
                     drawerOpen={drawerOpen}
-                    sx={{position: 'relative', mx: 0.5, my: matchDownXL? 0.5:0}} />
+                    sx={{position: 'relative', mx: 0.5, my: matchDownLG? 0.5:0}} />
                 ))}
 
             </Box>
-            <Box 
-            key={`locales-${drawerOpen}`}
-            component={motion.div}
-            initial={{x: matchDownXL?`${-60}vw`:0}}
-            animate={{x: 0}}
-            exit={{x: matchDownXL?`${-60}vw`:0}}
-            transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
-            sx={{
-                display: 'flex', 
-                flex: 1, 
-                justifyContent: 'flex-end',
-                mx: matchDownXL? 3:0,
-                alignItems: 'center'
-            }}>
             
-                <LocaleLink href={router.asPath} locale='fr' text='FR' 
-                direction={-1}
-                sx={{position: 'relative', mx: 0.2}} 
-                //setLinkDirection={setLinkDirection} 
-                />
-                <LocaleLink href={router.asPath} locale='en' text='EN' 
-                direction={1}
-                sx={{position: 'relative', mx: 0.2}} 
-                //setLinkDirection={setLinkDirection} 
 
-                />
-
-                <Box sx={{mx: 2, display: 'flex', alignItems: 'center'}}>
-                <IconButton><LightModeIcon /></IconButton>
-                    <IconButton onClick={() => setPlayEntrance(true)}>
-                    <RefreshIcon />
-                    
-                    
-                    </IconButton>
-                    
-                    {/*<IconButton><DarkModeIcon/></IconButton>*/}
-                </Box>
-                
-
-            </Box>
+            <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}} />
+            
         </>
         }
         </AnimatePresenceToggle>
@@ -203,7 +171,7 @@ function AnimatePresenceToggle ({children}) {
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-    return matchDownXL ? 
+    return matchDownLG ? 
         <AnimatePresence>
             {children}
         </AnimatePresence>
