@@ -74,7 +74,7 @@ export default function Services({data}) {
     setFirstSectionHeight(otherHeights - childrenHeights);
   };
 
-
+/*
   useEffect(() => {
     handleResize()
 
@@ -82,7 +82,7 @@ export default function Services({data}) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, []);*/
 
   useEffect(() => {
 
@@ -110,7 +110,7 @@ export default function Services({data}) {
             paddingRight: theme.layout.x,
           }}>
                 <Box ref={topTextRef} sx={{py: 10}}>
-                  <Block  variant={matchDownMD? 'h3':'h3'} sx={{lineHeight: '120%'}}>
+                  <Block  variant={matchDownLG? 'h4':'h3'} sx={{lineHeight: '120%'}}>
                     {data.top[locale]}
                   </Block>
                 </Box>

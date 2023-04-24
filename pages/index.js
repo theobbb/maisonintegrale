@@ -42,7 +42,7 @@ export default function Approche({data}) {
 
   const [firstSectionHeight, setFirstSectionHeight] = useState(0);
 
-
+/*
   useEffect(() => {
     if (!sectionsContainerRef) return;
 
@@ -74,14 +74,14 @@ export default function Approche({data}) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [sectionsContainerRef]);
-  //2:15:40:65,
+  }, [sectionsContainerRef]);*/
+
   return data && (
 
               <>
 
           <Box sx={{
-            height: `calc(100vh - ${matchDownMD? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
+            //height: `calc(100vh - ${matchDownMD? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
             display: 'flex',
             //flexDirection: 'column',
             alignItems: 'center',
@@ -104,9 +104,11 @@ export default function Approche({data}) {
               }
               {!matchDownMD? <br />: ' ' }
               
-              {locale == 'fr'? 'de haute qualité pour un avenir durable - ': 
-              'for a sustainable future - '}
+              {locale == 'fr'? 'de haute qualité pour un avenir durable': 
+              'for a sustainable future'}
+              &nbsp;-
               </Typography>
+              
               
               <Typography sx={{marginLeft: 12, typography: {xs: 'h4', xl: 'h4'}}}>
               {locale == 'fr'? 'Découvrez la mission de Maison Intégrale': 

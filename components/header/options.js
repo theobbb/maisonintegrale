@@ -7,7 +7,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useRouter } from 'next/router'
 
-export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}) {
+export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}) {
 
     const theme = useTheme();
 
@@ -53,11 +53,11 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
         </Box>
 
         <Box sx={{marginLeft: 2, display: 'flex', alignItems: 'center'}}>
-        <IconButton><LightModeIcon /></IconButton>
+            <IconButton onClick={() => toggleColorMode()}>
+              <LightModeIcon />
+            </IconButton>
             <IconButton onClick={() => setPlayEntrance(true)}>
-            <RefreshIcon />
-            
-            
+              <RefreshIcon />
             </IconButton>
             
             {/*<IconButton><DarkModeIcon/></IconButton>*/}

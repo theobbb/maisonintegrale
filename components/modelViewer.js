@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
 import { transition } from '@/utils/transitions'
@@ -6,6 +6,10 @@ import { transition } from '@/utils/transitions'
 
 
 export default function ModelViewer({direction, pageReady}) {
+
+  const theme = useTheme();
+
+  console.log(theme)
 
   const modelViewerRef = useRef(null)
   function ModelViewer() {
@@ -34,15 +38,19 @@ export default function ModelViewer({direction, pageReady}) {
   window.requestAnimationFrame(ModelViewer);
  }, [modelViewerRef])
 
+ const opacity = theme.palette.mode === 'dark'? 0.3: 1
+
   return (
     
     <Box 
-    initial={{x: `${direction*120}vw`, opacity: pageReady? 1:0}}
-    animate={{x: 0, y: pageReady? 0: '100vh', opacity: pageReady? 1:0}}
+    initial={{x: `${direction*120}vw`, opacity: pageReady? opacity:0}}
+    animate={{x: 0, y: pageReady? 0: '100vh', opacity: pageReady? opacity:0}}
     exit={{x: `${-direction*120}vw`}}
     transition={{transition, duration: 1.2}}
     component={motion.div}
-    sx={{position: 'fixed', height: '100%', width: '100%', top: 0, left: 0, zIndex: -1}}>
+    sx={{
+     
+      position: 'fixed', height: '100%', width: '100%', top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
     style={{height: '100%', width: '100%'}}

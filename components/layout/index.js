@@ -17,7 +17,7 @@ import ImageEntrance from '../imageEntrance';
 
 export const LinkDirectionContext = createContext();
 
-export default function Layout({children}) {
+export default function Layout({toggleColorMode, children}) {
 
     const theme = useTheme();
 
@@ -77,7 +77,7 @@ export default function Layout({children}) {
       }
     }, [])
 
-    const [playEntrance, setPlayEntrance] = useState(false)
+    const [playEntrance, setPlayEntrance] = useState(true)
 
     useEffect(() => {
       //setLinkDirection(0)
@@ -96,7 +96,7 @@ export default function Layout({children}) {
      <LinkDirectionContext.Provider value={{linkDirection, setLinkDirection}}>
 
           <AnimatePresence>
-          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}} />}
+          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}} />}
           </AnimatePresence>
 
           <AnimatePresence>

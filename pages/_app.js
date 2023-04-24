@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import Head from 'next/head';
 import MuiTypoWrapper from '@/components/muiTypoWrapper';
 
+
+
 export default function App({ Component, pageProps }) {
 
   const router = useRouter();
@@ -18,8 +20,8 @@ export default function App({ Component, pageProps }) {
   //{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] };
 
   useEffect(() => {
-    setColorMode('light')
-    //setColorMode(prefersDarkMode? 'dark':'light')
+    //setColorMode('light')
+    setColorMode(prefersDarkMode? 'dark':'light')
   }, [prefersDarkMode]);
 
   const colorTheme = useMemo(
@@ -33,6 +35,10 @@ export default function App({ Component, pageProps }) {
     },
     [colorMode],
   );
+
+  function toggleColorMode () {
+    setColorMode(colorMode === 'light' ? 'dark' : 'light');
+  }
 
 
 
@@ -55,7 +61,7 @@ export default function App({ Component, pageProps }) {
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
     ></script>
         </Head>
-        <Layout>
+        <Layout toggleColorMode={toggleColorMode}>
           <Component  {...pageProps}  />
         </Layout>
        

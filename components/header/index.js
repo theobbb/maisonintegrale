@@ -18,7 +18,7 @@ import Options from './options'
 
 
 
-export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}) {
+export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}) {
 
     const theme = useContext(ThemeContext);
 
@@ -156,7 +156,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             </Box>
             
 
-            <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance}} />
+            <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}} />
             
         </>
         }
