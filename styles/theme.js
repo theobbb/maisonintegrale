@@ -17,7 +17,7 @@ const palette = {
 
     light: {
         primary: {
-            main: 'rgba(0, 0, 0, 1)',
+            main: 'rgba(0, 0, 0, 1)', 
             greenTitle: 'rgba(36, 83, 37, 0.64)',
         },
         background: {
