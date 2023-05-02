@@ -23,16 +23,34 @@ const palette = {
         background: {
             default: 'rgba(240, 240, 240, 1)',
         },
+        action: {
+          hover: {
+            opacity: 'rgba(0, 0, 0, 0.5)',
+          }
+        }
+
     },
     dark: {
+      text: {
+        primary: 'rgba(255, 255, 255, 0.88)',
+      },
         primary: {
             main: 'rgba(255, 255, 255, 1)',
             divider: 'rgba(0, 0, 0, 0.8)',
-            greenTitle: 'rgba(36, 83, 37, 0.74)',
+
         },
+        secondary: {
+          main: 'rgba(255, 255, 255, 1)',
+        },
+        
         background: {
             default: '#1D1D1D',
         },
+        action: {
+          hover: {
+            opacity: 'rgba(255, 255, 255, 0.08)',
+          }
+        }
     }
 }
 
@@ -84,6 +102,28 @@ const typography = {
     }
 }
 
+const sx = {
+  selected: {
+    minWidth: 'unset',
+    position: 'absolute',
+    width: '100%', 
+    height: '100%',
+    borderRadius: '24px',
+    height: '100%',
+    top: 0,
+    right: 0,
+    left: 0,
+    margin: 0,
+    padding: 0,
+    //background: '#C8E5C9',
+    zIndex: -1,
+    border: '2px solid rgba(31, 133, 35, 0.31)',
+    '&:hover': {
+      //background: 'none'
+    }
+  }
+}
+
 
 const components = {
 
@@ -102,7 +142,7 @@ const components = {
           borderRadius: '24px',
           fontFamily: 'Manrope',
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            //backgroundColor: 'rgba(0, 0, 0, 0.05)',
           }
         }
       }
@@ -114,6 +154,17 @@ const components = {
 
     MuiButton: {
         variants: [
+          {
+            props: { variant: 'link' },
+            style: {
+              padding: '0px 12px',
+              borderRadius: '24px',
+              fontFamily: 'Manrope',
+              '&:hover': {
+                //backgroundColor: 'rgba(0, 0, 0, 0.05)',
+              }
+            }
+          },
             {
               props: { variant: 'contact' },
               style: {
@@ -122,7 +173,7 @@ const components = {
                 
                 borderRadius: '24px',
                 '&:hover': {
-                  background: 'rgba(165, 206, 167, 1)'
+                  //background: 'rgba(165, 206, 167, 1)'
                 }
                 //display: 'none  !important', 
               },
@@ -141,11 +192,11 @@ const components = {
                     left: 0,
                     margin: 0,
                     padding: 0,
-                    background: '#C8E5C9',
+                    //background: '#C8E5C9',
                     zIndex: -1,
                     border: '2px solid rgba(31, 133, 35, 0.31)',
                     '&:hover': {
-                      background: 'none'
+                      //background: 'none'
                     }
                 },
             }
@@ -202,7 +253,7 @@ const themeProperties = {
     palette,
     components,
     layout,
-
+    sx
   }
 
 export const theme = createTheme(themeProperties);

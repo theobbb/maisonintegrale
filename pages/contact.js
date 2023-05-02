@@ -50,30 +50,23 @@ export default function Contact() {
       
           <Box  sx={{py: 0, px: theme.layout.x, py: theme.layout.y, display: 'flex', flexDirection: matchDownLG? 'column':'row', paddingBottom: 12, width: '100%'}}>
             <Box sx={{paddingRight: matchDownLG?0:6, maxWidth: '700px', flex: 1}}>
-              <Typography variant='h3' sx={{}}>
-                {}
-              </Typography>
               <Typography variant='h3'>
                 {data[locale].contact} MAISON INTÉGRALE
               </Typography>
 
-              <Typography variant='h6' sx={{paddingTop: 8, display: 'flex', alignItems: 'center'}}>
-                <LocationOnIcon sx={{marginRight: 1, fontSize: 'inherit'}} />
-                Laurentides
-              </Typography>
-
-              <Typography variant='h6' sx={{paddingTop: 4, display: 'flex', alignItems: 'center'}}>
-                <PersonIcon sx={{marginRight: 1, fontSize: 'inherit'}} />
-                Marisol Sarrazin
-              </Typography>
-              <Typography variant='h6' sx={{paddingTop: 1, display: 'flex', alignItems: 'center'}}>
+              <Typography variant='h6' sx={{paddingTop: 6, display: 'flex', alignItems: 'center'}}>
                 <PersonIcon sx={{marginRight: 1, fontSize: 'inherit'}} />
                 Marc Baillargeon
               </Typography>
               
-              <Typography variant='h6' sx={{paddingTop: 4, display: 'flex', alignItems: 'center', fontWeight: 700}}>
+              <Typography variant='h6' sx={{paddingTop: 1, display: 'flex', alignItems: 'center', fontWeight: 700}}>
                 <PhoneIcon sx={{marginRight: 1, fontSize: 'inherit'}} />
                 450 602 4535
+              </Typography>
+
+              <Typography variant='h6' sx={{paddingTop: 4, display: 'flex', alignItems: 'center'}}>
+                <LocationOnIcon sx={{marginRight: 1, fontSize: 'inherit'}} />
+                Laurentides
               </Typography>
             </Box>
 

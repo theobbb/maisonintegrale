@@ -15,10 +15,11 @@ import LocaleLink from './localeLink'
 
 
 import Options from './options'
+import LazyImage from '../LazyImage'
 
 
 
-export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}) {
+export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}) {
 
     const theme = useContext(ThemeContext);
 
@@ -97,6 +98,13 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 </IconButton>
             </Typography>}
 
+            <Box >
+            {colorMode === 'light' && <LazyImage style={{width: '24px'}} src='/icons/logo-light.png'/>}
+            {colorMode === 'dark' && <LazyImage style={{width: '24px'}} src='/icons/logo-dark.png'/>}
+       
+            </Box>
+            
+
 
             
             <NavLink href='/' 
@@ -104,7 +112,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             text='MAISON INTÉGRALE' 
             sx={{position: 'relative', 
             whiteSpace: 'nowrap',
-            marginLeft: '-12px'
+            //marginLeft: '-12px'
             }} 
             //setLinkDirection={setLinkDirection} 
             //transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
@@ -156,7 +164,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             </Box>
             
 
-            <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}} />
+            <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />
             
         </>
         }

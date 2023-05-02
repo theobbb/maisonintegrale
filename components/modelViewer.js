@@ -9,8 +9,6 @@ export default function ModelViewer({direction, pageReady}) {
 
   const theme = useTheme();
 
-  console.log(theme)
-
   const modelViewerRef = useRef(null)
   function ModelViewer() {
 
@@ -40,7 +38,11 @@ export default function ModelViewer({direction, pageReady}) {
 
  const opacity = theme.palette.mode === 'dark'? 0.3: 1
 
+ const [scriptLoaded, setScriptLoaded] = useState(false)
+
   return (
+    <>
+   
     
     <Box 
     initial={{x: `${direction*120}vw`, opacity: pageReady? opacity:0}}
@@ -66,6 +68,7 @@ export default function ModelViewer({direction, pageReady}) {
     max-camera-orbit="auto 90deg auto" 
     />
     </Box>
-
+  
+    </>
   )
 }

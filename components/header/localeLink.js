@@ -1,5 +1,5 @@
 import { linkPaths } from '@/utils/linkPaths';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useTheme } from '@mui/material';
 import { useRouter } from 'next/router'
 import Link from './link';
 import { motion } from 'framer-motion';
@@ -13,11 +13,8 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
     const [newPath, setNewPath] = useState(null)
     
     const router = useRouter();
-    
-    
-    //if (pathIndex != -1) setNewPath(linkPaths[props.locale].paths[pathIndex].href);
 
-    
+    const theme = useTheme();
 
     useEffect(() => {
 
@@ -51,8 +48,6 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
 
       }, [router.query, router.route]);
 
-
-
     const isSelected = router.locale == props.locale; 
     
     return (
@@ -66,13 +61,9 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
                       >
                 </Box> 
                  : isSelected &&
-                <Button 
-                      variant='fake' 
-                      disableRipple 
-                      component={motion.div}
-                      layoutId={'active-lang'} 
-                      >
-                </Button>
+                <Box 
+                sx={theme.sx.selected}
+                component={motion.div} layoutId={'active-lang'}  />
             }
         </Box>
     ) 

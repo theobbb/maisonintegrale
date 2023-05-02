@@ -1,10 +1,10 @@
-import { Box, ButtonBase, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, ButtonBase, Typography, useMediaQuery } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import * as NextLink from 'next/link'
 import { LinkDirectionContext } from '../layout'
 import { useRouter } from 'next/router'
 
-export default function Link({href, text, localeLink, direction, children, variant, sx, ...others}) {
+export default function Link({href, text, localeLink, direction, children, variant, ...others}) {
 
     const router = useRouter();
 
@@ -13,7 +13,6 @@ export default function Link({href, text, localeLink, direction, children, varia
     const { setLinkDirection } = useContext(LinkDirectionContext)
 
     const handleScroll = () => {
-        console.log(href)
         if (document.documentElement.scrollTop <= 0) {
           
           window.removeEventListener('scroll', handleScroll);
@@ -45,7 +44,7 @@ export default function Link({href, text, localeLink, direction, children, varia
     }
 
     return href&& (
-        <ButtonBase variant='link'>
+        <Button variant='link' sx={{minWidth: 'unset'}}>
         <Box sx={{position: 'relative'}}>
             
             <NextLink onClick={(e) => handleClick(e)} href={href} style={{ textDecoration: 'none', color: 'inherit' }} {...others}>
@@ -56,6 +55,6 @@ export default function Link({href, text, localeLink, direction, children, varia
             </NextLink>
             
         </Box>
-        </ButtonBase>
+        </Button>
     )
 }

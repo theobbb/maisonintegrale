@@ -209,13 +209,11 @@ function Section ({section, index, setActiveLink}) {
 
     <Box ref={ref} >
       <Box sx={{paddingBottom: 6, paddingTop: matchDownMD? 3:'100px',}} >
-        <Typography variant={matchDownXL? 'h4':'h4'} sx={{lineHeight: '120%', fontWeight: 600, color: theme.palette.primary.greenTitle}}>
+        <Typography variant={matchDownXL? 'h4':'h4'} sx={{lineHeight: '120%', fontWeight: 600, color: theme.palette.text.secondary}}>
           {section.title[locale]}
         </Typography>
       </Box>
-      
-      
-        
+
           <Block sx={{ typography: { sm: 'body2', md: 'body1', lg: 'body0' }, paddingBottom: 6 }}>
             {section.body[locale]}
           </Block>

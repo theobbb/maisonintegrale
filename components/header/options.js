@@ -6,8 +6,9 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie';
 
-export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}) {
+export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}) {
 
     const theme = useTheme();
 
@@ -37,28 +38,31 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
         mx: 1,
         alignItems: 'center'
     }}>
-        <Box sx={{display: 'flex'}}>
-    
-        <LocaleLink href={router.asPath} locale='fr' text='FR' 
-        direction={-1}
-        sx={{position: 'relative', mx: 0.2}} 
-        //setLinkDirection={setLinkDirection} 
-        />
-        <LocaleLink href={router.asPath} locale='en' text='EN' 
-        direction={1}
-        sx={{position: 'relative', mx: 0.2}} 
-        //setLinkDirection={setLinkDirection} 
 
-        />
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <LocaleLink text='FR' locale='fr' sx={{position: 'relative', mx: 0.5, my: matchDownLG? 0.5:0}} />
+            <LocaleLink text='EN' locale='en' sx={{position: 'relative', mx: 0.5, my: matchDownLG? 0.5:0}} />
+           
+
         </Box>
 
+
         <Box sx={{marginLeft: 2, display: 'flex', alignItems: 'center'}}>
-            <IconButton onClick={() => toggleColorMode()}>
+          {theme.palette.mode == 'light' && 
+            <IconButton onClick={() => setColorMode('dark')}>
               <LightModeIcon />
             </IconButton>
+          }
+          {theme.palette.mode == 'dark' && 
+          <IconButton>
+
+          <DarkModeIcon onClick={() => setColorMode('light')} />
+          </IconButton>
+        }
             <IconButton onClick={() => setPlayEntrance(true)}>
               <RefreshIcon />
             </IconButton>
+          
             
             {/*<IconButton><DarkModeIcon/></IconButton>*/}
         </Box>

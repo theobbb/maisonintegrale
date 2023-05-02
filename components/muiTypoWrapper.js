@@ -14,6 +14,7 @@ export default function MuiTypoWrapper({className, sx, children}) {
   return (
    
         <Box 
+        lazy
         component={motion.div}
         sx={sx}
         initial={!isSameChild && {opacity: 0}}

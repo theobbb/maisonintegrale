@@ -1,31 +1,43 @@
 import '@/styles/globals.css'
-import { theme } from '@/styles/theme';
-import { Box, Button, createTheme, CssBaseline, responsiveFontSizes, ThemeProvider, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { LangContext, ThemeContext } from '@/utils/context';
-import { useContext, useEffect, useMemo, useState } from 'react';
 import Layout from '@/components/layout';
-import { useRouter } from 'next/router'
 import Head from 'next/head';
+
+import { theme } from '@/styles/theme';
+import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes, useMediaQuery } from '@mui/material';
+import Cookies from 'js-cookie';
+import { useEffect, useMemo, useState } from 'react'
+
+import { ThemeContext } from '@/utils/context';
 import MuiTypoWrapper from '@/components/muiTypoWrapper';
 
+import Script from 'next/script';
 
-
-export default function App({ Component, pageProps }) {
-
-  const router = useRouter();
+function App({ Component, pageProps }) {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [colorMode, setColorMode] = useState('light');
+  const [colorMode, setColorMode] = useState(Cookies.get('colorMode') || 'light');
 
-  //{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] };
+  const [isNewSession, setIsNewSession] = useState(false)
+  
+  useEffect(() => {
+    const sessionId = Cookies.get('sessionId')
+    if (!sessionId) {
+      setIsNewSession(true)
+      Cookies.set('sessionId', Date.now().toString())
+    }
+  }, [])
 
   useEffect(() => {
-    //setColorMode('light')
-    setColorMode(prefersDarkMode? 'dark':'light')
-  }, [prefersDarkMode]);
+    Cookies.set('colorMode', colorMode);
+  }, [colorMode]);
+
+  useEffect(() => {
+    if (isNewSession) setColorMode(prefersDarkMode? 'dark':'light')
+  }, [isNewSession, prefersDarkMode]);
 
   const colorTheme = useMemo(
     () => {
+      
       const newTheme = {...theme};
       newTheme.palette = {...theme.palette[colorMode]};
       newTheme.palette.mode = colorMode;
@@ -35,37 +47,27 @@ export default function App({ Component, pageProps }) {
     },
     [colorMode],
   );
-
-  function toggleColorMode () {
-    setColorMode(colorMode === 'light' ? 'dark' : 'light');
-  }
-
-
-
-  useEffect(() => {
-    //if (router.asPath == '/realisations')console.log('dynamic')
-
-  }, [router.asPath])
-
+  
   return (
     <ThemeContext.Provider value={colorTheme}>
       <ThemeProvider theme={colorTheme}>
-        
-        <CssBaseline />
-
+    
+      <CssBaseline />
         <Head> 
         <meta name="description" content="Maison Intégrale" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script
-      type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-    ></script>
+        
         </Head>
-        <Layout toggleColorMode={toggleColorMode}>
-          <Component  {...pageProps}  />
+        
+        <Script type='module' strategy="beforeInteractive" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" />
+
+        <Layout setColorMode={setColorMode}>
+          {<Component  {...pageProps}  />}
         </Layout>
        
-      </ThemeProvider>
+        </ThemeProvider>
     </ThemeContext.Provider>
+    
   )
 }
+export default App;

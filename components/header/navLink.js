@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
@@ -6,6 +6,8 @@ import Link from './link';
 import { linkPaths } from '@/utils/linkPaths';
 
 export default function NavLink({sx, index, drawerOpen, footer, children, ...props}) {
+
+    const theme = useTheme();
     const router = useRouter();
 
     const [newDirection, setNewDirection] = useState(0);
@@ -15,9 +17,6 @@ export default function NavLink({sx, index, drawerOpen, footer, children, ...pro
         
         if (router.asPath == '/') return setNewDirection(1)
 
-
-        
-        //if (index == 'home') return setNewDirection(-1)
         else {
             const currentPathIndex = linkPaths[router.locale].paths.indexOf(
                 linkPaths[router.locale].paths.find(path => path.href == `/${router.asPath.split('/')[1]}`));
@@ -36,16 +35,12 @@ export default function NavLink({sx, index, drawerOpen, footer, children, ...pro
 
     return (    
         <Box sx={{position: 'relative', ...sx}}>
-            <Link {...props} direction={newDirection} sx={sx}>{children}</Link>
+            <Link {...props} direction={newDirection}>{children}</Link>
 
             {isSelected && !footer && 
-                <Button 
-                      variant='fake' 
-                      disableRipple 
-                      component={motion.div}
-                      layoutId={'active-link'} 
-                      >
-                </Button>
+                <Box 
+                sx={theme.sx.selected}
+                component={motion.div} layoutId={'active-link'}  />
             }
             {isSelected && footer && 
                 <Box
