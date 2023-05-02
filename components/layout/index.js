@@ -17,7 +17,7 @@ import ImageEntrance from '../imageEntrance';
 
 export const LinkDirectionContext = createContext();
 
-export default function Layout({toggleColorMode, children}) {
+export default function Layout({colorMode, setColorMode, children}) {
 
     const theme = useTheme();
 
@@ -43,6 +43,7 @@ export default function Layout({toggleColorMode, children}) {
     }, [router.asPath, matchDownLG, router.locale])
 
     useEffect(() => {
+      if (!matchDownMD) return;
       if (drawerOpen) setPathSapins(sapins.drawer)
       else setPathSapins(sapins[router.route]);
       
@@ -66,18 +67,9 @@ export default function Layout({toggleColorMode, children}) {
 
     }, [router.asPath])
 
-   //console.log(lastDisabled, disableTransition, router.asPath)
+    const devMode = process.env.NODE_ENV
 
-    const [isNewSession, setIsNewSession] = useState(false)
-    useEffect(() => {
-      const sessionId = Cookies.get('sessionId')
-      if (!sessionId) {
-        setIsNewSession(true)
-        Cookies.set('sessionId', Date.now().toString())
-      }
-    }, [])
-
-    const [playEntrance, setPlayEntrance] = useState(true)
+    const [playEntrance, setPlayEntrance] = useState(!devMode)
 
     useEffect(() => {
       //setLinkDirection(0)
@@ -90,13 +82,13 @@ export default function Layout({toggleColorMode, children}) {
 
     }, [playEntrance])
 
-
   return (
 
      <LinkDirectionContext.Provider value={{linkDirection, setLinkDirection}}>
 
+          
           <AnimatePresence>
-          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, toggleColorMode}} />}
+          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />}
           </AnimatePresence>
 
           <AnimatePresence>
@@ -105,7 +97,7 @@ export default function Layout({toggleColorMode, children}) {
           }
           </AnimatePresence>
 
-          <AnimatePresence mode={disableTransition? 'wait':'sync'}>
+          <AnimatePresence>
 
                 {!drawerOpen && 
                 
@@ -125,12 +117,12 @@ export default function Layout({toggleColorMode, children}) {
                   
                 }
                 
-                <Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} direction={linkDirection} pageReady={pageReady} />
+                {/*<Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} direction={linkDirection} pageReady={pageReady} />*/}
               
-                {router.route == '/' && !drawerOpen &&
+                {/*router.route == '/' && !drawerOpen &&
 
                     <ModelViewer direction={linkDirection} pageReady={pageReady} />        
-          }
+                */}
   
           </AnimatePresence>
 
