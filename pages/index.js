@@ -1,6 +1,6 @@
 
 import Layout from '@/components/layout'
-import { Box, Button, ButtonBase, Divider, Grid, Icon, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, ButtonBase, Divider, Grid, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { LangContext, ThemeContext } from '@/utils/context'
 import { useRouter } from 'next/router'
@@ -13,6 +13,7 @@ import useScrollProgress from '@/utils/scrollProgress'
 import ContactButton from '@/components/contactButton'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
+import NavLink from '@/components/header/navLink'
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "approche"]`)
@@ -32,7 +33,7 @@ export default function Approche({data}) {
   const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-  const theme = useContext(ThemeContext);
+  const theme = useTheme()
 
  
   const [activeLink, setActiveLink] = useState(0);
@@ -42,6 +43,7 @@ export default function Approche({data}) {
 
   const [firstSectionHeight, setFirstSectionHeight] = useState(0);
 
+  
 /*
   useEffect(() => {
     if (!sectionsContainerRef) return;
@@ -157,22 +159,23 @@ export default function Approche({data}) {
               <Box sx={{position: 'sticky', top: '20vh', paddingRight: 8}}>
                 {data.main.map((section, miniIndex) => (
                   <Box component={motion.div} layout key={`miniTitle-${section._key}`} sx={{paddingBottom: 0, position: 'relative', boxSizing: 'border-box'}}>
-                    <ButtonBase variant='link'>
-                    <Box sx={{p: '3px 0px'}}>
-                      <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Typography variant='h7' sx={{fontWeight: 700}}>
-                          {section.mini_title[locale]}
-                        </Typography>
-                      </Link>
-                    </Box>
-                    </ButtonBase>
+                  <ButtonBase variant='link'>
+<Box sx={{p: '3px 0px'}}>
+  <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Typography variant='h7' sx={{fontWeight: 700}}>
+      {section.mini_title[locale]}
+    </Typography>
+  </Link>
+</Box>
+</ButtonBase>
+                    
+
                     {miniIndex == activeLink && 
-                      <Button 
-                      variant='fake' disableRipple 
-                      component={motion.div}
-                      layoutId='approche-scroll-links'
-                      sx={{p: '3px 16px', position: 'absolute', width: '100%', top: 0, left: 0, zIndex: -1}}>
-                      </Button>
+                      
+                      <Box 
+                sx={theme.sx.selected}
+                component={motion.div} layoutId='index-scroll-links'  />
+
                     }
                   </Box>
                 ))}
@@ -184,8 +187,22 @@ export default function Approche({data}) {
           </>
   )
 }
+/*
 
-
+<NavLink href={`#${section.slug[locale].current}`} 
+                    
+                    >
+                     {section.mini_title[locale]}
+                    </NavLink>
+<ButtonBase variant='link'>
+<Box sx={{p: '3px 0px'}}>
+  <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Typography variant='h7' sx={{fontWeight: 700}}>
+      {section.mini_title[locale]}
+    </Typography>
+  </Link>
+</Box>
+</ButtonBase>*/
 
 
 function Section ({section, index, setActiveLink}) {
@@ -197,10 +214,13 @@ function Section ({section, index, setActiveLink}) {
     threshold: 0.8,
   });
   
+  useEffect(() => {
+    setActiveLink(index)
+  }, [inView])
 
-  if (inView) setActiveLink(index)
 
-  const theme = useContext(ThemeContext);
+
+  const theme = useTheme();
 
   const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));

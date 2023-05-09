@@ -1,18 +1,17 @@
 export const linkPaths = {
-    fr: {
-        paths: [
-            { name: "Services", href: "/services" },
-            { name: "Réalisations", href: "/realisations" },
-            { name: "Équipe", href: "/equipe" },
-            { name: "Contact", href: "/contact" }
-        ],
-    },
-    en: {
-        paths: [
-            { name: "Services", href: "/services" },
-            { name: "Work", href: "/work" },
-            { name: "Team", href: "/team" },
-            { name: "Contact", href: "/contact" }
-        ]
-    }
+    fr: [
+        { title: "Accueil", name: "/"},
+        { title: "Services", name: "/services" },
+        { title: "Réalisations", name: "/realisations" },
+        { title: "Équipe", name: "/equipe" },
+        { title: "Contact", name: "/contact" }
+    ],
+    en: [
+        { title: "Home", name: "/"},
+        { title: "Services", name: "/services" },
+        { title: "Work", name: "/work" },
+        { title: "Team", name: "/team" },
+        { title: "Contact", name: "/contact" }
+    ]
+    
 }

@@ -6,12 +6,28 @@ import React, { useEffect, useRef, useState } from 'react'
 import Sapins from '../sapins';
 import { transition } from '@/utils/transitions';
 import lottie from 'lottie-web';
+import data from 'public/data.json'
 
 export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntrance}) {
+
+    const theme = useTheme();
 
     const containerRef = useRef(null);
 
     const [animInstance, setAnimInstance] = useState(null);
+
+    
+    const [animationData, setAnimationData] = useState(null);
+
+    const getAnimationData = async () => {
+      const response = await fetch('public/data.json');
+      const data = await response.json();
+      setAnimationData(data)
+    }
+
+    const coloredData = data;
+    coloredData.layers[0].shapes[0].it[1].c.k = theme.palette.mode == 'light'? [0, 0, 0, 1] : [1, 1, 1, 1]
+
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -23,7 +39,8 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
           loop: false,
           autoplay: true,
           
-          animationData: require('public/data.json'),
+          animationData: coloredData,
+           
           rendererSettings: {
             preserveAspectRatio: 'xMidYMid slice',
           }

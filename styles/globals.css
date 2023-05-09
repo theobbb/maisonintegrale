@@ -1,10 +1,41 @@
 html {
     scroll-behavior: smooth;
    }
-   body {
+body {
+    overflow-y: scroll;
     scroll-behavior: smooth;
     overflow-x: hidden;
-   }
+}
+
+@keyframes enter {
+from {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+  
+  @keyframes exit {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+  
+  .page-enter {
+    animation: enter 0.3s ease-in-out;
+  }
+  
+  .page-exit {
+    animation: exit 0.3s ease-in-out;
+  }
 
 
 /*2016

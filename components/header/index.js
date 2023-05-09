@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, ButtonBase, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -16,12 +16,15 @@ import LocaleLink from './localeLink'
 
 import Options from './options'
 import LazyImage from '../LazyImage'
+import ContactButton from '../contactButton'
+import Title from './Title'
+import MenuButton from './menuButton'
 
-
+const transition = { ease: [0.43, 0.13, 0.23, 0.96], duration: 0.8 };
 
 export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}) {
 
-    const theme = useContext(ThemeContext);
+    const theme = useTheme();
 
     const router = useRouter()
 
@@ -37,7 +40,22 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         setFirstLoad(true)
     }, [])
 
+
   return (
+<>
+<AnimatePresence>
+    {drawerOpen && 
+    <Box 
+    component={motion.div}
+    initial={{opacity: 0}}
+    animate={{opacity: 1, transition: {...transition, delay: 0.8}}}
+    exit={{opacity: 0}}
+    transition={{...transition, duration: 0.3}}
+    sx={{position: 'fixed', bottom: 24, left: 24}}> 
+        {theme.palette.mode === 'light' && <LazyImage style={{width: '64px'}} src='/icons/logo-light.png'/>}
+        {theme.palette.mode === 'dark' && <LazyImage style={{width: '64px'}} src='/icons/logo-dark.png'/>}
+    </Box>}
+</AnimatePresence>
 
     <Box 
     id='header'
@@ -61,71 +79,44 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         alignItems: matchDownLG?'flex-start':'center', 
         justifyContent: 'space-between'
     }}>
+
+
         <Box sx={{
             
             flex: 1, 
             display: 'flex', 
             alignItems: 'center', 
             py: matchDownLG? 0.3:1,
-            px: theme.layout.x,
+            px: matchDownLG && theme.layout.x,
             background: matchDownLG? theme.palette.background.default : 'none',
             width: '100%',
             height: '100%',
 
         }}>
             {matchDownLG && 
-            <Typography variant={matchDownLG && 'h4'} sx={{position: 'relative', height: '100%'}} >
-                <IconButton 
-                onClick={() => setDrawerOpen(!drawerOpen)}
-                variant='inline' 
-                sx={{display: 'flex', p:0.5, marginRight: 1, fontSize: 'inherit', height: '100%'}}>
-                    <SvgIcon
-                    sx={{fontSize: 'inherit'}}
-                    strokeWidth='1px'
-                    
-                    //width={matchDownMD? '18px':'20px'}
-                    style={{fill: '#b5d1b3', stroke: '#88bc8a', strokeMiterlimit: '10'}} 
-                    
-                   
-                    viewBox="0 0 200 200">
-                        <defs>
-                        
-                        </defs>
-                        <title>home-icon</title>
-                        <polygon vectorEffect="non-scaling-stroke" points="30 170 170 170 170 80 100 20 30 80"/>
-                        </SvgIcon>
-                    
-                </IconButton>
-            </Typography>}
+            <Box>
+                <MenuButton {...{drawerOpen, setDrawerOpen}} />
+            </Box> }
 
-            <Box >
-            {colorMode === 'light' && <LazyImage style={{width: '24px'}} src='/icons/logo-light.png'/>}
-            {colorMode === 'dark' && <LazyImage style={{width: '24px'}} src='/icons/logo-dark.png'/>}
-       
+            {!matchDownLG&& 
+
+            <Box sx={{width: {xl: 60, lg: 36}}}>
+            <Box sx={{display: 'flex', alignItems: 'center', position: 'absolute', top: 0, left: 0, width: '100%'}}>
+            <LazyImage sx={{paddingLeft: {xl: 2, lg: 1.5}, paddingRight: {xl: 1, lg: 0}, py: 1, width: {xl: 60, lg: 36, md: 30}}}
+            key={`logo-${theme.palette.mode}`}
+            src={`/icons/logo-${theme.palette.mode}.png`} />
+
             </Box>
+            </Box>}
             
 
 
             
-            <NavLink href='/' 
-            
-            text='MAISON INTÉGRALE' 
-            sx={{position: 'relative', 
-            whiteSpace: 'nowrap',
-            //marginLeft: '-12px'
-            }} 
-            //setLinkDirection={setLinkDirection} 
-            //transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
-            
-            index='home' />
+                <Title drawerOpen={drawerOpen} />
            
 
         </Box>
 
-        
-
-        
-        
         <AnimatePresenceToggle>
 
         {(!matchDownLG || drawerOpen) && 
@@ -135,9 +126,9 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             key={`links-${drawerOpen}`}
             component={motion.div}
             initial={{x: matchDownLG?`${-60}vw`:0}}
-            animate={{x: 0}}
-            exit={{x: matchDownLG?`${-60}vw`:0}}
-            transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
+            animate={{x: 0, transition: {...transition, delay: 0.2}}}
+            exit={{x: matchDownLG?`${-60}vw`:0, transition: {...transition, delay: 0.2}}}
+            transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8 }}
             sx={{
                 display: 'flex', 
                 my: matchDownLG? 6:0, 
@@ -145,34 +136,41 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 flex: 4, 
                 justifyContent: 'center', 
                 
-                mx: matchDownLG? 3:0,
-                position: 'relative'
+                mx: {lg: 0, md: 7.8, sm: 6.5, xs: 1},
+                position: 'relative',
+                
             }}>
                 
-                {linkPaths[router.locale].paths.map((path, index) => (
-                    <NavLink 
-                    index={index}
-                    href={path.href} 
-                    text={path.name} 
-                    key={path.name} 
-                    variant={matchDownLG && 'h5'}
-                    //setLinkDirection={setLinkDirection}
+                {linkPaths[router.locale].slice(matchDownLG? 0:1).map((path, index) => (
+                    <NavLink     
+                    index={index + 1}
+                    href={path.name} 
+                    py={matchDownLG? 0.5:0}
+                    px={matchDownLG? 2:1.5}
+                    key={`header-links-${path.name}`} 
+                    variant={matchDownLG && 'h4'}
                     drawerOpen={drawerOpen}
-                    sx={{position: 'relative', mx: 0.5, my: matchDownLG? 0.5:0}} />
+                    sx={{position: 'relative', mx: matchDownLG?  0.5:1, my: matchDownLG&& 0.5}}>
+
+                        {path.title}
+                    </NavLink>
                 ))}
 
+                
+                
+
             </Box>
-            
+
 
             <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />
-            
         </>
+        
         }
         </AnimatePresenceToggle>
         
     
     </Box>
-
+</>
   )
 }
 function AnimatePresenceToggle ({children}) {

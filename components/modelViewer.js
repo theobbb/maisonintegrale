@@ -17,7 +17,7 @@ export default function ModelViewer({direction, pageReady}) {
     const modelViewer = modelViewerRef.current;
 
     var scrollMaxY = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
-                       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ); // max scroll distance
+      document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ); // max scroll distance
                          
     var AnimBegin = 0; // beginning of animation
     var AnimEnd = 3; // end of animation
@@ -38,11 +38,7 @@ export default function ModelViewer({direction, pageReady}) {
 
  const opacity = theme.palette.mode === 'dark'? 0.3: 1
 
- const [scriptLoaded, setScriptLoaded] = useState(false)
-
   return (
-    <>
-   
     
     <Box 
     initial={{x: `${direction*120}vw`, opacity: pageReady? opacity:0}}
@@ -68,7 +64,6 @@ export default function ModelViewer({direction, pageReady}) {
     max-camera-orbit="auto 90deg auto" 
     />
     </Box>
-  
-    </>
+
   )
 }

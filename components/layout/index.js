@@ -1,23 +1,20 @@
-import { Box, Divider, Grid, useMediaQuery, useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 import Header from '../header'
-import Sapin from '../sapin';
-import ScrollSapin from '../scrollSapin';
-import PageTransition from '../pageTransition';
+import PageTransition from './pageTransition';
 import Sapins from '../sapins';
 import { useRouter } from 'next/router'
 import { createContext } from 'react';
 import Footer from '../footer';
 import ModelViewer from '../modelViewer';
 
-import Cookies from 'js-cookie'
 import ImageEntrance from '../imageEntrance';
 
 
 export const LinkDirectionContext = createContext();
 
-export default function Layout({colorMode, setColorMode, children}) {
+export default function Layout({ colorMode, setColorMode, children }) {
 
     const theme = useTheme();
 
@@ -32,6 +29,7 @@ export default function Layout({colorMode, setColorMode, children}) {
     const [linkDirection, setLinkDirection] = useState(0)
 
     const [pathSapins, setPathSapins] = useState(null);
+    const [drawerSapinsTimeKey, setDrawerSapinsTimeKey] = useState(null);
 
     const [disableTransition, setDisableTransition] = useState(false);
 
@@ -43,21 +41,21 @@ export default function Layout({colorMode, setColorMode, children}) {
     }, [router.asPath, matchDownLG, router.locale])
 
     useEffect(() => {
-      if (!matchDownMD) return;
+      setDrawerSapinsTimeKey(Date.now().toString())
+      setLinkDirection(drawerOpen? 1:-1)
+      //if (!matchDownMD) return;
       if (drawerOpen) setPathSapins(sapins.drawer)
       else setPathSapins(sapins[router.route]);
       
-      setLinkDirection(drawerOpen? 1:-1)
+      
 
     }, [drawerOpen])
 
+
+
     const [pageReady, setPageReady] = useState(false)
     const [headerReady, setHeaderReady] = useState(false)
-    //const isDynamic = router.route == '/[...dynamic]'
 
-    const [isDynamic, setIsDynamic] = useState(false);
-
-    const [lastDisabled, setLastDisabled] = useState(false);
 
     useEffect(() => {
       if (router.route == '/404') return setDisableTransition(true)
@@ -65,14 +63,16 @@ export default function Layout({colorMode, setColorMode, children}) {
       if (router.route == '/realisations/[slug]') return setDisableTransition(true)
       setDisableTransition(false)
 
-    }, [router.asPath])
+    }, [router.route])
+
 
     const devMode = process.env.NODE_ENV
+    //process.env.NODE_ENV
 
     const [playEntrance, setPlayEntrance] = useState(!devMode)
 
     useEffect(() => {
-      //setLinkDirection(0)
+      setLinkDirection(0)
       setHeaderReady(!playEntrance)
       setPageReady(!playEntrance)
 
@@ -82,49 +82,63 @@ export default function Layout({colorMode, setColorMode, children}) {
 
     }, [playEntrance])
 
+
+    function scrollTop() {
+      window.scrollTo(0, 0);
+    }
+
+    useEffect(() => {
+      router.events.on("routeChangeStart", scrollTop);
+      return () => {
+        router.events.off("routeChangeStart", scrollTop);
+      };
+    }, []);
+
+
+    
+
   return (
 
      <LinkDirectionContext.Provider value={{linkDirection, setLinkDirection}}>
 
-          
-          <AnimatePresence>
-          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />}
-          </AnimatePresence>
 
           <AnimatePresence>
+          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />}
+
+          
+          
+          
+              
+              {router.route == '/' && !drawerOpen &&
+
+                  <ModelViewer key='model-viewer' direction={linkDirection} pageReady={pageReady} />        
+              }
+          </AnimatePresence>
+          <AnimatePresence>
+          
+          <Sapins sapins={pathSapins} 
+          drawerOpen={drawerOpen}
+          key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
+          direction={linkDirection} pageReady={pageReady} />
+          </AnimatePresence>
+
+          
+
+          
           {playEntrance && 
             <ImageEntrance {...{setPageReady, setHeaderReady, playEntrance, setPlayEntrance}} />
           }
-          </AnimatePresence>
-
-          <AnimatePresence>
-
-                {!drawerOpen && 
-                
-                  <PageTransition key={`page-${router.route}}`} direction={linkDirection} drawerOpen={drawerOpen} 
-                disableTransition={disableTransition} pageReady={pageReady}>
-                  <Box sx={{position: 'absolute', width: '100%', top: theme.spacing(6), 
-                  minHeight: '100vh',
-                  left: 0
-                  }}>
-                    <Box sx={{minHeight: '100vh'}}>
-                    {children}
-                    </Box>
-                    <Footer />
-                    
-                  </Box>
-                  </PageTransition>
-                  
-                }
-                
-                {/*<Sapins sapins={pathSapins} key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} direction={linkDirection} pageReady={pageReady} />*/}
-              
-                {/*router.route == '/' && !drawerOpen &&
-
-                    <ModelViewer direction={linkDirection} pageReady={pageReady} />        
-                */}
-  
-          </AnimatePresence>
+          
+          
+          <AnimatePresence initial={false} drawerOpen={drawerOpen}>
+          {!drawerOpen && !playEntrance &&
+          <PageTransition key={router.route} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
+            {children}
+            <Footer />
+          </PageTransition>
+        }
+</AnimatePresence>
+          
 
           </LinkDirectionContext.Provider>
 
@@ -135,7 +149,7 @@ export default function Layout({colorMode, setColorMode, children}) {
 
 const sapins = {
   'drawer': [
-      { height: 120, position: 10 },
+      { height: 90, position: 80 },
       { height: 60, position: 50 },
       { height: 40, position: 80 },
   ],
@@ -149,16 +163,18 @@ const sapins = {
 
   ],
   '/equipe': [
+      { height:  30, position: 10, hide: 'lg' },
       { height: 70, position: 20 },
+      { height: 20, position: 40 },
       { height: 60, position: 60 },
       { height: 40, position: 80 },
       { height: 90, position: 90 },
   ],
   
   '/contact': [
-      { height: 70, position: 20 },
-      { height: 60, position: 60 },
-      { height: 40, position: 80 },
-      { height: 90, position: 90 },
+      { height: 20, position: 22 },
+      { height: 60, position: 60, hide: 'lg' },
+      { height: 30, position: 30, hide: 'sm' },
+      { height: 70, position: 70 },
   ],
 }

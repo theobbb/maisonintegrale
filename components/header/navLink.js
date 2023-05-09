@@ -12,25 +12,35 @@ export default function NavLink({sx, index, drawerOpen, footer, children, ...pro
 
     const [newDirection, setNewDirection] = useState(0);
 
-    useEffect(() => {
-        if (index == -1) return
+    function format (path) {
+        let newPath = path
+        if (!newPath) return ''
+        if (newPath.includes('#')) newPath = newPath.split('#')[0]
+        if (newPath.includes('?')) newPath = newPath.split('?')[0]
         
-        if (router.asPath == '/') return setNewDirection(1)
+        
+        return newPath
+    }
+
+    useEffect(() => {
+        
+        if (index == -1) return setNewDirection(0)
 
         else {
-            const currentPathIndex = linkPaths[router.locale].paths.indexOf(
-                linkPaths[router.locale].paths.find(path => path.href == `/${router.asPath.split('/')[1]}`));
+            const currentPathIndex = linkPaths[router.locale].indexOf(
+                linkPaths[router.locale].find(path => format(path.name) == format(router.asPath)))
             const newDirection = currentPathIndex == -1? 0: index > currentPathIndex? 1:-1
+            
             setNewDirection(newDirection)  
         }
         
         if (drawerOpen) setNewDirection(1);
-    }, [router.locale, router.asPath, router.query])
+    }, [router.locale, router.asPath])
 
    const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {
-        setIsSelected(props.href == router.asPath)
+        setIsSelected(format(props.href) == format(router.asPath))
     }, [router.asPath])
 
     return (    

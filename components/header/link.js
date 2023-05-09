@@ -4,7 +4,7 @@ import * as NextLink from 'next/link'
 import { LinkDirectionContext } from '../layout'
 import { useRouter } from 'next/router'
 
-export default function Link({href, text, localeLink, direction, children, variant, ...others}) {
+export default function Link({href, text, localeLink, direction, children, variant, py, px, ...others}) {
 
     const router = useRouter();
 
@@ -12,45 +12,21 @@ export default function Link({href, text, localeLink, direction, children, varia
 
     const { setLinkDirection } = useContext(LinkDirectionContext)
 
-    const handleScroll = () => {
-        if (document.documentElement.scrollTop <= 0) {
-          
-          window.removeEventListener('scroll', handleScroll);
-          router.push(href, href, {locale: router.locale})
-        }
-
-      };
-
-    function handleClick(e) {
+    function handleClick() {
         setLinkDirection(direction)
-
-        if (localeLink) return;
-
-        if (matchDownLG) return router.push(href)
-        
-        e.preventDefault()
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-  
-
-        handleScroll();
-  
-        window.addEventListener('scroll', handleScroll);
-        
-        //window.scrollTo({ top: 0, behavior: 'smooth' });
-        //router.push(href)
-        
     }
 
     return href&& (
-        <Button variant='link' sx={{minWidth: 'unset'}}>
+        <Button variant='link' sx={{minWidth: 'unset', py, px}}>
         <Box sx={{position: 'relative'}}>
             
-            <NextLink onClick={(e) => handleClick(e)} href={href} style={{ textDecoration: 'none', color: 'inherit' }} {...others}>
+            <NextLink scroll={false} onClick={(e) => handleClick(e)} href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box sx={{display: 'flex'}}>
-                <Typography variant={variant? variant:'h6'}>{text.toUpperCase()}</Typography>
-                {children}
+                
+                    <Typography {...others} variant={variant? variant:'h6'}>{children}</Typography>
+                
+                
+                
                 </Box>
             </NextLink>
             

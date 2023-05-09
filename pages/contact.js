@@ -84,12 +84,12 @@ export default function Contact() {
                 <TextField id="message" label='message' variant="outlined" multiline rows={5} sx={{width: '100%'}} />
               </Box>   
               <Box sx={{alignSelf: 'flex-end'}}>
-                <Button variant='contact'>
-                  <Typography variant='h7' sx={{fontWeight: '700 !important'  }}>
+                <Button variant='contrast' color="secondary" >
+                  <Typography variant='h6'>
                   
                     {data[locale].send}
                   </Typography>
-                  <Typography variant='h6' sx={{display: 'flex', alignItems: 'center', paddingLeft: 0.5, marginRight: -0.8}}>
+                  <Typography variant='h5' sx={{display: 'flex', alignItems: 'center', paddingLeft: 0.5, marginRight: -0.8}}>
                       <ArrowOutwardIcon sx={{fontSize: 'inherit'}} />
                   </Typography>
                 </Button>

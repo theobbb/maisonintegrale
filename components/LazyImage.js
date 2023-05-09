@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 
@@ -26,7 +27,8 @@ const LazyImage = ({ src, alt, ...others }) => {
   }, [src]);
 
   return (
-    <motion.img
+    <Box
+    component={motion.img}
     transition={{transition: 'ease', duration: 0.5}}
         initial={{opacity:0}}
         animate={{opacity: imageSrc && 1}}

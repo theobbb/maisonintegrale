@@ -2,15 +2,14 @@
 import { Box, Button, Divider, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useRouter } from 'next/router'
 import ContactButton from '@/components/contactButton'
-import Sapin from '@/components/sapin'
+
 import { motion } from 'framer-motion'
-import PageTransition from '@/components/pageTransition'
+import PageTransition from '@/components/layout/pageTransition'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
 
-
-
-
+import Link from 'next/link'
+import { useEffect } from 'react'
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "equipe"]`)
@@ -27,7 +26,7 @@ export default function Equipe({data}) {
   const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-
+  
 
   return (
     <>
@@ -44,6 +43,7 @@ export default function Equipe({data}) {
             
             width: '100%'
             }}>
+
             <Box sx={{flex: 1, paddingRight: matchDownLG?0:theme.layout.x, maxWidth: '700px'}}>
               <Typography variant='h4' sx={{}}>
                 MARISOL SARRAZIN
@@ -57,7 +57,7 @@ export default function Equipe({data}) {
               </Block>
             </Box>
             <Box sx={{flex: 1, paddingTop: matchDownLG && theme.layout.divider, maxWidth: '700px'}}>
-              <Typography variant='h4' sx={{}}>
+              <Typography variant='h4' color={theme.palette.text.primary}>
                 MARC BAILLARGEON
               </Typography>
               <Typography variant='h6' sx={{}}>

@@ -9,7 +9,7 @@ import { client } from '@/utils/sanityClient'
 import { useContext } from 'react';
 import { LinkDirectionContext } from '@/components/layout';
 import Block from '@/components/sanity/block';
-import PageTransition from '../pageTransition';
+import PageTransition from '../layout/pageTransition';
 import PlaceHolder from '../placeHolder';
 import GridViewIcon from '@mui/icons-material/GridView';
 

@@ -1,6 +1,6 @@
 
 import Layout from '@/components/layout'
-import { Box, Button, Divider, Grid, Icon, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Divider, Grid, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { LangContext, ThemeContext } from '@/utils/context'
 import { useRouter } from 'next/router'
@@ -28,7 +28,7 @@ export default function Services({data}) {
   const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
   const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
 
 
   const topTextRef = useRef(null);

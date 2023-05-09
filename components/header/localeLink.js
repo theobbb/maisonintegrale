@@ -3,56 +3,52 @@ import { Box, Button, useTheme } from '@mui/material';
 import { useRouter } from 'next/router'
 import Link from './link';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { client } from '@/utils/sanityClient';
-
-
+import { QueryContext } from '@/utils/context';
 
 export default function LocaleLink ({sx, index, footer, ...props}) {
 
-    const [newPath, setNewPath] = useState(null)
+    const [otherPath, setOtherPath] = useState(null)
     
     const router = useRouter();
 
     const theme = useTheme();
 
+    const queries = useContext(QueryContext);
+
     useEffect(() => {
 
-        const query = router.query.slug;
+        function getOtherQuery() {
 
-        async function getOtherSlug() {
-            const projectQuery = `*[_type == "project" && slug[$locale].current == $slug]{
-                'otherSlug': slug[$otherLocale].current
-              }[0]`
-          const result = await client.fetch(projectQuery, { locale: router.locale, slug: query, otherLocale: router.locale == 'fr'? 'en':'fr' })
-          const otherBase = props.locale == 'fr'? 'realisations':'work'
-          const otherPath = result? `/${otherBase}/${result?.otherSlug}` : `/${otherBase}`
-          
-          setNewPath(otherPath) 
-          
-        
+            const otherBase = props.locale == 'fr'? 'realisations':'work'
+
+            const otherQuery = queries.find(query => query.slug[router.locale].current == router.query.slug)?.slug[props.locale]?.current
+            const otherPath = `/${otherBase}/${otherQuery}`
+            setOtherPath(otherPath)
         }
 
-        if (query != null) {
-            getOtherSlug();
-            //return setNewPath(getOtherSlug())
+
+
+        if (router.query.slug != null) {
+            return getOtherQuery();
         }
-        if (router.route == '/404') return setNewPath(`${props.locale == 'fr'? '/': '/en'}`);
+        if (router.route == '/404') return setOtherPath('/');
 
-        if (router.asPath == '/') return setNewPath(`/${props.locale == 'fr'? '': 'en'}`);
+        if (router.asPath == '/') return setOtherPath(`/${props.locale == 'fr'? '': 'en'}`);
 
-        const pathIndex = linkPaths[router.locale].paths.indexOf(linkPaths[router.locale].paths.find(path => path.href == router.asPath));
-        if (pathIndex != -1) return setNewPath(linkPaths[props.locale].paths[pathIndex].href);
+        const pathIndex = linkPaths[router.locale].indexOf(linkPaths[router.locale].find(path => path.name == router.asPath));
+        if (pathIndex != -1) return setOtherPath(linkPaths[props.locale][pathIndex].name);
         
         
 
-      }, [router.query, router.route]);
+      }, [router.asPath]);
 
     const isSelected = router.locale == props.locale; 
     
     return (
         <Box sx={sx}>
-            <Link {...props} href={newPath} localeLink />
+            <Link {...props} href={otherPath} localeLink />
             {footer? isSelected &&
                 <Box
                       sx={{position: 'absolute', width: '100%', bottom: '1px', left: 0, height: '2px', background: 'black'}}

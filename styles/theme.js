@@ -1,12 +1,13 @@
 import MuiTypoWrapper from "@/components/muiTypoWrapper";
 import { createTheme } from "@mui/material";
+import { green } from '@mui/material/colors';
 
 const layout = {
 
     x: {xl: 9, lg: 6, md: 4, sm: 3, xs: 2},
     x2: {xl: 18, lg: 12, md: 8, sm: 6, xs: 4},
     y: {xl: 10, lg: 8, md: 8, sm: 8, xs: 6},
-
+ 
     divider: {xl: 10, lg: 10, md: 10, sm: 10, xs: 10},
 
 }
@@ -16,29 +17,43 @@ const layout = {
 const palette = {
 
     light: {
+        green: {
+          outline: 'rgba(31, 133, 35, 0.3)' ,
+          background: 'rgba(181, 211, 181, 0.19)' ,
+        },
         primary: {
             main: 'rgba(0, 0, 0, 1)', 
-            greenTitle: 'rgba(36, 83, 37, 0.64)',
         },
         background: {
             default: 'rgba(240, 240, 240, 1)',
         },
         action: {
+          background: 'rgba(0, 0, 0, 0.04)',
           hover: {
             opacity: 'rgba(0, 0, 0, 0.5)',
           }
+        },
+        contrastAction: {
+          text: 'rgba(0, 0, 0, 0.8)',
+          background: 'rgba(0, 0, 0, 0.1)',
+          hover: 'rgba(0, 0, 0, 0.25)',
+          border: 'rgba(0, 0, 0, 0.15)',
         }
-
     },
     dark: {
-      text: {
-        primary: 'rgba(255, 255, 255, 0.88)',
-      },
+        green: {
+          outline: 'rgba(35, 128, 38, 0.53)',
+          background: 'rgba(35, 128, 38, 0.05)',
+        },
+        text: {
+          primary: 'rgba(255, 255, 255, 0.88)',
+        },
         primary: {
             main: 'rgba(255, 255, 255, 1)',
             divider: 'rgba(0, 0, 0, 0.8)',
 
         },
+        
         secondary: {
           main: 'rgba(255, 255, 255, 1)',
         },
@@ -47,9 +62,16 @@ const palette = {
             default: '#1D1D1D',
         },
         action: {
+          
           hover: {
             opacity: 'rgba(255, 255, 255, 0.08)',
           }
+        },
+        contrastAction: {
+          text: 'rgba(255, 255, 255, 0.86)',
+          background: 'rgba(255, 255, 255, 0.10)',
+          hover: 'rgba(255, 255, 255, 0.25)',
+          border: 'rgba(255, 255, 255, 0.15)',
         }
     }
 }
@@ -125,7 +147,9 @@ const sx = {
 }
 
 
-const components = {
+const components = (mode) => ({
+
+
 
   MuiTypography: {
     defaultProps: {
@@ -157,7 +181,7 @@ const components = {
           {
             props: { variant: 'link' },
             style: {
-              padding: '0px 12px',
+              padding: '0 12px',
               borderRadius: '24px',
               fontFamily: 'Manrope',
               '&:hover': {
@@ -166,16 +190,19 @@ const components = {
             }
           },
             {
-              props: { variant: 'contact' },
+              props: { variant: 'contrast' },
               style: {
-                background: '#C8E5C9',
-                border: '1px solid rgba(31, 133, 35, 0.6)',
-                
+                background: palette[mode].contrastAction.background,
+                color: palette[mode].contrastAction.text,
+                border: palette[mode].contrastAction.border,
+                borderStyle: 'solid',
+                borderWidth: '2px',
                 borderRadius: '24px',
+                padding: '0px 12px',
                 '&:hover': {
-                  //background: 'rgba(165, 206, 167, 1)'
+                  background: palette[mode].contrastAction.hover,
                 }
-                //display: 'none  !important', 
+
               },
             },
             {
@@ -245,15 +272,16 @@ const components = {
         },
     },
 
-}
+})
 
 
-const themeProperties = {
+export const themeProperties = (mode) => ({
     typography,
     palette,
-    components,
+    components: components(mode),
     layout,
-    sx
-  }
+    sx,
+
+})
 
 export const theme = createTheme(themeProperties);
