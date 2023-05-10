@@ -83,19 +83,18 @@ export default function Layout({ colorMode, setColorMode, children }) {
     }, [playEntrance])
 
 
-    function scrollTop() {
+    function routeChange(route) {
+      
       window.scrollTo(0, 0);
     }
 
     useEffect(() => {
-      router.events.on("routeChangeStart", scrollTop);
+      router.events.on("routeChangeStart", routeChange);
       return () => {
-        router.events.off("routeChangeStart", scrollTop);
+        router.events.off("routeChangeStart", routeChange);
       };
     }, []);
 
-
-    
 
   return (
 
@@ -114,12 +113,12 @@ export default function Layout({ colorMode, setColorMode, children }) {
                   <ModelViewer key='model-viewer' direction={linkDirection} pageReady={pageReady} />        
               }
           </AnimatePresence>
+
           <AnimatePresence>
-          
-          <Sapins sapins={pathSapins} 
-          drawerOpen={drawerOpen}
-          key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
-          direction={linkDirection} pageReady={pageReady} />
+            <Sapins sapins={pathSapins} 
+            drawerOpen={drawerOpen}
+            key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
+            direction={linkDirection} pageReady={pageReady} />
           </AnimatePresence>
 
           
@@ -132,7 +131,7 @@ export default function Layout({ colorMode, setColorMode, children }) {
           
           <AnimatePresence initial={false} drawerOpen={drawerOpen}>
           {!drawerOpen && !playEntrance &&
-          <PageTransition key={router.route} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
+          <PageTransition key={router.route.split('/')[1]} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
             {children}
             <Footer />
           </PageTransition>

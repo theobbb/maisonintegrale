@@ -34,11 +34,15 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
     
 
-    const [firstLoad, setFirstLoad] = useState(true)
+    const [hideLogo, setHideLogo] = useState(false)
 
     useEffect(() => {
-        setFirstLoad(true)
-    }, [])
+        if (router.route == '/realisations') return setHideLogo(true)
+        if (router.route == '/realisations/[slug]') return setHideLogo(true)
+        setHideLogo(false)
+    }, [router.route])
+
+
 
 
   return (
@@ -55,6 +59,24 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         {theme.palette.mode === 'light' && <LazyImage style={{width: '64px'}} src='/icons/logo-light.png'/>}
         {theme.palette.mode === 'dark' && <LazyImage style={{width: '64px'}} src='/icons/logo-dark.png'/>}
     </Box>}
+
+    {!matchDownLG && !hideLogo && 
+
+    <Box sx={{position: 'fixed',  top: 0, left: 0, height: '32px', width: {xl: 60, lg: 36}, zIndex: 1000}} component={motion.div}
+    initial={{opacity: 0, x: -100}}
+    animate={{opacity: 1, x: 0, transition: {...transition, delay: 0.2}}}
+    exit={{opacity: 0, x: -100}}
+    transition={transition}
+    
+    >
+
+    <LazyImage sx={{paddingLeft: {xl: 2, lg: 1.5}, paddingRight: {xl: 1, lg: 0}, py: 1, width: {xl: 60, lg: 36, md: 30}}}
+    key={`logo-${theme.palette.mode}`}
+    src={`/icons/logo-${theme.palette.mode}.png`} />
+
+
+    </Box>}
+
 </AnimatePresence>
 
     <Box 
@@ -91,29 +113,18 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
             background: matchDownLG? theme.palette.background.default : 'none',
             width: '100%',
             height: '100%',
-
+            position: 'relative',
+            
         }}>
             {matchDownLG && 
-            <Box>
+                
                 <MenuButton {...{drawerOpen, setDrawerOpen}} />
-            </Box> }
+            }
+            <Box sx={{paddingLeft: {xl: hideLogo? 1:7.4, lg: 4.5, md: 0.5, sm: 0.5, xs: 0.5}}}>
 
-            {!matchDownLG&& 
-
-            <Box sx={{width: {xl: 60, lg: 36}}}>
-            <Box sx={{display: 'flex', alignItems: 'center', position: 'absolute', top: 0, left: 0, width: '100%'}}>
-            <LazyImage sx={{paddingLeft: {xl: 2, lg: 1.5}, paddingRight: {xl: 1, lg: 0}, py: 1, width: {xl: 60, lg: 36, md: 30}}}
-            key={`logo-${theme.palette.mode}`}
-            src={`/icons/logo-${theme.palette.mode}.png`} />
-
+            
+                <Title layout drawerOpen={drawerOpen} />
             </Box>
-            </Box>}
-            
-
-
-            
-                <Title drawerOpen={drawerOpen} />
-           
 
         </Box>
 

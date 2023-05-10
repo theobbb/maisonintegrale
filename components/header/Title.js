@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavLink from './navLink'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { transition } from '@/utils/transitions';
 
 export default function Title({drawerOpen}) {
@@ -17,12 +17,8 @@ export default function Title({drawerOpen}) {
     }, [matchDownLG, drawerOpen])
 
   return (
-    <NavLink href='/'    
-    text='MAISON INTÉGRALE' 
-    sx={{position: 'relative', 
-    whiteSpace: 'nowrap',
-    }} 
-    index={0}>
+    <LinkWrapper link={!matchDownLG}>
+
     
         <motion.div style={{display: 'flex'}}>
         <LayoutGroup>
@@ -32,15 +28,14 @@ export default function Title({drawerOpen}) {
         ))}
         </LayoutGroup>
         </motion.div>
-        
-    </NavLink>
+    </LinkWrapper>
   )
 }
 
 function Word ({word, small}) {
 
     const [visibleDot, setVisibleDot] = useState(small);
-
+    const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     useEffect(() => {
       setVisibleDot(small)
     }, [small])
@@ -56,15 +51,13 @@ function Word ({word, small}) {
                 animate={{x: 0, transition: {...transition, duration: 0.5, delay: index*0.05 + 0.1}}}
                 exit={{x: '-400%', transition: {...transition, duration: 0.5, delay: (word.length - index) *0.05}}}
                 transition={{...transition, delay: small && 0}}
+                >
+                <Typography variant={matchDownLG? 'h5':'h6'}>{letter}</Typography>
                 
-                >{letter}
 
                 </motion.div>
               </motion.div>
-                
-               
             ))}
-
             </AnimatePresence>
            
             <motion.div 
@@ -75,4 +68,17 @@ function Word ({word, small}) {
             >.</motion.div>
           </LayoutGroup>
     )
+}
+
+function LinkWrapper ({link, children}) {
+  return !link? children : (
+    <NavLink href='/'    
+    text='MAISON INTÉGRALE' 
+    sx={{position: 'relative', 
+    whiteSpace: 'nowrap',
+    }} 
+    index={0}>
+      {children}
+    </NavLink>
+  )
 }

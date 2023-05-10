@@ -38,7 +38,8 @@ const palette = {
           background: 'rgba(0, 0, 0, 0.1)',
           hover: 'rgba(0, 0, 0, 0.25)',
           border: 'rgba(0, 0, 0, 0.15)',
-        }
+        },
+        border: 'rgba(0, 0, 0, 0.25)',
     },
     dark: {
         green: {
@@ -72,7 +73,8 @@ const palette = {
           background: 'rgba(255, 255, 255, 0.10)',
           hover: 'rgba(255, 255, 255, 0.25)',
           border: 'rgba(255, 255, 255, 0.15)',
-        }
+        },
+        border: 'rgba(255, 255, 255, 0.25)',
     }
 }
 
@@ -236,7 +238,7 @@ const components = (mode) => ({
           props: { variant: 'outlined' },
           style: {
             //background: '#C8E5C9',
-            border: '1px solid rgba(0, 0, 0, 0.2)',
+            border: `1px solid ${palette[mode].border}`,
             
           },
         },

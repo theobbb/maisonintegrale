@@ -30,11 +30,11 @@ const LazyImage = ({ src, alt, ...others }) => {
     <Box
     component={motion.img}
     transition={{transition: 'ease', duration: 0.5}}
-        initial={{opacity:0}}
-        animate={{opacity: imageSrc && 1}}
-      ref={imgRef}
-      src={imageSrc}
-      alt={alt}
+    initial={{opacity:0}}
+    animate={{opacity: imageSrc && 1}}
+    ref={imgRef}
+    src={imageSrc}
+    alt={alt}
         {...others}
         
       className={`lazy-image ${imageSrc ? "loaded" : ""}`}

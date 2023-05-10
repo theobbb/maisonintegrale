@@ -23,7 +23,7 @@ export default function PageTransition({children, direction, drawerOpen, disable
   useEffect(() => {
     if (isPresent) {
       const enterAnimation = async () => {
-       
+        console.log('enter', direction)
        await animate(page.current, {x: direction != 0 && [`${direction*120}vw`, '0vw'], opacity: [0, 1]}, {...transition, 
         delay: delay+0.4});
        await animate('footer', {x: direction != 0 && [direction*20, 0], opacity: [0, 1]}, {...transition, duration: 0.2, });
@@ -32,7 +32,8 @@ export default function PageTransition({children, direction, drawerOpen, disable
 
     } else {
       const exitAnimation = async () => {
-        
+        console.log('exit', direction)
+        if (direction != 0)
         await animate('footer', {x: direction != 0 && [0, -direction*20], opacity: [1, 0]}, {...transition, duration: 0.2, });
         await animate(page.current, {x: direction != 0 && ['0vw', `${-direction*120}vw`],  opacity: [1, 0]}, {...transition, delay})
         
@@ -51,6 +52,9 @@ export default function PageTransition({children, direction, drawerOpen, disable
           position: 'absolute', 
           width: '100%', 
           top: theme.spacing(6), 
+          [theme.breakpoints.down("md")]: {top: theme.spacing(5.5)},
+          //[theme.breakpoints.down("sm")]: {top: theme.spacing(5.5)},
+          
           minHeight: '100vh',
           left: 0
         }}>

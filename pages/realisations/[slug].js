@@ -191,7 +191,7 @@ function Img ({img, index, top}) {
                 overflow: 'visible', 
                 height: top&&'30vh', 
                 mx: top? 0 : matchDownLG? 0:1, 
-                my: !top && 0.5
+                my: !top && 0.5,
             }}
             component={motion.div}
             transition={{transition: 'ease', duration: 0.5}}
@@ -211,7 +211,7 @@ function Img ({img, index, top}) {
                     //width:top&&'100%',
                     maxWidth: !top&&'100%', 
                     maxHeight: !top&&'100%', 
-                    borderRadius: top && 0}}
+                    borderRadius: 0}}
                 //srcSet={img.url}
                 alt={img}
                 loading="lazy"
@@ -223,9 +223,7 @@ function Img ({img, index, top}) {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, 
-                        rgba(255,255,255,0.7) 20%,
-                        rgba(255,255,255,0) 100%)`
+                    
                         }}/>}
             </Box>
                                 
