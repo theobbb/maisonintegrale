@@ -56,9 +56,7 @@ export default function Layout({ colorMode, setColorMode, children }) {
     }, [router.route])
 
 
-    const devMode = process.env.NODE_ENV
-    //process.env.NODE_ENV
-    console.log('devMode', devMode)
+    const devMode = process.env.NODE_ENV == 'development'
 
     const [playEntrance, setPlayEntrance] = useState(!devMode)
 
