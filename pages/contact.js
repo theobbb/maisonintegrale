@@ -51,7 +51,7 @@ export default function Contact() {
           <Box  sx={{py: 0, px: theme.layout.x, py: theme.layout.y, display: 'flex', flexDirection: matchDownLG? 'column':'row', paddingBottom: 12, width: '100%'}}>
             <Box sx={{paddingRight: matchDownLG?0:6, maxWidth: '700px', flex: 1}}>
               <Typography variant='h3'>
-                {data[locale].contact} MAISON INTÉGRALE
+                {data[locale].contact} <br/> MAISON INTÉGRALE
               </Typography>
 
               <Typography variant='h6' sx={{paddingTop: 6, display: 'flex', alignItems: 'center'}}>

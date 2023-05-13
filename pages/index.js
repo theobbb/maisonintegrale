@@ -131,9 +131,7 @@ export default function Approche({data}) {
               width: {xl: 800, lg: 800, md: 520, sm:'100%', xs: '100%'},
               paddingBottom: 50,
               }}>
-              {/*<Block variant={matchDownMD? 'h4':'h3'} sx={{lineHeight: '120%'}}>
-                {data.top[locale]}
-              </Block>*/}
+
             {data.main.map((section, index) => (
               <Box  
               key={section._key}
@@ -187,23 +185,6 @@ export default function Approche({data}) {
           </>
   )
 }
-/*
-
-<NavLink href={`#${section.slug[locale].current}`} 
-                    
-                    >
-                     {section.mini_title[locale]}
-                    </NavLink>
-<ButtonBase variant='link'>
-<Box sx={{p: '3px 0px'}}>
-  <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
-    <Typography variant='h7' sx={{fontWeight: 700}}>
-      {section.mini_title[locale]}
-    </Typography>
-  </Link>
-</Box>
-</ButtonBase>*/
-
 
 function Section ({section, index, setActiveLink}) {
 
@@ -217,8 +198,6 @@ function Section ({section, index, setActiveLink}) {
   useEffect(() => {
     setActiveLink(index)
   }, [inView])
-
-
 
   const theme = useTheme();
 

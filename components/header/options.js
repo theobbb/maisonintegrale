@@ -63,13 +63,12 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
         <Box sx={{marginLeft: 2, display: 'flex', alignItems: 'center'}}>
           {theme.palette.mode == 'light' && 
             <IconButton onClick={() => setColorMode('dark')}>
-              <LightModeIcon />
+              <LightModeIcon sx={{typography: {lg: 'h5', xs: 'h3'}}} />
             </IconButton>
           }
           {theme.palette.mode == 'dark' && 
-          <IconButton>
-
-          <DarkModeIcon sx={{typography: {lg: 'h5', xs: 'h3'}}} onClick={() => setColorMode('light')} />
+          <IconButton onClick={() => setColorMode('light')}>
+            <DarkModeIcon sx={{typography: {lg: 'h5', xs: 'h3'}}}  />
           </IconButton>
         }
             <IconButton onClick={() => setPlayEntrance(true)}>

@@ -1,5 +1,5 @@
 import { Box, useTheme } from '@mui/material'
-import { motion } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll, useSpring } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
 import { transition } from '@/utils/transitions'
 
@@ -38,6 +38,18 @@ export default function ModelViewer({direction, pageReady}) {
 
  const opacity = theme.palette.mode === 'dark'? 0.3: 1
 
+ const [scrollY, setScrollY] = useState(0)
+
+ const { scrollYProgress } = useScroll()
+
+ const springScrollY = useSpring(scrollYProgress, {
+   stiffness: 100,
+   damping: 30,
+   restDelta: 0.001
+ });
+
+ useMotionValueEvent(scrollYProgress, "change", (latest) => setScrollY(latest))
+ //calc(-0rad + env(window-scroll-y) * 4rad) calc(180deg + env(window-scroll-y) * -140deg) calc(8m - env(window-scroll-y) * 1.5m)
   return (
     
     <Box 
@@ -51,7 +63,10 @@ export default function ModelViewer({direction, pageReady}) {
       position: 'fixed', height: '100%', width: '100%', top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
-    style={{height: '100%', width: '100%'}}
+    style={{
+      position: 'absolute',
+      top: 0, left: 0,
+      height: '100%', width: '100%'}}
     disable-zoom 
     id="casa" 
     ref={modelViewerRef}
@@ -60,7 +75,7 @@ export default function ModelViewer({direction, pageReady}) {
     currentTime='0' 
     animation-name="CubeAction" 
     minimum-render-scale="1" 
-    camera-orbit="calc(-0rad + env(window-scroll-y) * 4rad) calc(180deg + env(window-scroll-y) * -140deg) calc(8m - env(window-scroll-y) * 1.5m)" 
+    camera-orbit={`calc(-0rad + ${scrollY} * 4rad) calc(180deg + ${scrollY} * -140deg) calc(8m - ${scrollY} * 1.5m)`} 
     max-camera-orbit="auto 90deg auto" 
     />
     </Box>

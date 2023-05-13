@@ -1,6 +1,6 @@
-import { useMediaQuery, useTheme } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Header from '../header'
 import PageTransition from './pageTransition';
 import Sapins from '../sapins';
@@ -20,36 +20,26 @@ export default function Layout({ colorMode, setColorMode, children }) {
 
     const router = useRouter();
 
-    const matchDownSM = useMediaQuery(theme => theme.breakpoints.down('sm'));
-    const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
-    const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
+    const _lg = useMediaQuery(theme => theme.breakpoints.down('lg'));
 
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const [linkDirection, setLinkDirection] = useState(0)
-
-    const [pathSapins, setPathSapins] = useState(null);
-    const [drawerSapinsTimeKey, setDrawerSapinsTimeKey] = useState(null);
+    const [sapinsDirection, setSapinsDirection] = useState(0)
 
     const [disableTransition, setDisableTransition] = useState(false);
 
     useEffect(() => {
-      
         setDrawerOpen(false)
-        setPathSapins(sapins[router.route]);
-
-    }, [router.asPath, matchDownLG, router.locale])
+    }, [router.route, _lg, router.locale])
 
     useEffect(() => {
-      setDrawerSapinsTimeKey(Date.now().toString())
       setLinkDirection(drawerOpen? 1:-1)
-      //if (!matchDownMD) return;
-      if (drawerOpen) setPathSapins(sapins.drawer)
-      else setPathSapins(sapins[router.route]);
-      
-      
-
     }, [drawerOpen])
+
+    useEffect(() => {
+      setSapinsDirection(linkDirection)
+    }, [linkDirection])
 
 
 
@@ -68,6 +58,7 @@ export default function Layout({ colorMode, setColorMode, children }) {
 
     const devMode = process.env.NODE_ENV
     //process.env.NODE_ENV
+    console.log('devMode', devMode)
 
     const [playEntrance, setPlayEntrance] = useState(!devMode)
 
@@ -95,6 +86,11 @@ export default function Layout({ colorMode, setColorMode, children }) {
       };
     }, []);
 
+  const [drawerOpenRender, setDrawerOpenRender] = useState(false)
+  useEffect(() => { 
+    setDrawerOpenRender(drawerOpen) 
+  }, [drawerOpen])
+
 
   return (
 
@@ -102,25 +98,23 @@ export default function Layout({ colorMode, setColorMode, children }) {
 
 
           <AnimatePresence>
-          {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />}
+            {headerReady && <Header {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />}
 
-          
-          
-          
-              
-              {router.route == '/' && !drawerOpen &&
-
-                  <ModelViewer key='model-viewer' direction={linkDirection} pageReady={pageReady} />        
-              }
+            {router.route == '/' && !drawerOpen &&
+              <ModelViewer key='model-viewer' direction={linkDirection} pageReady={pageReady} />        
+            }
           </AnimatePresence>
 
-          <AnimatePresence>
-            <Sapins sapins={pathSapins} 
-            drawerOpen={drawerOpen}
-            key={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
+          
+          
+            <Sapins 
+            //sapins={pathSapins} 
+            drawerOpen={drawerOpenRender}
+            //id={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
+            
             direction={linkDirection} pageReady={pageReady} />
-          </AnimatePresence>
-
+          
+          
           
 
           
@@ -129,7 +123,7 @@ export default function Layout({ colorMode, setColorMode, children }) {
           }
           
           
-          <AnimatePresence initial={false} drawerOpen={drawerOpen}>
+          <AnimatePresence initial={false}>
           {!drawerOpen && !playEntrance &&
           <PageTransition key={router.route.split('/')[1]} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
             {children}
@@ -146,34 +140,3 @@ export default function Layout({ colorMode, setColorMode, children }) {
 
 
 
-const sapins = {
-  'drawer': [
-      { height: 90, position: 80 },
-      { height: 60, position: 50 },
-      { height: 40, position: 80 },
-  ],
-
-  '/services': [
-      { height: 70, position: 10 },
-      { height: 60, position: 50 },
-      
-  ],
-  '/[...others]': [
-
-  ],
-  '/equipe': [
-      { height:  30, position: 10, hide: 'lg' },
-      { height: 70, position: 20 },
-      { height: 20, position: 40 },
-      { height: 60, position: 60 },
-      { height: 40, position: 80 },
-      { height: 90, position: 90 },
-  ],
-  
-  '/contact': [
-      { height: 20, position: 22 },
-      { height: 60, position: 60, hide: 'lg' },
-      { height: 30, position: 30, hide: 'sm' },
-      { height: 70, position: 70 },
-  ],
-}

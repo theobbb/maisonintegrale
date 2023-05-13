@@ -1,25 +1,27 @@
 import { ButtonBase, SvgIcon, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useContext } from 'react'
+import { LinkDirectionContext } from '../layout';
 
 export default function MenuButton({drawerOpen, setDrawerOpen}) {
 
+    const { setLinkDirection } = useContext(LinkDirectionContext);
 
+    function toggleMenu() {
+        setLinkDirection(drawerOpen? 1:-1)
+        setDrawerOpen(!drawerOpen)
+    }
 
   return (
         <Typography variant='h4' sx={{position: 'relative', height: '100%', marginLeft: '-2px', marginTop: '2px'}} >
             <ButtonBase
             component={motion.div}
-            
-            transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.4}}
+            whileTap={{scale: 0.9}}
+            transition={{duration: 0}}
             disableRipple
-            onClick={() => {
-                
-                //setLinkDirection(drawerOpen? 1:-1)
-                setDrawerOpen(!drawerOpen)
-            }}
+            onClick={toggleMenu}
             variant='inline' 
-            sx={{display: 'flex', py:0.5, borderRadius: 1, marginRight: 1, fontSize: 'inherit', height: '100%'}}>
+            sx={{display: 'flex', py:0.5, borderRadius: 1, marginRight: 1, fontSize: 'inherit', height: '100%', transformOrigin: '0% 100%' }}>
                 <SvgIcon
                 sx={{fontSize: 'inherit', p: 0.3}}
                 strokeWidth='1px'

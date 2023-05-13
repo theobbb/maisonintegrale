@@ -195,7 +195,7 @@ export default function Footer() {
                     key={`footer-${projet._id}`} 
                     footer
                     variant={variant}
-                    sx={{position: 'relative', maxWidth:'100%', mx: 2, my: ySpacing, overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                    sx={{position: 'relative', mx: 2, my: ySpacing, overflow: 'hidden', textOverflow: 'ellipsis'}}>
 
 
   

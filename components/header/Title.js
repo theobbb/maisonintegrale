@@ -65,7 +65,9 @@ function Word ({word, small}) {
             initial={{opacity: visibleDot? 1: 0}}
             animate={{opacity: visibleDot? 1: 0, transition: {...transition, delay: 0.5}}}
             layout
-            >.</motion.div>
+            >
+            <Typography variant={matchDownLG? 'h5':'h6'}>.</Typography>
+            </motion.div>
           </LayoutGroup>
     )
 }

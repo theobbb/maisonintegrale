@@ -57,10 +57,11 @@ export default function NavLink({sx, index, drawerOpen, footer, children, ...pro
                 sx={{
                     position: 'absolute', 
                     width: '100%',
-                    bottom: '1px', 
+                    bottom: '0px', 
                     left: 0, 
                     height: '2px', 
-                    background: 'black'
+                    background: theme.palette.mode == 'light'? 'rgba(0, 0, 0, 0.8)':'rgba(255, 255, 255, 0.8)',
+                    
                 }}
                 component={motion.div}
                 layoutId={'active-footer-link'} 

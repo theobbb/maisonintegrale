@@ -1,14 +1,10 @@
 import { Box, useTheme } from '@mui/material'
 import React from 'react'
-//#b5d3b530
 export default function Sapin(props) {
 
   const theme = useTheme();
 
-  
-
   return (
-    
         <svg 
         height='100%' 
         width='100%' 
@@ -16,7 +12,11 @@ export default function Sapin(props) {
         fill={theme.palette.green.background} 
         stroke={theme.palette.green.outline} 
         strokeWidth='2px' 
-        
+        style={{
+          position: 'absolute', 
+          top: 0, left: 0,
+          width: '100%', height: '100%',
+          }}
         opacity='0.6' 
         pointerEvents='none'
         strokeLinecap='round'

@@ -51,7 +51,12 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
             <Link {...props} href={otherPath} localeLink />
             {footer? isSelected &&
                 <Box
-                      sx={{position: 'absolute', width: '100%', bottom: '1px', left: 0, height: '2px', background: 'black'}}
+                      sx={{
+                        position: 'absolute', 
+                        width: '100%', bottom: '0px', 
+                        left: 0, height: '2px', 
+                        background: theme.palette.mode == 'light'? 'rgba(0, 0, 0, 0.8)':'rgba(255, 255, 255, 0.8)',
+                        }}
                       component={motion.div}
                       layoutId={'active-footer-lang'} 
                       >
