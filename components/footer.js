@@ -11,6 +11,7 @@ import LocaleLink from './header/localeLink';
 import { client } from '@/utils/sanityClient';
 import { motion, useInView } from 'framer-motion';
 import { QueryContext } from '@/utils/context';
+import Link from './header/link';
 
 
 
@@ -82,6 +83,10 @@ export default function Footer() {
       
 
   //const maxText = matchDownXL? matchDownLG? matchDownMD? matchDownSM? 25:32:18:32:14
+
+      const sxTitle = {opacity: 1}
+      const sxSection = {marginLeft: {xs: 1, sm: 3, md: 0}}
+
   const maxText = 45
   return (
     <Box
@@ -91,11 +96,12 @@ export default function Footer() {
     transition={{duration: 0.5, ease: 'easeInOut'}}
     sx={{
       width: '100%', 
+
     //paddingTop: `${paddingTop}px`, 
     marginTop: {xl: 24, lg: 24, md: 16, xs: 8}}}>
-        <Grid container sx={{paddingBottom: 6, px: theme.layout.x}} rowSpacing={6}>
-        <Grid xs={12} sm={12} md={6} lg={4} xl={2} item sx={{display: 'flex'}}>
-            <Typography variant={variant} sx={{my: ySpacing}}>
+        <Grid container sx={{paddingBottom: 6, paddingLeft: theme.layout.x, paddingRight: 1, }} rowSpacing={{xs: 6, sm: 8, md: 8}} columnSpacing={2}>
+        <Grid xs={12} sm={4.5} md={4.5} lg={3.4} xl={1.5} item sx={{display: 'flex'}}>
+            <Typography variant={variant} sx={{my: ySpacing, ...sxTitle}}>
                 LANG
               </Typography>
               <Box>
@@ -113,13 +119,13 @@ export default function Footer() {
                 >EN</LocaleLink>
                 </Box>
         </Grid>
-        <Grid xs={12} sm={12} item md={6} lg={4} xl={3} sx={{display: 'flex', flexDirection: matchDownSM && 'column'}}>
+        <Grid xs={12} sm={7.5} md={7.5} lg={4.5} xl={3.6} item sx={{display: 'flex', flexDirection: matchDownMD && 'column'}}>
               
-              <Typography variant={variant} sx={{my: ySpacing}}>
+              <Typography variant={variant} sx={{my: ySpacing, paddingLeft: {md: 5.5}, ...sxTitle}}>
                 CONTACT
               </Typography>
             
-              <Box sx={{marginLeft: 3}}>
+              <Box sx={{paddingLeft: 3, ...sxSection}}>
               <Typography variant={variant} sx={{display: 'flex', alignItems: 'center', my: ySpacing}}>
                 
                 MARC BAILLARGEON
@@ -159,11 +165,11 @@ export default function Footer() {
               </Box>
         </Grid>
         
-        <Grid xs={12} sm={12} md={6} lg={4} xl={3} item sx={{display: 'flex', flexDirection: matchDownSM && 'column'}}>
-            <Typography variant={variant} sx={{my: ySpacing}}>
+        <Grid xs={12} sm={4.5} md={4.5} lg={4} xl={2.7} item sx={{display: 'flex', flexDirection: matchDownMD && 'column'}}>
+              <Typography variant={variant} sx={{my: ySpacing, ...sxTitle}}>
                 NAVIGATION
               </Typography>
-              <Box>
+              <Box sx={{...sxSection}}>
             {linkPaths[locale].map((path, index) => (
                 
                     <NavLink 
@@ -179,11 +185,11 @@ export default function Footer() {
                 </Box>
         </Grid>
         
-        <Grid xs={12} sm={12} md={6} lg={12} xl={3} item sx={{display: 'flex', flexDirection: matchDownSM && 'column'}}>
-            <Typography variant={variant} sx={{my: ySpacing}}>
+        <Grid xs={12} sm={7.5} md={7.5} lg={12} xl={4.2} item sx={{display: 'flex', flexDirection: matchDownMD && 'column'}}>
+            <Typography variant={variant} sx={{my: ySpacing, ...sxTitle}}>
                 {locale=='fr'?'RÉALISATIONS':'WORK'}
             </Typography>
-            <Box>
+            <Box sx={{...sxSection}}>
                 {queries && queries.map((projet, index) => (
 
 
@@ -208,10 +214,60 @@ export default function Footer() {
             </Box>
         </Grid>
         </Grid>
+        
+
+        <Grid container sx={{paddingBottom: 6, px: theme.layout.x, marginTop: {xs: 4}}} rowSpacing={4}>
+        <Grid xs={12} sm={12} md={6} lg={4} xl={4} item >
+          <a style={{display: 'flex', flexDirection: matchDownSM ? 'column':'row', textDecoration: 'none', color: 'inherit', alignItems: 'flex-start'}} href='https://prixdomus.ca/' target='_blank'>
+             <Box sx={{height: 100}}>
+               <img 
+               style={{height: 80,
+                filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 
+                'invert(0.05) grayscale(1) brightness(0.9) contrast(120%)'
+               }}
+               src='/images/logodomus.png' />
+             </Box>           
+             <Box sx={{marginLeft: {xs: 0, sm: 2}}}>
+               <Typography variant='h6' sx={{my: ySpacing}}>
+               Finaliste 2019 <br /> Catégorie développement durable
+               </Typography>
+             </Box>
+          </a>
+        </Grid>
+
+        <Grid xs={6} sm={12} md={6} lg={4} xl={3} item sx={{display: 'flex', alignItems: 'center'}}>
+          <a href='https://transitionenergetique.gouv.qc.ca/residentiel/programmes/novoclimat' target='_blank'>
+             <Box sx={{position: 'relative', height: {xs: '18vw', md: 80}}}>
+               <img 
+               style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
+                
+                filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 
+                'invert(1) grayscale(1) brightness(1.5) contrast(50%)'
+               }}
+               src='/images/Logo-Novoclimat.png' />
+             </Box>   
+          </a>        
+        </Grid>
+        <Grid xs={6} sm={12} md={6} lg={4} xl={3} item sx={{display: 'flex', alignItems: 'center'}}>
+          <a href='https://www.garantiegcr.com' target='_blank'>
+             <Box sx={{position: 'relative', height: {xs: '14vw', md: 80}}}>
+               <img 
+               style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
+               filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 'invert(1) grayscale(1) contrast(120%)'}}
+               src='/images/garantie-residentielle.png' />
+             </Box>           
+            </a>
+        </Grid>
+        <Grid xs={12} sm={12} md={6} lg={4} xl={2} item sx={{display: 'flex'}}>
+          <Typography variant={variant} sx={{my: ySpacing}}>
+            RBQ 5683-2850
+          </Typography>     
+        </Grid>
+        </Grid>
+
         <Box sx={{mx: 1}}>
           <Typography>&copy; {year} maison intégrale</Typography>
         </Box>
-        
     </Box>
   )
 }

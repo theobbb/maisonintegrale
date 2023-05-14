@@ -23,15 +23,14 @@ export async function getStaticProps() {
 
 export default function Approche({data}) {
 
-  
-
-  const { t } = useTranslation('common')
 
   const { locale, locales, push } = useRouter();
 
-  const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
-  const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
-  const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
+  const _xs = useMediaQuery(theme => theme.breakpoints.down('xs'));
+  const _sm = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const _md = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const _lg = useMediaQuery(theme => theme.breakpoints.down('lg'));
+  const _xl = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   const theme = useTheme()
 
@@ -43,76 +42,52 @@ export default function Approche({data}) {
 
   const [firstSectionHeight, setFirstSectionHeight] = useState(0);
 
-  
-/*
-  useEffect(() => {
-    if (!sectionsContainerRef) return;
-
-    const handleResize = () => {
-      if (!sectionsContainerRef.current) return;
-      const sections = sectionsContainerRef.current.children;
-      const firstSection = sections[0];
-
-      let newHeight = firstSection.offsetHeight;
-      const maxHeight = (window.innerHeight - 50) / 1.8;
-
-      if (newHeight > maxHeight) {
-        newHeight = 0;
-        const children = firstSection.children[0].children;
-
-        for (let i = 0; i < children.length; i++) {
-          const childHeight = children[i].offsetHeight;
-          if (childHeight + newHeight < maxHeight) {
-            newHeight += childHeight;
-          }
-        }
-      } else newHeight = 0;
-      
-      setFirstSectionHeight(newHeight);
-    };
-    handleResize()
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [sectionsContainerRef]);*/
-
   return data && (
 
               <>
 
+
           <Box sx={{
-            //height: `calc(100vh - ${matchDownMD? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
+            //height: `calc(100vh - ${_md? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
             display: 'flex',
-            //flexDirection: 'column',
+            flexDirection: _sm? 'column':'row',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            paddingTop: matchDownLG? matchDownMD? 2:8:12,
-            paddingLeft: theme.layout.x,
-            paddingRight: theme.layout.x,
+            paddingTop: { xs: 2, md: 8, lg: 12 },
+            px: theme.layout.x,
+
           }}>
 
+              {/*<Box sx={{opacity: 0.92, paddingLeft: {md: 5} }}>
+                <img 
+                style={{maxHeight: '90vh', maxWidth: '100%'}}
+                src='https://cdn.sanity.io/images/1m8675a3/production/79a5ccdeb68523f0549525616f8d6c71463407c8-522x750.jpg' />
 
-<Box sx={{py: 12, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%'}}>
+              </Box>*/}
+
+
+            <Box sx={{py: 12, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%'}}>
               <Typography variant='h2' 
               sx={{
-                width: {xl: 1240, lg: 1000, md: '100%', sm:'100%', xs: '100%'},
-                typography: {xs: 'h3', xl: 'h2'}
+                
+                typography: {xs: 'h2', sm: 'h3', xl: 'h2'}
                 }}>
-              {locale == 'fr'? 
-              'Construire des maisons écoénergétiques': 
+              {locale == 'fr'? (<>
+                Construire {_sm && <br />} des maisons <br /> écoénergétiques <br />
+                de haute qualité <br /> pour un avenir durable
+              </>)
+              : 
               'Building high quality energy-efficient'
               }
-              {!matchDownMD? <br />: ' ' }
               
-              {locale == 'fr'? 'de haute qualité pour un avenir durable': 
-              'for a sustainable future'}
-              &nbsp;-
               </Typography>
               
               
-              <Typography sx={{marginLeft: 12, typography: {xs: 'h4', xl: 'h4'}}}>
+              <Typography sx={{  
+                marginTop: 3,
+                marginLeft: 12, 
+                typography: {xs: 'h4', sm: 'h3', xl: 'h3'}
+                }}>
               {locale == 'fr'? 'Découvrez la mission de Maison Intégrale': 
               'Discover Maison Intégrale’s mission'}
               
@@ -124,7 +99,7 @@ export default function Approche({data}) {
 
           
 
-          <Box sx={{paddingLeft: theme.layout.x, paddingRight: matchDownMD && theme.layout.x, display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{paddingLeft: theme.layout.x, paddingRight: _md && theme.layout.x, display: 'flex', justifyContent: 'space-between'}}>
             <Box 
               ref={sectionsContainerRef}
               sx={{
@@ -137,8 +112,8 @@ export default function Approche({data}) {
               key={section._key}
               id={section.slug[locale].current}
               sx={{
-                py: matchDownMD? 3:'50px',
-                marginBottom: index != data.main.length - 1? matchDownMD? 0: 50:0,
+                py: _md? 3:'50px',
+                marginBottom: index != data.main.length - 1? _md? 0: 50:0,
                 position: 'relative',
                }}>
                <Section {...{section, index, setActiveLink }} />
@@ -146,7 +121,7 @@ export default function Approche({data}) {
             ))}
             </Box>
 
-            {!matchDownMD && 
+            {!_md && 
             <Box sx={{display: 'flex', flexDirection: 'column', marginTop: '100px'}}> 
               <Box sx={{paddingBottom: 2, alignSelf: 'flex-end'}}>
                 <Typography variant='mini'>
@@ -158,14 +133,14 @@ export default function Approche({data}) {
                 {data.main.map((section, miniIndex) => (
                   <Box component={motion.div} layout key={`miniTitle-${section._key}`} sx={{paddingBottom: 0, position: 'relative', boxSizing: 'border-box'}}>
                   <ButtonBase variant='link'>
-<Box sx={{p: '3px 0px'}}>
-  <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
-    <Typography variant='h7' sx={{fontWeight: 700}}>
-      {section.mini_title[locale]}
-    </Typography>
-  </Link>
-</Box>
-</ButtonBase>
+                  <Box sx={{p: '3px 0px'}}>
+                    <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Typography variant='h7' sx={{fontWeight: 700}}>
+                        {section.mini_title[locale]}
+                      </Typography>
+                    </Link>
+                  </Box>
+                  </ButtonBase>
                     
 
                     {miniIndex == activeLink && 
@@ -201,27 +176,24 @@ function Section ({section, index, setActiveLink}) {
 
   const theme = useTheme();
 
-  const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
-  const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
+  const _md = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const _xl = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
   return (
 
     <Box ref={ref} >
-      <Box sx={{paddingBottom: 6, paddingTop: matchDownMD? 3:'100px',}} >
-        <Typography variant={matchDownXL? 'h4':'h4'} sx={{lineHeight: '120%', fontWeight: 600, color: theme.palette.text.secondary}}>
-          {section.title[locale]}
+      <Box sx={{paddingBottom: 6, paddingTop: _md? 3:'100px',}} >
+        <Typography sx={{typography: {xs: 'h4', sm: 'h3'}}}>
+          {section.title[locale].charAt(0).toUpperCase() + section.title[locale].toLowerCase().slice(1)}
         </Typography>
       </Box>
 
-          <Block sx={{ typography: { sm: 'body2', md: 'body1', lg: 'body0' }, paddingBottom: 6 }}>
-            {section.body[locale]}
-          </Block>
-        
-      
-      
+      <Block sx={{ paddingBottom: 6 }}>
+        {section.body[locale]}
+      </Block>
     </Box>
 
 
   )
 }
-
+//sx={{ typography: { sm: 'body2', md: 'body1', lg: 'body0' }

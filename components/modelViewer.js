@@ -60,7 +60,7 @@ export default function ModelViewer({direction, pageReady}) {
     component={motion.div}
     sx={{
      
-      position: 'fixed', height: '100%', width: '100%', top: 0, left: 0, zIndex: -1}}>
+      position: 'fixed', height: '100vh', width: '100%', minWidth: 600, top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
     style={{
