@@ -30,9 +30,6 @@ export default function Equipe({data}) {
 
   return (
     <>
-      
-
-      
           <Box sx={{
             py: 0,  
             px: theme.layout.x, 
@@ -44,7 +41,7 @@ export default function Equipe({data}) {
             width: '100%'
             }}>
 
-            <Box sx={{flex: 1, paddingRight: matchDownLG?0:theme.layout.x, maxWidth: '700px'}}>
+            <Box sx={{flex: 1, paddingRight: {xs: 0, lg: 10}, maxWidth: {xs: '100%', sm: 600, md: 650, lg: 680, xl: 680}}}>
               <Typography variant='h4' sx={{}}>
                 MARISOL SARRAZIN
               </Typography>
@@ -56,7 +53,7 @@ export default function Equipe({data}) {
                 {data.marisol.body[locale]}
               </Block>
             </Box>
-            <Box sx={{flex: 1, paddingTop: matchDownLG && theme.layout.divider, maxWidth: '700px'}}>
+            <Box sx={{flex: 1, paddingTop: {xs: 20, lg: 0}, maxWidth: {xs: '100%', sm: 600, md: 650, lg: 680, xl: 680}}}>
               <Typography variant='h4' color={theme.palette.text.primary}>
                 MARC BAILLARGEON
               </Typography>

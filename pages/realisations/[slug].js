@@ -11,7 +11,7 @@ import { LinkDirectionContext } from '@/components/layout';
 import Block from '@/components/sanity/block';
 import GridViewIcon from '@mui/icons-material/GridView';
 import Image from 'next/image'
-import LazyImage from '@/components/LazyImage';
+import LazyImage from '@/components/Image';
 
 
 
@@ -68,7 +68,7 @@ function Projet ({single}) {
                 }
             <Box sx={{
                 
-                px: matchDownMD?2:4, 
+                px: {xs: 2, md: 4}, 
                 borderRadius: 4, 
                 background: theme.palette.background.default, 
                 marginTop: matchDownMD? -6:2, 

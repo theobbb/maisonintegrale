@@ -97,6 +97,7 @@ export default function Footer() {
     sx={{
       width: '100%', 
 
+      //background: 'rgba(0,0,0,0.2)',
     //paddingTop: `${paddingTop}px`, 
     marginTop: {xl: 24, lg: 24, md: 16, xs: 8}}}>
         <Grid container sx={{paddingBottom: 6, paddingLeft: theme.layout.x, paddingRight: 1, }} rowSpacing={{xs: 6, sm: 8, md: 8}} columnSpacing={2}>
@@ -216,58 +217,62 @@ export default function Footer() {
         </Grid>
         
 
-        <Grid container sx={{paddingBottom: 6, px: theme.layout.x, marginTop: {xs: 4}}} rowSpacing={4}>
-        <Grid xs={12} sm={12} md={6} lg={4} xl={4} item >
-          <a style={{display: 'flex', flexDirection: matchDownSM ? 'column':'row', textDecoration: 'none', color: 'inherit', alignItems: 'flex-start'}} href='https://prixdomus.ca/' target='_blank'>
+        <Grid container sx={{paddingBottom: 6, px: theme.layout.x, marginTop: {xs: 4}}} rowSpacing={2}>
+        <Grid xs={12} sm={12} md={6} lg={6} xl={8} item >
+          <a style={{display: 'flex', textDecoration: 'none', color: 'inherit', alignItems: 'flex-start'}} href='https://prixdomus.ca/' target='_blank'>
              <Box sx={{height: 100}}>
                <img 
                style={{height: 80,
-                filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 
-                'invert(0.05) grayscale(1) brightness(0.9) contrast(120%)'
+                filter: theme.palette.mode == 'light'? 'invert(0) grayscale(0) contrast(120%)' : 
+                'invert(0) grayscale(0) brightness(0.9) contrast(120%)'
                }}
                src='/images/logodomus.png' />
              </Box>           
-             <Box sx={{marginLeft: {xs: 0, sm: 2}}}>
-               <Typography variant='h6' sx={{my: ySpacing}}>
-               Finaliste 2019 <br /> Catégorie développement durable
+             <Box sx={{marginLeft: {xs: 2}}}>
+               <Typography variant='h7' sx={{my: ySpacing}}>
+               Finaliste 2019 <br /> Catégorie <br /> développement durable
                </Typography>
              </Box>
           </a>
         </Grid>
 
-        <Grid xs={6} sm={12} md={6} lg={4} xl={3} item sx={{display: 'flex', alignItems: 'center'}}>
+        <Grid xs={6} sm={6} md={3} lg={3} xl={2} item sx={{display: 'flex', alignItems: 'center'}}>
           <a href='https://transitionenergetique.gouv.qc.ca/residentiel/programmes/novoclimat' target='_blank'>
-             <Box sx={{position: 'relative', height: {xs: '18vw', md: 80}}}>
+             <Box sx={{position: 'relative', height: {xs: '18vw', sm: 90, md: 90}}}>
                <img 
                style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
                 
-                filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 
+                filter: theme.palette.mode == 'light'? 'invert(0) grayscale(1) brightness(0.5)' : 
                 'invert(1) grayscale(1) brightness(1.5) contrast(50%)'
                }}
                src='/images/Logo-Novoclimat.png' />
              </Box>   
           </a>        
         </Grid>
-        <Grid xs={6} sm={12} md={6} lg={4} xl={3} item sx={{display: 'flex', alignItems: 'center'}}>
+        <Grid xs={6} sm={6} md={3} lg={3} xl={2} item sx={{display: 'flex', alignItems: 'center'}}>
           <a href='https://www.garantiegcr.com' target='_blank'>
-             <Box sx={{position: 'relative', height: {xs: '14vw', md: 80}}}>
+             <Box sx={{position: 'relative', height: {xs: 80, sm: 70, md: 70}, maxHeight: '14vw'}}>
                <img 
                style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
-               filter: theme.palette.mode == 'light'? 'invert(1) grayscale(1) contrast(120%)' : 'invert(1) grayscale(1) contrast(120%)'}}
+               filter: theme.palette.mode == 'light'? 'invert(0) grayscale(1) contrast(120%) brightness(1)' : 'invert(1) grayscale(1) contrast(120%) brightness(0.92)'}}
                src='/images/garantie-residentielle.png' />
              </Box>           
             </a>
         </Grid>
-        <Grid xs={12} sm={12} md={6} lg={4} xl={2} item sx={{display: 'flex'}}>
-          <Typography variant={variant} sx={{my: ySpacing}}>
-            RBQ 5683-2850
-          </Typography>     
-        </Grid>
+        
+        
         </Grid>
 
-        <Box sx={{mx: 1}}>
-          <Typography>&copy; {year} maison intégrale</Typography>
+        <Box sx={{display: 'flex'}}>
+               
         </Box>
+        <Box sx={{px: theme.layout.x, paddingBottom: 1, display: 'flex', width: '100%', alignItems: {xs: 'flex-start', sm: 'center'}, flexDirection: {xs: 'column', sm: 'row'}}}>
+          <Typography variant='h7' sx={{my: ySpacing}}>
+            RBQ 5683-2850
+          </Typography>
+          <Typography variant='h7' sx={{marginLeft: {xs: 0, sm: 2}}}>&copy; {year} Maison Intégrale</Typography>
+        </Box>
+        
     </Box>
   )
 }

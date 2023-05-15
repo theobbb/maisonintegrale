@@ -15,7 +15,7 @@ import LocaleLink from './localeLink'
 
 
 import Options from './options'
-import LazyImage from '../LazyImage'
+import LazyImage from '../Image'
 import ContactButton from '../contactButton'
 import Title from './Title'
 import MenuButton from './menuButton'
@@ -102,7 +102,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         justifyContent: 'space-between'
     }}>
 
-
+        
         <Box sx={{
             
             flex: 1, 
@@ -120,7 +120,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 
                 <MenuButton {...{drawerOpen, setDrawerOpen}} />
             }
-            <Box sx={{paddingLeft: {xl: hideLogo? 1:7.4, lg: 4.5, md: 0.5, sm: 0.5, xs: 0.5}}}>
+            <Box sx={{paddingLeft: {xl: hideLogo? 1:8.4, lg: 4.5, md: 0.5, sm: 0.5, xs: 0.5}}}>
 
             
                 <Title layout drawerOpen={drawerOpen} />

@@ -122,13 +122,13 @@ export default function Layout({ colorMode, setColorMode, children }) {
           
           
           <AnimatePresence initial={false}>
-          {!drawerOpen && !playEntrance &&
-          <PageTransition key={router.route.split('/')[1]} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
-            {children}
-            <Footer />
-          </PageTransition>
-        }
-</AnimatePresence>
+            {!drawerOpen && !playEntrance &&
+              <PageTransition key={router.route.split('/')[1]} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
+                {children}
+                <Footer />
+              </PageTransition>
+            }
+          </AnimatePresence>
           
 
           </LinkDirectionContext.Provider>

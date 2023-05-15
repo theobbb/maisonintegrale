@@ -51,8 +51,6 @@ export default function PageTransition({children, direction, drawerOpen, disable
           width: '100%', 
           top: theme.spacing(6), 
           [theme.breakpoints.down("md")]: {top: theme.spacing(5.5)},
-          //[theme.breakpoints.down("sm")]: {top: theme.spacing(5.5)},
-          
           minHeight: '100vh',
           left: 0
         }}>

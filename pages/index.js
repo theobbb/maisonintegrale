@@ -183,7 +183,7 @@ function Section ({section, index, setActiveLink}) {
 
     <Box ref={ref} >
       <Box sx={{paddingBottom: 6, paddingTop: _md? 3:'100px',}} >
-        <Typography sx={{typography: {xs: 'h4', sm: 'h3'}}}>
+        <Typography sx={{typography: {xs: 'h4', sm: 'h4'}}}>
           {section.title[locale].charAt(0).toUpperCase() + section.title[locale].toLowerCase().slice(1)}
         </Typography>
       </Box>

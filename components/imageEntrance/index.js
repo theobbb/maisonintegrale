@@ -20,7 +20,7 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
     const [animationData, setAnimationData] = useState(null);
 
     const getAnimationData = async () => {
-      const response = await fetch('public/data.json');
+      const response = await fetch('https://cdn.sanity.io/images/1m8675a3/production/cc03911579951e0f6769994046deae1f32e74539-1920x1280.jpg');
       const data = await response.json();
       setAnimationData(data)
     }

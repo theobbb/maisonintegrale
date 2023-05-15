@@ -40,7 +40,7 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
         //paddingLeft: {xl: 17, lg: 11, md: 7, sm: 5, xs: 3},
         //px: theme.layout.x,
 
-        mx: {lg: 2, md: 7.8, sm: 6.5, xs: 1.5},
+        //marginRight: {lg: 2, md: 7.8, sm: 6.5, xs: 1.5},
         alignItems: 'center'
     }}>
 
@@ -71,7 +71,7 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
             <DarkModeIcon sx={{typography: {lg: 'h5', xs: 'h3'}}}  />
           </IconButton>
         }
-            <IconButton onClick={() => setPlayEntrance(true)}>
+            <IconButton onClick={() => setPlayEntrance(true)} sx={{marginRight: {lg: 2, md: 7.8, sm: 6.5, xs: 1.5}}}>
               <RefreshIcon sx={{typography: {lg: 'h5', xs: 'h3'}}} />
             </IconButton>
         </Box>
