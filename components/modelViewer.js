@@ -36,7 +36,7 @@ export default function ModelViewer({direction, pageReady}) {
   window.requestAnimationFrame(ModelViewer);
  }, [modelViewerRef])
 
- const opacity = theme.palette.mode === 'dark'? 0.3: 1
+ const opacity = theme.palette.mode === 'dark'? 0.4: 1
 
  const [scrollY, setScrollY] = useState(0)
 

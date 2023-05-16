@@ -18,14 +18,15 @@ const palette = {
 
     light: {
         green: {
-          outline: 'rgba(31, 133, 35, 0.3)' ,
-          background: 'rgba(181, 211, 181, 0.19)' ,
+          outline: 'rgba(73, 138, 46, 0.3)',
+          //outline: 'rgba(31, 133, 35, 0.3)' ,
+          background: 'rgba(73, 138, 46, 0.1)' ,
         },
         primary: {
             main: 'rgba(0, 0, 0, 1)', 
         },
         background: {
-            default: 'rgba(240, 240, 240, 1)',
+            default: 'rgb(241, 242, 224)',
         },
         action: {
           background: 'rgba(0, 0, 0, 0.04)',
@@ -35,7 +36,7 @@ const palette = {
         },
         contrastAction: {
           text: 'rgba(0, 0, 0, 0.8)',
-          background: 'rgba(0, 0, 0, 0.1)',
+          background: 'rgb(73, 138, 46, 0.3)',
           hover: 'rgba(0, 0, 0, 0.25)',
           border: 'rgba(0, 0, 0, 0.15)',
         },
@@ -43,8 +44,8 @@ const palette = {
     },
     dark: {
         green: {
-          outline: 'rgba(35, 128, 38, 0.53)',
-          background: 'rgba(35, 128, 38, 0.05)',
+          outline: 'rgba(73, 138, 46, 0.3)',
+          background: 'rgba(73, 138, 46, 0.07)',
         },
         text: {
           primary: 'rgba(255, 255, 255, 0.88)',
@@ -60,7 +61,7 @@ const palette = {
         },
         
         background: {
-            default: '#1D1D1D',
+            default: 'rgb(27, 28, 24)',
         },
         action: {
           
@@ -89,25 +90,15 @@ const typography = {
     ].join(','),
 
     h7: {
-      fontSize: '1.0rem',
+      fontSize: '1.05rem',
     },
 
 
-    mini: {
-      fontWeight: 500,
-        color: 'rgba(35, 128, 38, 0.83)',
-    },
-
-
-/*
-    p: {
-      fontSize: '1.2rem',
-      color: 'rgba(0, 0, 0, 0.88)',
-    },*/
     body0: {
       fontSize: '20px',
     },
     body1: {
+
       fontSize: '18px',
     },
     body2: {

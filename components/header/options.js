@@ -37,7 +37,7 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
         display: 'flex', 
         flex: 1, 
         justifyContent: 'flex-end',
-        //paddingLeft: {xl: 17, lg: 11, md: 7, sm: 5, xs: 3},
+        paddingLeft: {lg: 0, md: 8, sm: 6.5, xs: 1},
         //px: theme.layout.x,
 
         //marginRight: {lg: 2, md: 7.8, sm: 6.5, xs: 1.5},

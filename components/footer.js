@@ -217,14 +217,14 @@ export default function Footer() {
         </Grid>
         
 
-        <Grid container sx={{paddingBottom: 6, px: theme.layout.x, marginTop: {xs: 4}}} rowSpacing={2}>
+        <Grid container sx={{paddingBottom: 6, px: theme.layout.x, marginTop: {xs: 4}}} rowSpacing={4}>
         <Grid xs={12} sm={12} md={6} lg={6} xl={8} item >
           <a style={{display: 'flex', textDecoration: 'none', color: 'inherit', alignItems: 'flex-start'}} href='https://prixdomus.ca/' target='_blank'>
-             <Box sx={{height: 100}}>
+             <Box sx={{height: {xs: 90, lg: 90}, width: 100}}>
                <img 
-               style={{height: 80,
+               style={{height: '100%',
                 filter: theme.palette.mode == 'light'? 'invert(0) grayscale(0) contrast(120%)' : 
-                'invert(0) grayscale(0) brightness(0.9) contrast(120%)'
+                'invert(0) grayscale(0) brightness(0.9) contrast(120%) opacity(0.8)'
                }}
                src='/images/logodomus.png' />
              </Box>           
@@ -238,20 +238,20 @@ export default function Footer() {
 
         <Grid xs={6} sm={6} md={3} lg={3} xl={2} item sx={{display: 'flex', alignItems: 'center'}}>
           <a href='https://transitionenergetique.gouv.qc.ca/residentiel/programmes/novoclimat' target='_blank'>
-             <Box sx={{position: 'relative', height: {xs: '18vw', sm: 90, md: 90}}}>
+             <Box sx={{position: 'relative', height: {xs: '12vw', sm: 65, md: 65}}}>
                <img 
                style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
                 
                 filter: theme.palette.mode == 'light'? 'invert(0) grayscale(1) brightness(0.5)' : 
                 'invert(1) grayscale(1) brightness(1.5) contrast(50%)'
                }}
-               src='/images/Logo-Novoclimat.png' />
+               src='/images/Logo-Novoclimat2.png' />
              </Box>   
           </a>        
         </Grid>
         <Grid xs={6} sm={6} md={3} lg={3} xl={2} item sx={{display: 'flex', alignItems: 'center'}}>
           <a href='https://www.garantiegcr.com' target='_blank'>
-             <Box sx={{position: 'relative', height: {xs: 80, sm: 70, md: 70}, maxHeight: '14vw'}}>
+             <Box sx={{position: 'relative', height: {xs: '13vw', sm: 70, md: 70}}}>
                <img 
                style={{height: '100%', maxWidth: matchDownXS ? '100%' : 'auto',
                filter: theme.palette.mode == 'light'? 'invert(0) grayscale(1) contrast(120%) brightness(1)' : 'invert(1) grayscale(1) contrast(120%) brightness(0.92)'}}

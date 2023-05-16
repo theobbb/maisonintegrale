@@ -14,6 +14,8 @@ import ContactButton from '@/components/contactButton'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
 import NavLink from '@/components/header/navLink'
+import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "approche"]`)
@@ -50,30 +52,35 @@ export default function Approche({data}) {
           <Box sx={{
             //height: `calc(100vh - ${_md? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
             display: 'flex',
-            flexDirection: _sm? 'column':'row',
-            alignItems: 'center',
+            flexDirection: {xs: 'column-reverse', lg: 'row'},
+            alignItems: {xs: 'flex-end', md: 'center'},
             justifyContent: 'flex-end',
-            paddingTop: { xs: 2, md: 8, lg: 12 },
+            //paddingTop: { xs: 2, md: 8, lg: 12 },
+            py: {xs: 4, md: 4, lg: 8},
             px: theme.layout.x,
-
+            minHeight: '90vh',
+            position: 'relative',
           }}>
 
-              {/*<Box sx={{opacity: 0.92, paddingLeft: {md: 5} }}>
+              <Box sx={{opacity: 0.92, borderRadius: '24px', position: 'relative', display: 'flex', width: '100%', marginTop: {xs: 8, lg: 0} }}>
+              
                 <img 
-                style={{maxHeight: '90vh', maxWidth: '100%'}}
-                src='https://cdn.sanity.io/images/1m8675a3/production/79a5ccdeb68523f0549525616f8d6c71463407c8-522x750.jpg' />
+                style={{maxWidth: '100%', borderRadius: '12px'}}
+                src='https://cdn.sanity.io/images/1m8675a3/production/ec60fe0a5636e98b087abb069c04821a0e3d3554-750x563.jpg' />
 
-              </Box>*/}
+              </Box>
+              
+              
 
 
-            <Box sx={{py: 12, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%', paddingRight: {md: 8, lg: 0}, marginLeft: {md: 6, xl: 8}}}>
               <Typography variant='h2' 
               sx={{
                 
-                typography: {xs: 'h2', sm: 'h3', xl: 'h2'}
+                typography: {xs: 'h3', xl: 'h2'}
                 }}>
               {locale == 'fr'? (<>
-                Construire {_sm && <br />} des maisons <br /> écoénergétiques <br />
+                Construire {_xs && <br />} des maisons <br /> écoénergétiques <br />
                 de haute qualité <br /> pour un avenir durable
               </>)
               : 
@@ -83,19 +90,21 @@ export default function Approche({data}) {
               </Typography>
               
               
-              <Typography sx={{  
+              <Typography sx={{ 
+                
                 marginTop: 3,
                 marginLeft: 12, 
-                typography: {xs: 'h4', sm: 'h3', xl: 'h3'}
+                typography: {xs: 'h4', sm: 'h4', xl: 'h4'}
                 }}>
-              {locale == 'fr'? 'Découvrez la mission de Maison Intégrale': 
+              {locale == 'fr'? <>Découvrez la mission&nbsp;de {<br />} Maison Intégrale</>: 
               'Discover Maison Intégrale’s mission'}
-              
+              <ArrowDownwardIcon sx={{ typography: {xs: 'h4', sm: 'h4', xl: 'h4'}}} />
               </Typography>
             </Box>
               
                 
           </Box>
+
 
           
 
@@ -103,7 +112,7 @@ export default function Approche({data}) {
             <Box 
               ref={sectionsContainerRef}
               sx={{
-              width: {xl: 800, lg: 800, md: 520, sm:'100%', xs: '100%'},
+              width: {xs: '100%', sm:'100%', md: 520, lg: 800, xl: 800},
               paddingBottom: 50,
               }}>
 
@@ -112,7 +121,7 @@ export default function Approche({data}) {
               key={section._key}
               id={section.slug[locale].current}
               sx={{
-                py: _md? 3:'50px',
+                py: {xs: 8, sm: 12, md: 0},
                 marginBottom: index != data.main.length - 1? _md? 0: 50:0,
                 position: 'relative',
                }}>
@@ -124,18 +133,22 @@ export default function Approche({data}) {
             {!_md && 
             <Box sx={{display: 'flex', flexDirection: 'column', marginTop: '100px'}}> 
               <Box sx={{paddingBottom: 2, alignSelf: 'flex-end'}}>
-                <Typography variant='mini'>
-                  sur cette page
+                <Typography variant='h7' 
+                sx={{
+                  px: {xs: 3},
+                  color: theme.palette.mode == 'light'? 'rgba(35, 128, 38, 0.83)':'rgb(35, 128, 38, 0.83)'}}>
+
+                  {locale == 'fr'? 'sur cette page':'on this page'}
                 </Typography>
               </Box>
 
-              <Box sx={{position: 'sticky', top: '20vh', paddingRight: 8}}>
+              <Box sx={{position: 'sticky', top: '20vh', px: theme.layout.x}}>
                 {data.main.map((section, miniIndex) => (
                   <Box component={motion.div} layout key={`miniTitle-${section._key}`} sx={{paddingBottom: 0, position: 'relative', boxSizing: 'border-box'}}>
                   <ButtonBase variant='link'>
                   <Box sx={{p: '3px 0px'}}>
                     <Link href={`#${section.slug[locale].current}`} scroll={false} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <Typography variant='h7' sx={{fontWeight: 700}}>
+                      <Typography variant='h7' sx={{fontWeight: 500}}>
                         {section.mini_title[locale]}
                       </Typography>
                     </Link>
@@ -171,6 +184,7 @@ function Section ({section, index, setActiveLink}) {
   });
   
   useEffect(() => {
+    if (inView)
     setActiveLink(index)
   }, [inView])
 

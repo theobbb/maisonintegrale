@@ -72,19 +72,6 @@ function App({ Component, pageProps}) {
         }|order(orderRank)`
     const result = await client.fetch(query, { locale: router.locale })
     setQueries(result)
-
-/*
-      setPageTitle(() => {
-        let name = result.find(project => project.slug == router.query.slug).name
-        name = name.toLowerCase()
-        name = name.charAt(0).toUpperCase() + name.slice(1)
-        
-
-        return `${name} | ${router.locale == 'fr'? 'Réalisations':'Work'} | ${base}`
-      })*/
-    
-    
-    
     }
     getQueries()
   }, [])
@@ -92,10 +79,9 @@ function App({ Component, pageProps}) {
   return (
 
     <>
-    
     <Head> 
     <meta name="description" content="Maison Intégrale" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
     
     </Head>
     <Script type='module' strategy="beforeInteractive" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" />

@@ -17,6 +17,15 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
 
     const queries = useContext(QueryContext);
 
+    function format (path) {
+        let newPath = path
+        if (!newPath) return ''
+        if (newPath.includes('#')) newPath = newPath.split('#')[0]
+        if (newPath.includes('?')) newPath = newPath.split('?')[0]
+
+        return newPath
+    }
+
     useEffect(() => {
 
         function getOtherQuery() {
@@ -37,7 +46,7 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
 
         if (router.asPath == '/') return setOtherPath(`/${props.locale == 'fr'? '': 'en'}`);
 
-        const pathIndex = linkPaths[router.locale].indexOf(linkPaths[router.locale].find(path => path.name == router.asPath));
+        const pathIndex = linkPaths[router.locale].indexOf(linkPaths[router.locale].find(path => format(path.name) == format(router.asPath)));
         if (pathIndex != -1) return setOtherPath(linkPaths[props.locale][pathIndex].name);
         
         

@@ -85,7 +85,7 @@ export default function Sapins({direction, pageReady, id, drawerOpen}) {
   const minScale = 0.8
 
   return (
-    <div id='sapins' style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 10000, pointerEvents: 'none'}}>
+    <div id='sapins' style={{position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 10000, pointerEvents: 'none'}}>
       <AnimatePresence initial={false}>
 
         {filteredActives && filteredActives.map((sapin, index) => (
