@@ -1,4 +1,4 @@
-import { Box, Button, ButtonBase, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, ButtonBase, IconButton, SvgIcon, Typography, useMediaQuery, useTheme, useColorMode } from '@mui/material'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -55,14 +55,25 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
     animate={{opacity: 1, transition: {...transition, delay: 0.8}}}
     exit={{opacity: 0}}
     transition={{...transition, duration: 0.3}}
-    sx={{position: 'fixed', bottom: 24, left: 24}}> 
-        {theme.palette.mode === 'light' && <LazyImage style={{width: '64px'}} src='/icons/logo-light.png'/>}
-        {theme.palette.mode === 'dark' && <LazyImage style={{width: '64px'}} src='/icons/logo-dark.png'/>}
+    sx={{
+        position: 'fixed', 
+        bottom: 24, left: 12,
+        width: 72, height: 72,
+    }}> 
+
+        <Logo />
+
+        {/*theme.palette.mode === 'light' && <LazyImage style={{width: '64px'}} src='/icons/logo-light.png'/>/*}
+        {/*theme.palette.mode === 'dark' && <LazyImage style={{width: '64px'}} src='/icons/logo-dark.png'/>*/}
     </Box>}
 
     {!matchDownLG && !hideLogo && 
 
-    <Box sx={{position: 'fixed',  top: 0, left: 0, height: '32px', width: {xl: 60, lg: 36}, zIndex: 1000}} component={motion.div}
+    <Box sx={{
+        position: 'fixed', top: {lg: 5, xl: 5}, left: {lg: 2, xl: 0}, height: {lg: 36, xl: 60}, width: {lg: 46, xl: 80}, zIndex: 1000,
+         
+        }} 
+        component={motion.div}
     initial={{opacity: 0, x: -100}}
     animate={{opacity: 1, x: 0, transition: {...transition, delay: 0.2}}}
     exit={{opacity: 0, x: -100}}
@@ -70,9 +81,13 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
     
     >
 
-    <LazyImage sx={{paddingLeft: {xl: 2, lg: 1.5}, paddingRight: {xl: 1, lg: 0}, py: 1, width: {xl: 60, lg: 36, md: 30}}}
+    <Logo />
+   
+    
+
+   {/* <LazyImage 
     key={`logo-${theme.palette.mode}`}
-    src={`/icons/logo-${theme.palette.mode}.png`} />
+    src={`/icons/logo-${theme.palette.mode}.png`} />*/}
 
 
     </Box>}
@@ -134,7 +149,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         <>
         
             <Box 
-            key={`links-${drawerOpen}`}
+
             component={motion.div}
             initial={{x: matchDownLG?`${-60}vw`:0}}
             animate={{x: 0, transition: {...transition, delay: 0.2}}}
@@ -195,5 +210,29 @@ function AnimatePresenceToggle ({children}) {
         :
         children
     
+}
+
+function Logo ({style}) {
+
+    const theme = useTheme();
+
+    const { mode } = theme.palette
+
+    const maison = {stroke: mode == 'light'? 'rgba(0, 0, 0, 0.8)': 'rgba(255, 255, 255, 0.72)'}
+    const integrale = {fill: mode == 'light'? 'rgba(73, 138, 46, 0.9)': 'rgba(73, 138, 46, 1)'}
+    return (
+        <svg style={{position: 'absolute', height: '100%', width: '100%', top: 0, left: 0}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 214.85 313.13">
+            <title>logo</title>
+            <g style={{fill: 'none'}}>
+                <polygon style={{...maison, strokeMiterlimit: 10, strokeWidth: '16px'}} points="8.36 119.44 8.36 238.15 189.93 238.15 189.93 119.44 98.97 48.66 8.36 119.44"/>
+            </g>
+            <g >
+                <path style={integrale} d="M90.42,283.92C76.49,306.76,60.85,303.84,60,305.39A22.9,22.9,0,0,1,40,317C20,316.59,7.22,302.68,7.21,301.07c0-2.28,11.57-12.56,33.43-12.82,12.67-.15,17.67,9.48,19,9.32,6.11-.76,10.14-5.31,13.74-10,11.55-15,18.44-78.79,28.89-129.24S122.55,63.74,138.86,37c13.93-22.84,29.57-19.92,30.43-21.47A22.93,22.93,0,0,1,189.23,3.89c20.07.42,32.83,14.33,32.84,16,0,2.28-11.57,12.56-33.43,12.82-12.67.15-17.67-9.49-19-9.32-6.12.76-10.14,5.31-13.75,10-11.54,15-21.4,87.21-29.17,127C121.55,186.58,106.73,257.17,90.42,283.92Z" transform="translate(-7.21 -3.89)"/>
+            </g>
+            <g>
+                <line style={maison} x1="8.36" y1="238.15" x2="189.93" y2="238.15"/>
+            </g>
+        </svg>
+    )
 }
 

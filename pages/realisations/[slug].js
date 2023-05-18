@@ -12,7 +12,7 @@ import Block from '@/components/sanity/block';
 import GridViewIcon from '@mui/icons-material/GridView';
 import Image from 'next/image'
 import LazyImage from '@/components/Image';
-
+import Head from 'next/head'
 
 
 function Projet ({single}) {
@@ -42,22 +42,26 @@ function Projet ({single}) {
         
         router.push(href, href, {locale})
     }
-    function handleGridView() {
-        const href = `${router.locale == 'fr'? '/realisations':'/work'}`;
-        router.push(href, href, {locale})
-    }
 
     const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-    const [animationComplete, setAnimationComplete] = useState(false);
+    const format = (title) => {
+        if (!title) return null
+        let formatted = title
+        formatted = formatted.split('-').join(' ')
+        formatted = formatted.toLowerCase()
+        formatted = formatted.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        return formatted
+    } 
 
-    //console.log(single)
-
-    return single && (
+    return (
         <>
-
+        <Head>
+          <title>{`${format(single.name[locale])} | Réalisations | Maison Intégrale`}</title>
+          <meta name="description" content={single.body[locale].slice(0,150)} />
+        </Head>
         
 
         <Box sx={{position: 'relative'}}>
@@ -270,5 +274,6 @@ export async function getStaticProps(context = {}) {
     const single = await client.fetch(query, { locale: locale, slug: params.slug })
     return { props: { single: single[0] } }
 }
+
 
 export default Projet

@@ -8,7 +8,31 @@ body {
     scroll-behavior: smooth;
     overflow-x: hidden;
     position: relative;
+
 }
+
+:root{
+    scrollbar-color: rgba(124, 124, 124, 0.6) rgba(124, 124, 124, 0.5) !important;
+
+  }
+  ::-webkit-scrollbar {
+    width: auto;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgba(124, 124, 124, 0.5);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(124, 124, 124, 0.6);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 124, 124, 0.5);
+  }
 
 @keyframes enter {
 from {

@@ -9,13 +9,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import Head from 'next/head'
 
-
-
-export async function getStaticProps() {
-  const data = null
-  return { props: { data: data } }
-}
 
 export default function Contact() {
 
@@ -48,6 +43,10 @@ export default function Contact() {
   return (
     <>
 
+        <Head>
+          <title>{meta.title[locale]}</title>
+          <meta name="description" content={meta.description[locale]} />
+        </Head>
 
       
           <Box  sx={{py: 0, px: theme.layout.x, py: theme.layout.y, display: 'flex', flexDirection: {xs: 'column', md: 'row'}, paddingBottom: 12, width: '100%'}}>
@@ -111,5 +110,18 @@ export default function Contact() {
     </>
   )
 }
-
+export async function getStaticProps() {
+  const data = null
+  return { props: { data: data } }
+}
+const meta = {
+  title: {
+    fr: "Contact | Maison Intégrale",
+    en: "Contact | Maison Intégrale"
+  },
+  description: {
+    fr: "Formulaire de contact. Maison Intégrale, Construction de maisons écoénergétiques. Marc Baillargeon, 450 602 4535, Laurentides, Québec.",
+    en: "Contact form. Maison Intégrale, Construction of energy-efficient homes. Marc Baillargeon, 450 602 4535, Laurentides, Quebec."
+  }
+}
 

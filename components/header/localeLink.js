@@ -51,7 +51,7 @@ export default function LocaleLink ({sx, index, footer, ...props}) {
         
         
 
-      }, [router.asPath]);
+      }, [router.asPath, queries]);
 
     const isSelected = router.locale == props.locale; 
     

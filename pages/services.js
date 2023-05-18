@@ -14,11 +14,8 @@ import ContactButton from '@/components/contactButton'
 import Sapin from '@/components/sapin'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
+import Head from 'next/head'
 
-export async function getStaticProps() {
-  const data = await client.fetch(`*[_type == "services"]`)
-  return { props: { data: data[0] } }
-}
 
 export default function Services({data}) {
 
@@ -36,81 +33,27 @@ export default function Services({data}) {
 
   const contactRef = useRef(null);
 
-  const [firstSectionHeight, setFirstSectionHeight] = useState(0);
 
-  function handleResize () {
-    if (!sectionsContainerRef.current || !topTextRef.current) return;
-    
-    const sections = sectionsContainerRef.current.children;
-
-    const headerHeight = document.getElementById('header')?.offsetHeight
-
-
-
-    let newHeight = sectionsContainerRef.current.offsetHeight;
-
-    
-    let otherHeights = window.innerHeight - headerHeight;
-    if (matchDownMD) otherHeights = otherHeights - contactRef.current.offsetHeight
-    
-    const maxHeight = otherHeights - topTextRef.current.offsetHeight;
-    
-    if (newHeight < maxHeight) return setFirstSectionHeight(otherHeights - newHeight);
-    
-    let childrenHeights = 0;
-    let stop = false;
-    
-    for (let i = 0; i < sections.length; i++) {
-      const childHeight = sections[i].offsetHeight;
-
-      if (stop) continue
-      
-      if (childHeight + childrenHeights < maxHeight) {
-        childrenHeights += childHeight;
-        
-      } else stop = true
-    }
-    //console.log(childrenHeights)
-    setFirstSectionHeight(otherHeights - childrenHeights);
-  };
-
-/*
-  useEffect(() => {
-    handleResize()
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);*/
-
-  useEffect(() => {
-
-    handleResize()
-    if (!sectionsContainerRef.current || !topTextRef.current) return;
-    const resizeObserver = new ResizeObserver(handleResize).observe(sectionsContainerRef.current)
-    //return () => resizeObserver.disconnect()
-  }, [sectionsContainerRef, topTextRef]);
-
-  
-
-  return data && (
+  return (
     <>        
-
+        <Head>
+          <title>{meta.title[locale]}</title>
+          <meta name="description" content={data.top[locale]} />
+        </Head>
 
           <Box 
           
           sx={{
             
-            height: firstSectionHeight,
+            //height: firstSectionHeight,
             display: 'flex',
-            alignItems: 'center',
-
-            paddingLeft: matchDownXL? matchDownLG ? matchDownMD? 2:15:40:65,
-            paddingRight: theme.layout.x,
+            justifyContent: 'flex-end',
+            
+            px: theme.layout.x,
+            
           }}>
-                <Box ref={topTextRef} sx={{py: 10}}>
-                  <Block  variant={matchDownLG? 'h4':'h3'} sx={{lineHeight: '120%'}}>
+                <Box sx={{py: 10, width: {xs: '100%', sm: 700, md: 950}}}>
+                  <Block sx={{lineHeight: '120%', typography: {xs: 'h5', sm: 'h4', lg: 'h3'} }}>
                     {data.top[locale]}
                   </Block>
                 </Box>
@@ -160,89 +103,14 @@ export default function Services({data}) {
   )
 }
 
-function Sapins ({visible, offset, index}) {
-  //console.log(offset, index)
 
-  const top = Math.max(offset.top, 0);
-
-
-  return (
-    
-
-
-      <Box
-      sx={{transformOrigin: 'center bottom', height: '100%', width: '100%', position: 'absolute', top: 0, left: 0}}
-      initial={{
-        x: index * 100,
-        //y: -500, 
-        //scale: 2,
-        //skew: [30,20]
-        }}
-      animate={{
-        //x: 0, 
-
-        //y: 100/-offset.top,
-        y: Math.max((offset.top - 100), 200), 
-        scale: Math.max((offset.top + 4000) / 5000, 0.3),
-        //skew: [0,0]
-        }}
-      exit={{
-        y: '-100vw', 
-        scale: 0,
-        //skew: [20,20],
-        }}
-      transition={{ease: 'easeIn', duration: 0.3}}
-      component={motion.div}
-      >
-
-        <ScrollSapin size={10} position={[-30, 40]} />
-      </Box>
-
-   
-  )
+export async function getStaticProps() {
+  const data = await client.fetch(`*[_type == "services"]`)
+  return { props: { data: data[0] } }
 }
-
-
-function Section ({section, index, setActiveLink}) {
-
-  const { ref, inView, entry } = useInView({
-    rootMargin: '0% 0% -200px 0%',
-    threshold: 0.8,
-  });
-/*
-  useEffect(() => {
-    const newVisibleSections = [...visibleSections];
-    newVisibleSections[index] = inView;
-    setVisibleSections(newVisibleSections);
-  }, [inView])*/
-
-  if (inView) setActiveLink(index)
-
-  //const ref = useRef(null);
-
-  const theme = useContext(ThemeContext);
-
-  const matchDownMD = useMediaQuery(theme => theme.breakpoints.down('md'));
-  const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
-
-  return (
-
-    <Box ref={ref} >
-      <Box sx={{paddingBottom: 6, paddingTop: matchDownMD? 3:'100px',}} >
-        <Typography variant={matchDownXL? 'h4':'h4'} sx={{lineHeight: '120%', fontWeight: 600, color: theme.palette.primary.greenTitle}}>
-          {section.title}
-        </Typography>
-      </Box>
-      {section.body.map((p, bodyIndex) => (
-        <Box key={`section-${index}-body-${bodyIndex}`} sx={{paddingBottom: 6}}>
-          <Typography variant='p'>
-            {p}
-          </Typography>
-        </Box>
-      ))}
-      
-    </Box>
-
-
-  )
+const meta = {
+  title: {
+    fr: "Services | Maison Intégrale",
+    en: "Services | Maison Intégrale"
+  },
 }

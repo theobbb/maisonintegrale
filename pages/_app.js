@@ -80,13 +80,14 @@ function App({ Component, pageProps}) {
 
     <>
     <Head> 
+    <link rel="icon" href="/icons/justintegrale.svg" type="image/svg+xml" />
     <meta name="description" content="Maison Intégrale" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
     
     </Head>
     <Script type='module' strategy="beforeInteractive" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" />
     <QueryContext.Provider value={queries}>
-    <PageTitle />
+    {/*<PageTitle />*/}
 
     {theme && 
 

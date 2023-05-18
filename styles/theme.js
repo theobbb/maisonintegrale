@@ -35,10 +35,10 @@ const palette = {
           }
         },
         contrastAction: {
-          text: 'rgba(0, 0, 0, 0.8)',
-          background: 'rgb(73, 138, 46, 0.3)',
-          hover: 'rgba(0, 0, 0, 0.25)',
-          border: 'rgba(0, 0, 0, 0.15)',
+          text: 'rgba(0, 0, 0, 0.92)',
+          background: 'rgba(73, 138, 46, 0.3)',
+          hover: 'rgba(73, 138, 46, 0.4)',
+          border: 'rgba(73, 138, 46, 0.4)',
         },
         border: 'rgba(0, 0, 0, 0.25)',
     },
@@ -70,9 +70,9 @@ const palette = {
           }
         },
         contrastAction: {
-          text: 'rgba(255, 255, 255, 0.86)',
-          background: 'rgba(255, 255, 255, 0.10)',
-          hover: 'rgba(255, 255, 255, 0.25)',
+          text: 'rgba(255, 255, 255, 0.92)',
+          background: 'rgba(73, 138, 46, 0.2)',
+          hover: 'rgba(73, 138, 46, 0.3)',
           border: 'rgba(255, 255, 255, 0.15)',
         },
         border: 'rgba(255, 255, 255, 0.25)',
@@ -141,7 +141,6 @@ const sx = {
 
 
 const components = (mode) => ({
-
 
 
   MuiTypography: {

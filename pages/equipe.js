@@ -2,18 +2,24 @@
 import { Box, Button, Divider, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useRouter } from 'next/router'
 import ContactButton from '@/components/contactButton'
-
-import { motion } from 'framer-motion'
-import PageTransition from '@/components/layout/pageTransition'
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
-
-import Link from 'next/link'
-import { useEffect } from 'react'
+import Head from 'next/head'
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "equipe"]`)
   return { props: { data: data[0] } }
+}
+
+const meta = {
+  title: {
+    fr: "Équipe | Maison Intégrale",
+    en: "Team | Maison Intégrale"
+  },
+  description: {
+    fr: "MARISOL SARRAZIN, conceptrice et designer. MARC BAILLARGEON, constructeur et ingénieur.",
+    en: "MARISOL SARRAZIN, designer and conceptor. MARC BAILLARGEON, builder and engineer."
+  }
 }
 
 export default function Equipe({data}) {
@@ -30,6 +36,12 @@ export default function Equipe({data}) {
 
   return (
     <>
+        <Head>
+          <title>{meta.title[locale]}</title>
+          <meta name="description" content={meta.description[locale]} />
+        </Head>
+
+
           <Box sx={{
             py: 0,  
             px: theme.layout.x, 

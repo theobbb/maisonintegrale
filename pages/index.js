@@ -16,11 +16,22 @@ import Block from '@/components/sanity/block'
 import NavLink from '@/components/header/navLink'
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import Head from 'next/head'
 
 export async function getStaticProps() {
   const data = await client.fetch(`*[_type == "approche"]`)
   const objectData = data[0];
   return { props: { data: objectData } }
+}
+const meta = {
+  title: {
+    fr: "Maison Intégrale",
+    en: "Maison Intégrale"
+  },
+  description: {
+    fr: 'Construction de maisons écoénergétiques de haute qualité pour un avenir durable. Créer de la valeur, démarche esthétique, démarche technique, homologation.',
+    en: 'Building high quality energy-efficient homes for a sustainable future. Creating value, aesthetic approach, technical approach, certification.'
+  }
 }
 
 export default function Approche({data}) {
@@ -44,9 +55,16 @@ export default function Approche({data}) {
 
   const [firstSectionHeight, setFirstSectionHeight] = useState(0);
 
-  return data && (
+
+
+  return (
 
               <>
+
+        <Head>
+          <title>{meta.title[locale]}</title>
+          <meta name="description" content={meta.description[locale]} />
+        </Head>
 
 
           <Box sx={{
@@ -58,20 +76,46 @@ export default function Approche({data}) {
             //paddingTop: { xs: 2, md: 8, lg: 12 },
             py: {xs: 4, md: 4, lg: 8},
             px: theme.layout.x,
-            minHeight: '90vh',
+            height: '120vh',
             position: 'relative',
           }}>
 
-              <Box sx={{opacity: 0.92, borderRadius: '24px', position: 'relative', display: 'flex', width: '100%', marginTop: {xs: 8, lg: 0} }}>
+          <Box sx={{height: '100%', width: '100%', position: 'relative', display: 'flex', flexDirection: 'column'}}>
+
+            <Box sx={{
+              opacity: 0.92, borderRadius: '24px', position: 'relative', display: 'flex', 
+              marginBottom: {xs: 2},
+              height: {xs: '50%'}, 
+              minHeight: {xs: 300},
+              width: '100%',
+              maxWidth: 750,
+              filter: 'brightness(1.2) saturate(130%)',
+              background: 'url(https://cdn.sanity.io/images/1m8675a3/production/ec60fe0a5636e98b087abb069c04821a0e3d3554-750x563.jpg)',
+             }} />
               
-                <img 
-                style={{maxWidth: '100%', borderRadius: '12px'}}
-                src='https://cdn.sanity.io/images/1m8675a3/production/ec60fe0a5636e98b087abb069c04821a0e3d3554-750x563.jpg' />
+            <Box sx={{display: 'flex', position: 'relative', width: '100%', height: {xs: '60%'}}}>
+              <Box item xs={6} 
+              sx={{opacity: 0.92, 
+              borderRadius: '12px', 
+              position: 'relative', display: 'flex', 
+              marginRight: {xs: 1},
+              height: '100%', width: '100%',
+              background: 'url(https://cdn.sanity.io/images/1m8675a3/production/9e4c40fe79343bc2763f1536ff4bf84ab2700777-532x750.jpg)',
+              }}>
+
 
               </Box>
-              
-              
+              <Box item xs={6} sx={{opacity: 0.92, marginLeft: {xs: 1}, borderRadius: '12px', position: 'relative', display: 'flex', height: '100%', width: '100%',
+                background: 'url(https://cdn.sanity.io/images/1m8675a3/production/c4a98ace0f7feb1455ec86114a20332cabb650f2-750x500.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: '24% 50%'
+              }}>
+                
 
+
+              </Box>
+            </Box>
+          </Box>
 
             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%', paddingRight: {md: 8, lg: 0}, marginLeft: {md: 6, xl: 8}}}>
               <Typography variant='h2' 
@@ -210,4 +254,7 @@ function Section ({section, index, setActiveLink}) {
 
   )
 }
-//sx={{ typography: { sm: 'body2', md: 'body1', lg: 'body0' }
+
+
+
+

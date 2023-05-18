@@ -10,9 +10,14 @@ export default function ModelViewer({direction, pageReady}) {
   const theme = useTheme();
 
   const modelViewerRef = useRef(null)
-  function ModelViewer() {
+
+
+
+
+  function Scroll() {
 
     if (!modelViewerRef.current) return;
+    
     
     const modelViewer = modelViewerRef.current;
 
@@ -27,52 +32,64 @@ export default function ModelViewer({direction, pageReady}) {
     modelViewer.currentTime = CurrentTime;
     modelViewer.pause();	
 
+    
+    
 
-    window.requestAnimationFrame(ModelViewer);
+    window.requestAnimationFrame(Scroll);
   }
+
+  useEffect(() => {
+
+    if (!modelViewerRef.current || !modelViewerRef.current.model) return;
+
+    const modelViewer = modelViewerRef.current;
+    const material = modelViewer.model.materials[1]
+    material.pbrMetallicRoughness.setBaseColorFactor(theme.palette.mode == 'light'? 'rgb(100, 100, 100)': 'rgb(255, 255, 255)')
+
+  }, [theme.palette.mode, modelViewerRef])
+
 
  useEffect(() => {
   if (!modelViewerRef.current) return;
-  window.requestAnimationFrame(ModelViewer);
+
+  
+  window.requestAnimationFrame(Scroll);
+
  }, [modelViewerRef])
 
- const opacity = theme.palette.mode === 'dark'? 0.4: 1
+
+ const opacity = theme.palette.mode === 'dark'? 0.5: 1
 
  const [scrollY, setScrollY] = useState(0)
 
  const { scrollYProgress } = useScroll()
-
- const springScrollY = useSpring(scrollYProgress, {
-   stiffness: 100,
-   damping: 30,
-   restDelta: 0.001
- });
 
  useMotionValueEvent(scrollYProgress, "change", (latest) => setScrollY(latest))
  //calc(-0rad + env(window-scroll-y) * 4rad) calc(180deg + env(window-scroll-y) * -140deg) calc(8m - env(window-scroll-y) * 1.5m)
   return (
     
     <Box 
-    initial={{x: `${direction*120}vw`, opacity: pageReady? opacity:0}}
-    animate={{x: 0, y: pageReady? 0: '100vh', opacity: pageReady? opacity:0}}
+    initial={{x: `${direction*120}vw`, opacity: pageReady? 1:0}}
+    animate={{x: 0, y: pageReady? 0: '100vh', opacity: pageReady? 1:0}}
     exit={{x: `${-direction*120}vw`}}
     transition={{transition, duration: 1.2}}
     component={motion.div}
     sx={{
-     
+     filter: 'opacity(0.92)',
       position: 'fixed', height: '100vh', width: '100%', minWidth: 600, top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
     style={{
       position: 'absolute',
       top: 0, left: 0,
+      opacity,
       height: '100%', width: '100%'}}
     disable-zoom 
     id="casa" 
     ref={modelViewerRef}
-    src="3d/maison.glb" 
+    src="3d/maison2.glb" 
     autoplay 
-    currentTime='0' 
+    current-time='0' 
     animation-name="CubeAction" 
     minimum-render-scale="1" 
     camera-orbit={`calc(-0rad + ${scrollY} * 4rad) calc(180deg + ${scrollY} * -140deg) calc(8m - ${scrollY} * 1.5m)`} 

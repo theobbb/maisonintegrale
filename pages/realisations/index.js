@@ -13,7 +13,7 @@ import { client } from '@/utils/sanityClient'
 import Image from '@/components/Image'
 import Link from 'next/link'
 //import GridImg from './gridImg'
-
+import Head from 'next/head'
 
 
 
@@ -35,17 +35,12 @@ export default function Projets({data, animating, setAnimating}) {
     push(href, href, {locale})
   } 
 
-  const halfData = Math.ceil(data.length / 2);
-
-  useEffect(() => {
-    
-  }, [])
-
-  console.log(data)
-  
-  
   return (
     <>
+        <Head>
+          <title>{meta.title[locale]}</title>
+          <meta name="description" content={meta.description[locale]} />
+        </Head>
 
           <Box sx={{py: 0, px: {xs: 2, lg: 3}}}>
 
@@ -115,4 +110,14 @@ export async function getStaticProps() {
     'imgs': imgs[]{..., 'url': asset->url}
   }|order(orderRank)`)
   return { props: { data: data } }
+}
+const meta = {
+  title: {
+    fr: "Réalisations | Maison Intégrale",
+    en: "Work | Maison Intégrale"
+  },
+  description: {
+    fr: "Découvrez nos réalisations dans la construction de maisons écoénergétiques.",
+    en: "Discover our work in the construction of eco-energy efficient homes."
+  }
 }

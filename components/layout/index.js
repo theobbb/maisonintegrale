@@ -72,8 +72,8 @@ export default function Layout({ colorMode, setColorMode, children }) {
     }, [playEntrance])
 
 
-    function routeChange(route) {
-      
+    function routeChange() {
+      console.log('route change')
       window.scrollTo(0, 0);
     }
 
