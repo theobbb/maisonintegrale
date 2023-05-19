@@ -25,21 +25,18 @@ export default function Options({setLinkDirection, drawerOpen, setDrawerOpen, se
       {locale: 'en', label: 'EN'}
     ]
 
+    
+
   return (
     <Box 
 
-    component={motion.div}
-    initial={{x: matchDownLG?`${-100}vw`:0}}
-    animate={{x: 0, transition: {...transition, delay: 0.4}}}
-    exit={{x: matchDownLG?`${-100}vw`:0, transition: {...transition, delay: 0.1}}}
-    transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8}}
+    
     sx={{
         display: 'flex', 
         flex: 1, 
         justifyContent: 'flex-end',
-        paddingLeft: {lg: 0, md: 8, sm: 6.5, xs: 1},
+        paddingLeft: {lg: 0, md: 8.5, sm: 7, xs: 1.5},
         //px: theme.layout.x,
-
         //marginRight: {lg: 2, md: 7.8, sm: 6.5, xs: 1.5},
         alignItems: 'center'
     }}>

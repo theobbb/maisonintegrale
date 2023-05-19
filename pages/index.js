@@ -53,10 +53,6 @@ export default function Approche({data}) {
 
   const sectionsContainerRef = useRef(null);
 
-  const [firstSectionHeight, setFirstSectionHeight] = useState(0);
-
-
-
   return (
 
               <>
@@ -117,14 +113,20 @@ export default function Approche({data}) {
             </Box>
           </Box>
 
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%', paddingRight: {md: 8, lg: 0}, marginLeft: {md: 6, xl: 8}}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: {xs: 'flex-start', sm: 'flex-end'}, width: '100%', paddingRight: {md: 8, lg: 0}, 
+            marginLeft: {md: 6, xl: 8},
+            paddingLeft: {xs: 4, sm: 0},
+            marginBottom: {xs: 10},
+            [theme.breakpoints.down(415)]: {paddingLeft: 0},
+            }}>
               <Typography variant='h2' 
               sx={{
                 
-                typography: {xs: 'h3', xl: 'h2'}
+                [theme.breakpoints.down(390)]: {typography: 'h4'},
+                typography: { xs: 'h3', xl: 'h2'}
                 }}>
               {locale == 'fr'? (<>
-                Construire {_xs && <br />} des maisons <br /> écoénergétiques <br />
+                Construire des maisons <br /> écoénergétiques <br />
                 de haute qualité <br /> pour un avenir durable
               </>)
               : 
@@ -137,8 +139,9 @@ export default function Approche({data}) {
               <Typography sx={{ 
                 
                 marginTop: 3,
-                marginLeft: 12, 
-                typography: {xs: 'h4', sm: 'h4', xl: 'h4'}
+                marginLeft: {xs: 6}, 
+                alignSelf: {xs: 'flex-end', sm: 'flex-end'},
+                typography: {xs: 'h5', sm: 'h4', xl: 'h4'}
                 }}>
               {locale == 'fr'? <>Découvrez la mission&nbsp;de {<br />} Maison Intégrale</>: 
               'Discover Maison Intégrale’s mission'}

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavLink from './navLink'
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { transition } from '@/utils/transitions';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 
 export default function Title({drawerOpen}) {
 
@@ -12,22 +10,45 @@ export default function Title({drawerOpen}) {
     const [small, setSmall] = useState(false);
 
     useEffect(() => {
-      if (drawerOpen) return setSmall(!drawerOpen);
-      return setSmall(matchDownLG);
+      if (!matchDownLG) return setSmall(false)
+      setSmall(!drawerOpen);
+      
+      //return setSmall(matchDownLG);
     }, [matchDownLG, drawerOpen])
 
   return (
     <LinkWrapper link={!matchDownLG}>
 
-    
-        <motion.div style={{display: 'flex'}}>
-        <LayoutGroup>
-        
+        <div style={{display: 'flex'}}>
         {('MAISON INTÉGRALE').split(' ').map((word, index) =>  (
+          <div style={{display: 'flex', transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .5s',
+            ...(index == 1 && small) ? 
+              {transform: 'translateX(-56px)', transitionDelay: '0.8s'}:
+              {transform: 'translateX(0)', transitionDelay: `${index*0.05 + 0.1}s`}
+              
+          }}>
             <Word word={word} small={small} key={`title-word-${index}`} />
+
+            <div 
+            style={{transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .5s', 
+
+            ...(index == 0) ? 
+              small ?
+              {transform: 'translateX(-57px)', transitionDelay: `0.6s`}:
+              {transform: 'translateX(0)', opacity: 0, transitionDelay: `0`}
+              :
+              small ? 
+              {transform: 'translateX(-97px)', transitionDelay: `0.9s`}:
+              {transform: 'translateX(0)', opacity: 0, transitionDelay: `0`}
+              }}
+            >
+            <Typography variant={matchDownLG? 'h5':'h6'}>.</Typography>
+            </div>
+
+          </div>
         ))}
-        </LayoutGroup>
-        </motion.div>
+        </div>
+        
     </LinkWrapper>
   )
 }
@@ -41,34 +62,28 @@ function Word ({word, small}) {
     }, [small])
 
     return (
-        <LayoutGroup>
-            <AnimatePresence initial={false}>
-            {word.split('').map((letter, index) => (index == 0 || !small) && (
+        
+            <>
+            {word.split('').map((letter, index) => (
 
-              <motion.div layout style={{overflow: 'hidden'}} key={`title-letter-${index}`}>
-                <motion.div
-                initial={{x: '-400%'}}
-                animate={{x: 0, transition: {...transition, duration: 0.5, delay: index*0.05 + 0.1}}}
-                exit={{x: '-400%', transition: {...transition, duration: 0.5, delay: (word.length - index) *0.05}}}
-                transition={{...transition, delay: small && 0}}
+              <div style={{overflow: 'hidden'}} key={`title-letter-${index}`}>
+                <div
+                style={{transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .5s', 
+                ...(index == 0 || !small) ? 
+                  {transform: 'translateX(0)', transitionDelay: `${index*0.05 + 0.1}s`}:
+                  {transform: 'translateX(-400%)', transitionDelay: `${(word.length - index) *0.05}s`}
+                }}
                 >
-                <Typography variant={matchDownLG? 'h5':'h6'}>{letter}</Typography>
+                <Typography sx={{typography: {xs: 'h5', lg: 'h6'}}}>{letter}</Typography>
                 
 
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             ))}
-            </AnimatePresence>
+            
            
-            <motion.div 
-            key={`title-word-dot-${word}`}
-            initial={{opacity: visibleDot? 1: 0}}
-            animate={{opacity: visibleDot? 1: 0, transition: {...transition, delay: 0.5}}}
-            layout
-            >
-            <Typography variant={matchDownLG? 'h5':'h6'}>.</Typography>
-            </motion.div>
-          </LayoutGroup>
+</>
+          
     )
 }
 

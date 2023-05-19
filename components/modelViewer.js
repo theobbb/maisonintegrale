@@ -42,11 +42,11 @@ export default function ModelViewer({direction, pageReady}) {
 
     if (!modelViewerRef.current || !modelViewerRef.current.model) return;
 
-    const modelViewer = modelViewerRef.current;
-    const material = modelViewer.model.materials[1]
+    
+    const material = modelViewerRef.current.model.materials[1]
     material.pbrMetallicRoughness.setBaseColorFactor(theme.palette.mode == 'light'? 'rgb(100, 100, 100)': 'rgb(255, 255, 255)')
 
-  }, [theme.palette.mode, modelViewerRef])
+  }, [theme.palette.mode, modelViewerRef.current])
 
 
  useEffect(() => {
@@ -79,6 +79,7 @@ export default function ModelViewer({direction, pageReady}) {
       position: 'fixed', height: '100vh', width: '100%', minWidth: 600, top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
+    on-load={() => console.log('loaded')}
     style={{
       position: 'absolute',
       top: 0, left: 0,

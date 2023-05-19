@@ -16,11 +16,11 @@ export default function Link({href, text, localeLink, direction, children, varia
         setLinkDirection(direction)
     }
 
-    return href&& (
-        <Button variant='link' sx={{minWidth: 'unset', py, px}}>
+    return href && (
+        <Button sx={{minWidth: 'unset', transition: 'none', padding: '0 12px', borderRadius: '24px', fontFamily: 'Manrope', py, px, }}>
         <Box sx={{position: 'relative'}}>
             
-            <NextLink scroll={false} onClick={(e) => handleClick(e)} href={href} locale={locale? locale:router.locale} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <NextLink scroll={false} onClick={(e) => handleClick(e)} href={href} locale={locale? locale:router.locale} style={{ textDecoration: 'none', color: 'inherit', transition: 'none' }}>
                 <Box sx={{display: 'flex'}}>
                 
                     <Typography {...others} variant={variant? variant:'h6'}>{children}</Typography>

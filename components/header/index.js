@@ -47,9 +47,10 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
 
   return (
 <>
-<AnimatePresence>
-    {drawerOpen && 
+
+
     <Box 
+    
     component={motion.div}
     initial={{opacity: 0}}
     animate={{opacity: 1, transition: {...transition, delay: 0.8}}}
@@ -59,40 +60,29 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         position: 'fixed', 
         bottom: 24, left: 12,
         width: 72, height: 72,
+        transition: 'transform cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-300px)', 
+        ...drawerOpen ? {opacity: 1, transform: 'translateX(0)', transitionDelay: '.8s'}:{opacity: 0, transform: 'translateX(-300px)'}
     }}> 
 
         <Logo />
+    </Box>
 
-        {/*theme.palette.mode === 'light' && <LazyImage style={{width: '64px'}} src='/icons/logo-light.png'/>/*}
-        {/*theme.palette.mode === 'dark' && <LazyImage style={{width: '64px'}} src='/icons/logo-dark.png'/>*/}
-    </Box>}
-
-    {!matchDownLG && !hideLogo && 
+   
 
     <Box sx={{
         position: 'fixed', top: {lg: 5, xl: 5}, left: {lg: 2, xl: 0}, height: {lg: 36, xl: 60}, width: {lg: 46, xl: 80}, zIndex: 1000,
-         
+        transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100px)', 
+        ...(!matchDownLG && !hideLogo) ? {opacity: 1, transform: 'translateX(0)', transitionDelay: '.2s'}:{opacity: 0, transform: 'translateX(-100px)'}
         }} 
-        component={motion.div}
-    initial={{opacity: 0, x: -100}}
-    animate={{opacity: 1, x: 0, transition: {...transition, delay: 0.2}}}
-    exit={{opacity: 0, x: -100}}
-    transition={transition}
-    
     >
 
     <Logo />
-   
-    
-
-   {/* <LazyImage 
-    key={`logo-${theme.palette.mode}`}
-    src={`/icons/logo-${theme.palette.mode}.png`} />*/}
 
 
-    </Box>}
 
-</AnimatePresence>
+    </Box>
+
+
 
     <Box 
     id='header'
@@ -143,18 +133,13 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
 
         </Box>
 
-        <AnimatePresenceToggle>
+        
 
-        {(!matchDownLG || drawerOpen) && 
-        <>
+        
+        
         
             <Box 
 
-            component={motion.div}
-            initial={{x: matchDownLG?`${-60}vw`:0}}
-            animate={{x: 0, transition: {...transition, delay: 0.2}}}
-            exit={{x: matchDownLG?`${-60}vw`:0, transition: {...transition, delay: 0.2}}}
-            transition={{transition: { ease: [0.43, 0.13, 0.23, 0.96] }, duration: 0.8 }}
             sx={{
                 display: 'flex', 
                 my: matchDownLG? 6:0, 
@@ -164,7 +149,8 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 
                 mx: {lg: 0, md: 7.8, sm: 6.5, xs: 1},
                 position: 'relative',
-                
+                transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100%)', 
+                ...(!matchDownLG || drawerOpen) ? {opacity: 1, transform: 'translateX(0)'}:{opacity: 0, transform: 'translateX(-100%)'}
             }}>
                 
                 {linkPaths[router.locale].slice(matchDownLG? 0:1).map((path, index) => (
@@ -176,7 +162,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                     key={`header-links-${path.name}`} 
                     variant={matchDownLG && 'h4'}
                     drawerOpen={drawerOpen}
-                    sx={{position: 'relative', mx: matchDownLG?  0.5:1, my: matchDownLG&& 0.5}}>
+                    sx={{position: 'relative', transition: 'unset', mx: matchDownLG?  0.5:1, my: matchDownLG&& 0.5}}>
 
                         {path.title}
                     </NavLink>
@@ -187,12 +173,11 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
 
             </Box>
 
-
+            <div style={{transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100%)', 
+            ...(!matchDownLG || drawerOpen) ? {opacity: 1, transform: 'translateX(0)', transitionDelay: '.5s'}:{opacity: 0, transform: 'translateX(-100%)'}}}>
             <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />
-        </>
+            </div>
         
-        }
-        </AnimatePresenceToggle>
         
     
     </Box>

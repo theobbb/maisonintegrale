@@ -170,17 +170,7 @@ const components = (mode) => ({
 
     MuiButton: {
         variants: [
-          {
-            props: { variant: 'link' },
-            style: {
-              padding: '0 12px',
-              borderRadius: '24px',
-              fontFamily: 'Manrope',
-              '&:hover': {
-                //backgroundColor: 'rgba(0, 0, 0, 0.05)',
-              }
-            }
-          },
+
             {
               props: { variant: 'contrast' },
               style: {

@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
@@ -12,6 +11,16 @@ const nextConfig = {
         
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: 'https://maisonintegrale.sanity.studio',
+        permanent: false,
+        basePath: false
+      },
+    ]
   },
   async rewrites() {
     return [
