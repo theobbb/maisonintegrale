@@ -32,28 +32,41 @@ export default function ModelViewer({direction, pageReady}) {
     modelViewer.currentTime = CurrentTime;
     modelViewer.pause();	
 
-    
-    
-
     window.requestAnimationFrame(Scroll);
   }
 
   useEffect(() => {
 
+    changeColor()
+    /*
     if (!modelViewerRef.current || !modelViewerRef.current.model) return;
 
-    
+
+    const material = modelViewerRef.current.model.materials[1]*/
+    //material.pbrMetallicRoughness.setBaseColorFactor(theme.palette.mode == 'light'? 'rgb(100, 100, 100)': 'rgb(255, 255, 255)')
+
+  }, [theme.palette.mode])
+
+  function changeColor() {
+    if (!modelViewerRef.current || !modelViewerRef.current.model) return;
+
     const material = modelViewerRef.current.model.materials[1]
     material.pbrMetallicRoughness.setBaseColorFactor(theme.palette.mode == 'light'? 'rgb(100, 100, 100)': 'rgb(255, 255, 255)')
-
-  }, [theme.palette.mode, modelViewerRef.current])
+  }
 
 
  useEffect(() => {
   if (!modelViewerRef.current) return;
 
-  
   window.requestAnimationFrame(Scroll);
+
+  modelViewerRef.current.addEventListener('load', changeColor);
+  return () => {
+    if (!modelViewerRef.current) return;
+    modelViewerRef.current.removeEventListener('load', changeColor);
+  };
+  
+  
 
  }, [modelViewerRef])
 
@@ -79,7 +92,8 @@ export default function ModelViewer({direction, pageReady}) {
       position: 'fixed', height: '100vh', width: '100%', minWidth: 600, top: 0, left: 0, zIndex: -1}}>
 
     <model-viewer 
-    on-load={() => console.log('loaded')}
+    material="color: red; metalness: 0.5; roughness: 0.5;"
+    onLoad={() => console.log('loaded')}
     style={{
       position: 'absolute',
       top: 0, left: 0,

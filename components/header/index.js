@@ -104,12 +104,13 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
         width: '100%', 
         zIndex: 100,
         alignItems: matchDownLG?'flex-start':'center', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        pointerEvents: matchDownLG? 'none':'auto',
     }}>
 
         
         <Box sx={{
-            
+            pointerEvents: 'auto',
             flex: 1, 
             display: 'flex', 
             alignItems: 'center', 
@@ -125,7 +126,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 
                 <MenuButton {...{drawerOpen, setDrawerOpen}} />
             }
-            <Box sx={{paddingLeft: {xl: hideLogo? 1:8.4, lg: 4.5, md: 0.5, sm: 0.5, xs: 0.5}}}>
+            <Box sx={{paddingLeft: {xl: hideLogo? 2.8:8.4, lg: hideLogo? 2.8:4.5, md: 0.5, sm: 0.5, xs: 0.5}}}>
 
             
                 <Title layout drawerOpen={drawerOpen} />
@@ -146,7 +147,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
                 flexDirection: matchDownLG? 'column':'row', 
                 flex: 4, 
                 justifyContent: 'center', 
-                
+                pointerEvents: 'auto',
                 mx: {lg: 0, md: 7.8, sm: 6.5, xs: 1},
                 position: 'relative',
                 transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100%)', 
@@ -173,10 +174,10 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
 
             </Box>
 
-            <div style={{transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100%)', 
+            <Box sx={{flex: 1, paddingLeft: {lg: 0, md: 8.5, sm: 7, xs: 1.5}, pointerEvents: 'auto', transition: 'cubic-bezier(0.43, 0.13, 0.23, 0.96) .8s', transform: 'translateX(-100%)', 
             ...(!matchDownLG || drawerOpen) ? {opacity: 1, transform: 'translateX(0)', transitionDelay: '.5s'}:{opacity: 0, transform: 'translateX(-100%)'}}}>
             <Options {...{setLinkDirection, drawerOpen, setDrawerOpen, setPlayEntrance, colorMode, setColorMode}} />
-            </div>
+            </Box>
         
         
     
@@ -184,18 +185,7 @@ export default function Header({setLinkDirection, drawerOpen, setDrawerOpen, set
 </>
   )
 }
-function AnimatePresenceToggle ({children}) {
-    const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
-    const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-    return matchDownLG ? 
-        <AnimatePresence>
-            {children}
-        </AnimatePresence>
-        :
-        children
-    
-}
 
 function Logo ({style}) {
 

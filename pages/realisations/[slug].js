@@ -75,21 +75,13 @@ function Projet ({single}) {
                 px: {xs: 2, md: 4}, 
                 borderRadius: 4, 
                 background: theme.palette.background.default, 
-                marginTop: matchDownMD? -6:2, 
+                marginTop: {xs: -6, md: 5}, 
 
                 zIndex: 10, position: 'relative'}}
             exit={{opacity: 0}}
             >
             
-                {!matchDownMD && <Box sx={{ display: 'flex', paddingBottom: 3}}>
-                    <IconButton variant='outlined' sx={{marginRight: 1}} onClick={handlePrev}>
-                        <NavigateBeforeIcon />
-                        
-                    </IconButton>
-                    <IconButton variant='outlined' onClick={handleNext}>
-                        <NavigateNextIcon  />
-                    </IconButton>
-                </Box>}
+
           
             <Box 
             
@@ -100,49 +92,49 @@ function Projet ({single}) {
                 display: 'flex', position: 'relative'
                 }}>
 
+                <Box sx={{minWidth: matchDownLG?'100%':'450px', paddingRight: !matchDownLG && 3, flex: 1, marginRight: {md: 2}}}>
                 
-                <Box id='text' sx={{
-                    minWidth: matchDownLG?'100%':'450px', paddingRight: !matchDownLG && 3, flex: 1, marginRight: matchDownMD? 0: 4, position: 'relative', top: 0}}
+
+                
+                <Box sx={{ position: 'sticky', top: {xs: 90}, marginBottom: {lg: 8}
+                    }}
                 >
-                    <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <Typography variant='h3' sx={{py: matchDownMD? 2:0}}>
+                    <Box sx={{display: 'flex', flexDirection: {xs: 'column',  sm: 'row-reverse', lg: 'column'}, alignItems: {xs: 'flex-start', sm: 'center', md: 'flex-start'}, justifyContent: 'space-between',
+                    marginTop: {xs: 1.5, sm: 0}
+                    
+                    }}>
+
+                        <Box sx={{ display: 'flex', paddingBottom: {lg: 4}}}>
+                            <IconButton variant='outlined' sx={{height: {xs: 42, width: 42}, marginRight: 1}} onClick={handlePrev}>
+                                <NavigateBeforeIcon />
+                                
+                            </IconButton>
+                            <IconButton variant='outlined' sx={{height: {xs: 42, width: 42}}} onClick={handleNext}>
+                                <NavigateNextIcon />
+                            </IconButton>
+                        </Box>
+
+                        <Typography variant='h3' sx={{py: matchDownMD? 2:0, marginTop: {lg: 1}}}>
                             {single.name[locale]}
                         </Typography>
-                        {matchDownMD && 
-                       
-                        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', py: matchDownMD? 2:0}}>
-                                    
-                                
-                            <Box sx={{ display: 'flex', paddingBottom: 3}}>
-                                <IconButton variant='outlined' sx={{marginRight: 1}} onClick={handlePrev}>
-                                    <NavigateBeforeIcon />
-                                    
-                                </IconButton>
-                                <IconButton variant='outlined' onClick={handleNext}>
-                                    <NavigateNextIcon  />
-                                </IconButton>
-                            </Box>
-
-                        </Box>
-                       
-                        }
                     </Box>
                     
-                    <Box sx={{marginTop: matchDownLG?0:3, marginBottom: matchDownLG?6:12}}>
+                    <Box sx={{marginTop: {xs: 0, sm: 0, md: 3}, marginBottom: matchDownLG?6:12, textAlign: {xs: 'right', sm: 'left'} }}>
                         <Block variant='body2' sx={{opacity: 0.86}}>
                             {single.top[locale]}
                         </Block>
                     </Box>
-                    <Box sx={{marginTop: 3, paddingBottom: 4}}>
-                        <Block variant='p' sx={{paddingBottom: 2}}>
+                    <Box sx={{marginTop: 3, paddingBottom: 4, overflow: {lg: 'scroll'}, paddingRight: {lg: 4}, paddingBottom: {lg: 6}, maxHeight: {lg: 'calc(40vh)'}}}>
+                        <Block sx={{paddingBottom: 2, typography: {xs:'body2', md: 'body1'}}}>
                             {single.body[locale]}
                         </Block>
                     </Box>
 
                 </Box>
+                </Box>
                 <Box sx={{position: 'relative', overflow: 'visible', width: '100%'}}>
               
-                    <ImageList variant="masonry"  cols={matchDownXL? 1:2} sx={{position: 'relative', overflow: 'visible', width: '100%'}}>
+                    <ImageList variant="masonry" cols={matchDownXL? 1:2} sx={{position: 'relative', overflow: 'visible', width: '100%', marginTop: 0}}>
                         {single.imgs.map((img, index) => (
                             <Img img={img} index={index} key={img._key} />
                         ))}
@@ -187,7 +179,7 @@ function Img ({img, index, top}) {
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
 
     return (
-        <ImageListItem sx={{borderRadius: 0}}>
+        <ImageListItem sx={{}}>
            
             <Box 
             sx={{
@@ -195,11 +187,11 @@ function Img ({img, index, top}) {
                 overflow: 'visible', 
                 height: top&&'30vh', 
                 mx: top? 0 : matchDownLG? 0:1, 
-                my: !top && 0.5,
+                my: !top && 1,
+                
             }}
             component={motion.div}
             transition={{transition: 'ease', duration: 0.5}}
-            layoutId={index == 0? `maison-main-img-${img._key}`:null} 
             //onLayoutAnimationComplete={() => setAnimationComplete(true)}
             >
                 <LazyImage
@@ -208,6 +200,9 @@ function Img ({img, index, top}) {
                 
                 
                 style={{
+                    
+                    borderRadius: '4px', 
+                    overflow: 'hidden',
                     //minHeight: top&& '20vh',
                     objectFit: 'cover',
                     height: top&&'100%',
@@ -215,7 +210,7 @@ function Img ({img, index, top}) {
                     //width:top&&'100%',
                     maxWidth: !top&&'100%', 
                     maxHeight: !top&&'100%', 
-                    borderRadius: 0}}
+                    }}
                 //srcSet={img.url}
                 alt={img}
                 loading="lazy"

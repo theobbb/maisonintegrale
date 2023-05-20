@@ -50,7 +50,7 @@ export default function Footer() {
     const matchDownLG = useMediaQuery(theme => theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme => theme.breakpoints.down('xl'));
 
-    const variant = 'h6'
+    const variant = matchDownSM? 'h7':'h6'
 
     const ySpacing = matchDownXL? 0.5:0.5
 

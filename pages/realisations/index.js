@@ -1,21 +1,11 @@
 
-import Layout, { LinkDirectionContext } from '@/components/layout'
-import { Box, Button, ButtonBase, Divider, Icon, ImageList, ImageListItem, ImageListItemBar, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
-import { LangContext } from '@/utils/context'
- 
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
-import { maisons } from '@/utils/maisons'
-import { AnimatePresence, motion } from 'framer-motion'
+import { Box, ButtonBase, ImageList, ImageListItem, ImageListItemBar, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 import { client } from '@/utils/sanityClient'
 import Image from '@/components/Image'
-import Link from 'next/link'
-//import GridImg from './gridImg'
 import Head from 'next/head'
-
-
 
 export default function Projets({data, animating, setAnimating}) {
 
@@ -66,17 +56,13 @@ export default function Projets({data, animating, setAnimating}) {
               sx={{flexDirection: 'column', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden', alignItems: 'flex-start', position: 'relative', '&:hover .container': {transform: 'scale(1.05)'}}}>
                 {<Box
                 
-                sx={{flex: 1, width: '100%', height: '100%', position: 'relative', overflow: 'hidden', borderRadius: '8px 8px 4px 4px', transition: 'ease 0.3s'}}
-                initial={{opacity: (animating == index)? 1:0}}
-                animate={{opacity: (!animating || animating == index)? 1:0}} 
-                exit={{opacity: 0}}
-                transition={{transition: 'ease', duration: 0.5}}
-                component={motion.div}
+                sx={{flex: 1, width: '100%', height: '100%', position: 'relative', overflow: 'hidden', borderRadius: '8px 8px 4px 4px', }}
+                
                 >
                 <Box className='container' sx={{width: '100%', height: '100%', transition: 'transform ease 0.3s'}}>
                   <Image
                     lazy
-                    style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', borderRadius: '0px'}}
+                    style={{width: '100%', height: '100%', transition: 'none', objectFit: 'cover', objectPosition: 'center', borderRadius: '0px'}}
                     src={projet.imgs[0].url}
                     alt={projet.name[locale]}
                     

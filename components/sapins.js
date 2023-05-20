@@ -53,9 +53,6 @@ export default function Sapins({direction, pageReady, id, drawerOpen}) {
 
   
   useEffect(() => {
-
-
-
     if (!actives) return setFilteredActives(null);
     const newFiltered = actives.filter(sapin => {
       const { hide } = sapin;
@@ -86,8 +83,6 @@ export default function Sapins({direction, pageReady, id, drawerOpen}) {
   delay = _lg? 0:delay
 
   const minScale = 0.8
-
-
 
   return (
     <div id='sapins' style={{position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 10000, pointerEvents: 'none'}}>
