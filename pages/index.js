@@ -1,20 +1,15 @@
 
-import Layout from '@/components/layout'
 import { Box, Button, ButtonBase, Divider, Grid, Icon, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { LangContext, ThemeContext } from '@/utils/context'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+
 import { useInView } from 'react-intersection-observer'
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
-import ScrollSapin from '@/components/scrollSapin'
-import useScrollProgress from '@/utils/scrollProgress'
-import ContactButton from '@/components/contactButton'
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion'
+
 import { client } from '@/utils/sanityClient'
 import Block from '@/components/sanity/block'
 import NavLink from '@/components/header/navLink'
-import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Head from 'next/head'
 
@@ -51,7 +46,27 @@ export default function Approche({data}) {
   const [activeLink, setActiveLink] = useState(0);
 
 
-  const sectionsContainerRef = useRef(null);
+  const imgsRef = useRef(null);
+
+  const [scrollY, setScrollY] = useState(0)
+
+  const { scrollYProgress } = useScroll({
+    
+    offset: ['0', '100vh']
+  })
+
+
+  const smoothScrollYProgress = useSpring(scrollYProgress, {
+    damping: 50,
+    stiffness: 400
+  });
+
+
+  useMotionValueEvent(smoothScrollYProgress, "change", (latest) => setScrollY(latest))
+
+//console.log(scrollY)
+
+
 
   return (
 
@@ -63,53 +78,65 @@ export default function Approche({data}) {
         </Head>
 
 
+
           <Box sx={{
             //height: `calc(100vh - ${_md? theme.spacing(6):'100px'} - ${firstSectionHeight}px)`,
             display: 'flex',
             flexDirection: {xs: 'column-reverse', lg: 'row'},
-            alignItems: {xs: 'flex-end', md: 'center'},
+            alignItems: {xs: 'flex-end', md: 'flex-start', lg: 'center'},
             justifyContent: 'flex-end',
             //paddingTop: { xs: 2, md: 8, lg: 12 },
             py: {xs: 4, md: 4, lg: 8},
             px: theme.layout.x,
-            height: '120vh',
+            //height: {xs: '120vh', sm: '120vh'},
             position: 'relative',
           }}>
 
-          <Box sx={{height: '100%', width: '100%', position: 'relative', display: 'flex', flexDirection: 'column'}}>
-
-            <Box sx={{
+          <Box ref={imgsRef} sx={{height: '100%', width: '100%', position: 'relative', display: 'flex', flexDirection: 'column', maxWidth: 750, alignSelf: {sm: 'flex-start'}}}>
+            <Box sx={{height: {xs: '26vh', sm: '30vh', md: '30vh', lg: '42vh'}, minHeight: {xs: 200}, marginBottom: {xs: 1, lg: 1.5}}}>
+            <div style={{
               opacity: 0.92, borderRadius: '24px', position: 'relative', display: 'flex', 
-              marginBottom: {xs: 2},
-              height: {xs: '50%'}, 
-              minHeight: {xs: 300},
+              
+              
+              
+              height: '100%',
               width: '100%',
-              maxWidth: 750,
+              
+              
               filter: 'brightness(1.2) saturate(130%)',
               background: 'url(https://cdn.sanity.io/images/1m8675a3/production/ec60fe0a5636e98b087abb069c04821a0e3d3554-750x563.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: `50% ${(1-scrollY + 0.75)*50}% `
              }} />
+            </Box>
+            <Box sx={{display: 'flex', position: 'relative', height: {xs: '39vh', sm: '45vh', md: '50vh', lg: '64vh'}, minHeight: {xs: 350}, maxHeight: 500 }}>
+               
+                <div style={{
+                  opacity: 0.92, 
+                  borderRadius: '12px', 
+                  position: 'relative', display: 'flex', 
+                  marginRight: _lg? '4px':'6px',
+                  height: '100%', width: '40%',
+                  background: 'url(https://cdn.sanity.io/images/1m8675a3/production/9e4c40fe79343bc2763f1536ff4bf84ab2700777-532x750.jpg)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: `${scrollY*100}% 50%`
+                }} />
               
-            <Box sx={{display: 'flex', position: 'relative', width: '100%', height: {xs: '60%'}}}>
-              <Box item xs={6} 
-              sx={{opacity: 0.92, 
-              borderRadius: '12px', 
-              position: 'relative', display: 'flex', 
-              marginRight: {xs: 1},
-              height: '100%', width: '100%',
-              background: 'url(https://cdn.sanity.io/images/1m8675a3/production/9e4c40fe79343bc2763f1536ff4bf84ab2700777-532x750.jpg)',
-              }}>
+
+              
+                <div style={{
+                  opacity: 0.92, 
+                  marginLeft: _lg? '4px':'6px', 
+                  borderRadius: '6px', position: 'relative', display: 'flex', 
+                  height: '100%', width: '60%',
+                  background: 'url(https://cdn.sanity.io/images/1m8675a3/production/c4a98ace0f7feb1455ec86114a20332cabb650f2-750x500.jpg)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: `${scrollY*50}% 50%`
+                }} />
+              
 
 
-              </Box>
-              <Box item xs={6} sx={{opacity: 0.92, marginLeft: {xs: 1}, borderRadius: '12px', position: 'relative', display: 'flex', height: '100%', width: '100%',
-                background: 'url(https://cdn.sanity.io/images/1m8675a3/production/c4a98ace0f7feb1455ec86114a20332cabb650f2-750x500.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: '24% 50%'
-              }}>
-                
-
-
-              </Box>
+              
             </Box>
           </Box>
 
@@ -157,7 +184,6 @@ export default function Approche({data}) {
 
           <Box sx={{paddingLeft: theme.layout.x, paddingRight: _md && theme.layout.x, display: 'flex', justifyContent: 'space-between'}}>
             <Box 
-              ref={sectionsContainerRef}
               sx={{
               width: {xs: '100%', sm:'100%', md: 520, lg: 800, xl: 800},
               paddingBottom: 50,
