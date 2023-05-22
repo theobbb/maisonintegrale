@@ -65,8 +65,6 @@ export default function ModelViewer({direction, pageReady}) {
     if (!modelViewerRef.current) return;
     modelViewerRef.current.removeEventListener('load', changeColor);
   };
-  
-  
 
  }, [modelViewerRef])
 
