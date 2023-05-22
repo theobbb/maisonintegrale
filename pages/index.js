@@ -172,7 +172,9 @@ export default function Approche({data}) {
                 }}>
               {locale == 'fr'? <>Découvrez la mission&nbsp;de {<br />} Maison Intégrale</>: 
               'Discover Maison Intégrale’s mission'}
-              <ArrowDownwardIcon sx={{ typography: {xs: 'h4', sm: 'h4', xl: 'h4'}}} />
+              
+                <ArrowDownwardIcon sx={{verticalAlign: 'bottom', marginBottom: '2px', marginLeft: '4px', typography: {xs: 'h4', sm: 'h4', xl: 'h4'}}} />
+              
               </Typography>
             </Box>
               

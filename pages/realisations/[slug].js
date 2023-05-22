@@ -124,7 +124,7 @@ function Projet ({single}) {
                             {single.top[locale]}
                         </Block>
                     </Box>
-                    <Box sx={{marginTop: 3, paddingBottom: 4, overflow: {lg: 'scroll'}, paddingRight: {lg: 4}, paddingBottom: {lg: 6}, maxHeight: {lg: 'calc(40vh)'}}}>
+                    <Box sx={{marginTop: 3, paddingBottom: 4, overflowY: {lg: 'scroll'}, overflowX: 'visible', paddingRight: {lg: 4}, paddingBottom: {lg: 6}, maxHeight: {lg: 'calc(40vh)'}}}>
                         <Block sx={{paddingBottom: 2, typography: {xs:'body2', md: 'body1'}}}>
                             {single.body[locale]}
                         </Block>
