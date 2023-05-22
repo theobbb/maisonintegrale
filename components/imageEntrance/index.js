@@ -14,23 +14,13 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
 
     const containerRef = useRef(null);
 
-    const [animInstance, setAnimInstance] = useState(null);
-
-    
-    const [animationData, setAnimationData] = useState(null);
-
-    const getAnimationData = async () => {
-      const response = await fetch('https://cdn.sanity.io/images/1m8675a3/production/cc03911579951e0f6769994046deae1f32e74539-1920x1280.jpg');
-      const data = await response.json();
-      setAnimationData(data)
-    }
 
     const coloredData = data;
     coloredData.layers[0].shapes[0].it[1].c.k = theme.palette.mode == 'light'? [0, 0, 0, 1] : [1, 1, 1, 1]
 
 
     useEffect(() => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || !theme.palette.mode) return;
 
       
         const anim = lottie.loadAnimation({
@@ -45,8 +35,6 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
             preserveAspectRatio: 'xMidYMid slice',
           }
         });
-        setAnimInstance(anim)
-      
       
       anim.onComplete = () => {
         setPlayEntrance(false)
@@ -65,7 +53,7 @@ export default function ImageEntrance({setPageReady, setHeaderReady, setPlayEntr
 
       return () => anim.destroy();
 
-    }, [containerRef]);
+    }, [containerRef, theme.palette.mode]);
 
   return (
     <>

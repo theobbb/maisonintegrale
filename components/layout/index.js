@@ -73,7 +73,6 @@ export default function Layout({ colorMode, setColorMode, children }) {
 
 
     function routeChange() {
-      console.log('route change')
       window.scrollTo(0, 0);
     }
 
@@ -103,24 +102,14 @@ export default function Layout({ colorMode, setColorMode, children }) {
             }
           </AnimatePresence>
 
-          
-          
             <Sapins 
-            //sapins={pathSapins} 
-            drawerOpen={drawerOpenRender}
-            //id={drawerOpen? 'sapins-drawer-open' : `sapins-${router.route}`} 
-            
+            drawerOpen={drawerOpenRender} 
             direction={linkDirection} pageReady={pageReady} />
-          
-          
-          
 
-          
           {playEntrance && 
             <ImageEntrance {...{setPageReady, setHeaderReady, playEntrance, setPlayEntrance}} />
           }
-          
-          
+
           <AnimatePresence initial={false}>
             {!drawerOpen && !playEntrance &&
               <PageTransition key={router.route.split('/')[1]} drawerOpen={drawerOpen} direction={linkDirection} pageReady={pageReady} disableTransition={disableTransition}>
@@ -129,7 +118,6 @@ export default function Layout({ colorMode, setColorMode, children }) {
               </PageTransition>
             }
           </AnimatePresence>
-          
 
           </LinkDirectionContext.Provider>
 
